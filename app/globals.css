@@ -14,6 +14,10 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
@@ -22,6 +26,6 @@ body {
 
 div.main-foot {
   grid-template-areas:
-  "logo title-1 title-2" 
-  "logo left-2 right-2";
+    "logo title-1 title-2"
+    "logo left-2 right-2";
 }
