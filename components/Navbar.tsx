@@ -1,12 +1,13 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export function Navbar() {
 
   return (
     <div className="absolute top-0 w-full z-10">
       <nav className="flex w-full justify-between items-center px-20 pt-1">
-        <a className="uppercase drop-shadow-xl text-2xl">home</a>
-        <a className="uppercase drop-shadow-xl text-2xl">about</a>
+        <Link className="uppercase drop-shadow-xl text-2xl" href="/">home</Link>
+        <Link className="uppercase drop-shadow-xl text-2xl" href="#">about</Link>
         <div
           className="transition-all duration-300 size-32"
         >
@@ -17,8 +18,8 @@ export function Navbar() {
             height={150}
           />
         </div>
-        <a className="uppercase drop-shadow-xl text-2xl">gallery</a>
-        <a className="uppercase drop-shadow-xl text-2xl">contact</a>
+        <Link className="uppercase drop-shadow-xl text-2xl" href="#">gallery</Link>
+        <Link className="uppercase drop-shadow-xl text-2xl" href="/contact">contact</Link>
       </nav>
     </div>
   );
