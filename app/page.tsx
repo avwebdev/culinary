@@ -5,7 +5,7 @@ import ContactImage from "@/public/home/contact.png";
 import { Hero } from "@/components/Hero";
 
 import { Section } from "@/components/Section";
-import { InfiniteScrollCarousel } from "@/components/InfinitiveScrollCarousel";
+import { Gallery } from "@/components/Gallery";
 import Link from "next/link";
 
 export default function Home() {
@@ -40,14 +40,14 @@ export default function Home() {
           className="absolute inset-0 -z-10 w-full object-cover max-h-screen"
         />
       </div>
-      {/* <InfiniteScrollCarousel
+      <Gallery
         images={[
           "https://dummyimage.com/800x400/ff7f7f/333?text=Slide+1",
           "https://dummyimage.com/800x400/7f7fff/333?text=Slide+2",
           "https://dummyimage.com/800x400/7fff7f/333?text=Slide+3",
           "https://dummyimage.com/800x400/ffff7f/333?text=Slide+4",
         ]}
-      /> */}
+      />
     </div>
   );
 }
