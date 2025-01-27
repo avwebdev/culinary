@@ -26,7 +26,7 @@ export function Section({
         <div className="flex flex-col justify-center">
           <p className="uppercase text-saffron-mango-300">{subtitle}</p>
           <Link href={`#${subtitle.toLowerCase()}`}>
-            <h2 className="pb-3 pt-2 text-4xl font-medium hover:text-saffron-mango-50">
+            <h2 className="pb-3 pt-1 text-4xl font-medium hover:text-saffron-mango-50">
               {title}
             </h2>
           </Link>
