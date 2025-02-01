@@ -22,7 +22,7 @@ export function Section({
 }: SectionProps) {
   return (
     <div id={subtitle.toLowerCase()}>
-      <div className="mx-[8%] my-12 grid gap-8 min-[950px]:grid-cols-2">
+      <div className="mx-[8%] my-12 grid gap-8 max-sm:text-center min-[950px]:grid-cols-2">
         <div className="flex flex-col mx-8 justify-center">
           <p className="uppercase text-saffron-mango-300 text-2xl">{subtitle}</p>
           <Link href={`#${subtitle.toLowerCase()}`}>

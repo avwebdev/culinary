@@ -4,11 +4,11 @@ import React, { useState } from "react";
 import Image from "next/image";
 import type { StaticImageData } from "next/image";
 
-export type GalleryProps = {
+export type AutoGalleryProps = {
   images: (string | StaticImageData)[];
 };
 
-export function Gallery({ images }: GalleryProps) {
+export function AutoGallery({ images }: AutoGalleryProps) {
   const [hoveredIndices, setHoveredIndices] = useState<[number | null, number | null]>([null, null]);
 
   const handleMouseEnter = (rowIndex: number, imageIndex: number) => {
@@ -44,11 +44,10 @@ export function Gallery({ images }: GalleryProps) {
               <Image
                 src={src || "/placeholder.svg"}
                 alt={`Gallery image ${imageIndex + 1}`}
-                width={300}
-                height={200}
-                className={`md:w-600 md:h-400 transition-all duration-300 rounded-lg ${
-                  hoveredIndices[rowIndex] !== null && hoveredIndices[rowIndex] !== imageIndex ? "brightness-50" : ""
-                }`}
+                width={600}
+                height={400}
+                className={`transition-all duration-300 rounded-lg`}
+                layout="responsive"
               />
             </div>
           ))}
