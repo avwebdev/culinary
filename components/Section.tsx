@@ -22,9 +22,9 @@ export function Section({
 }: SectionProps) {
   return (
     <div id={subtitle.toLowerCase()}>
-      <div className="mx-[8%] my-4 grid gap-8 sm:grid-cols-2">
-        <div className="flex flex-col justify-center">
-          <p className="uppercase text-saffron-mango-300">{subtitle}</p>
+      <div className="mx-[8%] my-12 grid gap-8 min-[950px]:grid-cols-2">
+        <div className="flex flex-col mx-8 justify-center">
+          <p className="uppercase text-saffron-mango-300 text-2xl">{subtitle}</p>
           <Link href={`#${subtitle.toLowerCase()}`}>
             <h2 className="pb-3 pt-1 text-4xl font-medium hover:text-saffron-mango-50">
               {title}
@@ -32,14 +32,14 @@ export function Section({
           </Link>
 
           {typeof description === "string" ? (
-            <p className="prose max-w-none text-pretty">{description}</p>
+            <p className="prose max-w-none text-pretty text-[20px]">{description}</p>
           ) : (
             <div className="prose max-w-none text-pretty">{description}</div>
           )}
         </div>
-        <div className="flex justify-center">
+        <div className="h-auto flex flex-col mx-8 justify-center">
           <Image
-            className={`my-auto h-72 w-full overflow-hidden rounded-xl object-cover transition delay-150 duration-300 ease-in-out`}
+            className={`h-full w-full overflow-hidden rounded-xl object-cover transition delay-150 duration-300 ease-in-out`}
             src={image}
             alt={imageAlt}
             priority

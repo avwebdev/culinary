@@ -85,10 +85,18 @@ export default {
           "100%": {
             transform: "translate(-50%, 0)",
           },
+        }, bannermovereverse: {
+          "0%": {
+            transform: "translate(-50%, 0)",
+          },
+          "100%": {
+            transform: "translate(0, 0)",
+          },
         },
       },
       animation: {
         bannermove: "bannermove 10s linear infinite",
+        bannermovereverse: "bannermovereverse 10s linear infinite",
       },
       borderRadius: {
         lg: "var(--radius)",

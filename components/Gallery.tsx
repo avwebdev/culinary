@@ -32,13 +32,13 @@ export function Gallery({ images }: GalleryProps) {
       {[0, 1].map((rowIndex) => (
         <div
           key={rowIndex}
-          className={`flex ${rowIndex === 0 ? "animate-bannermove" : "animate-bannermove-reverse"} hover:pause-animation`}
+          className={`flex ${rowIndex === 0 ? "animate-bannermove" : "animate-bannermovereverse"} hover:pause-animation`}
           onMouseLeave={() => handleMouseLeave(rowIndex)}
         >
           {[...images, ...images].map((src, imageIndex) => (
             <div
               key={imageIndex}
-              className="flex-none w-1/4 p-2"
+              className="flex-none w-1/10 p-2"
               onMouseEnter={() => handleMouseEnter(rowIndex, imageIndex)}
             >
               <Image
@@ -46,7 +46,7 @@ export function Gallery({ images }: GalleryProps) {
                 alt={`Gallery image ${imageIndex + 1}`}
                 width={300}
                 height={200}
-                className={`transition-all duration-300 ${
+                className={`md:w-600 md:h-400 transition-all duration-300 rounded-lg ${
                   hoveredIndices[rowIndex] !== null && hoveredIndices[rowIndex] !== imageIndex ? "brightness-50" : ""
                 }`}
               />

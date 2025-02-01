@@ -6,6 +6,7 @@ import { Hero } from "@/components/Hero";
 
 import { Section } from "@/components/Section";
 import { Gallery } from "@/components/Gallery";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 export default function Home() {
@@ -18,28 +19,6 @@ export default function Home() {
         description="At 6 Speed Photography, based in the Bay Area, CA, we offer top-tier photography and videography services tailored to automotive enthusiasts and event organizers. Our services include car photography, event photography, and graphic design to bring your vision to life. With a passion for detail and a commitment to quality, we're here to make your memories stand out. DM us today for inquiries or to book your session!"
         image={Section1}
       />
-      <div className="w-full relative max-w-none" style={{
-        aspectRatio: ContactImage.width / ContactImage.height,
-      }}>
-        <div className="mx-[8%] flex flex-col justify-center h-full">
-          <p className="uppercase text-saffron-mango-300 text-lg">Contact</p>
-          <Link href="/contact">
-            <h2 className="pb-5 pt-2 text-4xl font-medium hover:text-saffron-mango-50">
-              Let&apos;s work together
-            </h2>
-          </Link>
-
-          <p className="text-xl max-w-[25ch] text-pretty leading-10">
-            We&apos;ll help you reach your goals with our top-tier photography
-            and videography services
-          </p>
-        </div>
-        <Image
-          src={ContactImage}
-          alt="Contact Image"
-          className="absolute inset-0 -z-10 w-full object-cover max-h-screen"
-        />
-      </div>
       <Gallery
         images={[
           "https://dummyimage.com/800x400/ff7f7f/333?text=Slide+1",
@@ -48,6 +27,36 @@ export default function Home() {
           "https://dummyimage.com/800x400/ffff7f/333?text=Slide+4",
         ]}
       />
+      <div className="w-full relative max-w-none" style={{
+        aspectRatio: ContactImage.width / ContactImage.height,
+      }}>
+        <div className="mx-[8%] flex flex-col justify-center h-full">
+          <div className="flex flex-col mx-8 justify-center">
+            <p className="uppercase text-saffron-mango-300 text-lg">Contact</p>
+            <Link href="/contact">
+              <h2 className="pb-3 pt-1 text-4xl font-medium hover:text-saffron-mango-50">
+                Let&apos;s work together
+              </h2>
+            </Link>
+          
+
+            <p className="prose max-w-[25ch] text-pretty text-[20px]">
+              We&apos;ll help you reach your goals with our top-tier photography
+              and videography services
+            </p>
+            <Button type="submit" className="my-5 max-w-[15ch] bg-white text-black hover:bg-gray-200 px-8">
+              CONTACT US
+            </Button>
+          </div>
+        </div>
+        <Image
+          src={ContactImage}
+          alt="Contact Image"
+          className="absolute inset-0 -z-10  object-fill max-h-screen"
+        />
+      </div>
+
+
     </div>
   );
 }
