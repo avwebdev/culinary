@@ -1,3 +1,4 @@
+
 import Image from "next/image";
 import Section1 from "@/public/home/section1.png";
 import ContactImage from "@/public/home/contact.png";
@@ -43,11 +44,13 @@ export default function Home() {
 
               <p className="prose max-w-[25ch] text-pretty text-[20px]">
                 We&apos;ll help you reach your goals with our top-tier photography
-                and videography services
+                and videography services.
               </p>
+              <Link href="/contact">
               <Button type="submit" className="my-5 max-w-[15ch] bg-white text-black hover:bg-gray-200 px-8">
                 CONTACT US
               </Button>
+              </Link>
           
             <Image
               src={ContactImage}

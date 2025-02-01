@@ -9,7 +9,7 @@ export default function Contact() {
       <Hero />
       <div className="min-h-screen bg-black p-6 md:p-12">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl md:text-4xl font-medium mb-6 text-amber-400">Contact Us</h1>
+        <h1 className="text-3xl md:text-4xl font-medium mb-6 text-amber-400 max-lg:text-center">Contact Us</h1>
 
         <div className="mb-8 text-gray-200 space-y-4">
           <p>
@@ -19,8 +19,8 @@ export default function Contact() {
 
           <div className="space-y-1">
             <p>Location: Pleasanton, CA</p>
-            <p>Telephone: idk</p>
-            <p>Email: idk</p>
+            {/* <p>Telephone: idk</p> */}
+            <p>Email: 6speedphoto.multimedia@gmail.com</p>
           </div>
         </div>
 
@@ -63,7 +63,7 @@ export default function Contact() {
             // onChange={(e) => setFormData({ ...formData, message: e.target.value })}
           />
 
-          <Button type="submit" className="bg-white text-black hover:bg-gray-200 px-8">
+          <Button type="submit" className="bg-white text-black hover:bg-gray-200 px-8 max-md:items-center">
             SEND
           </Button>
         </form>

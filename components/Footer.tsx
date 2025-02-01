@@ -4,13 +4,12 @@ import { Instagram } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="bg-[#323232] text-white py-8">
+    <footer className="bg-[#323232] max-md:text-center text-white py-8">
       <div className="main-foot max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-start justify-between">
         <div className="w-full md:w-1/3 mb-6 md:mb-0 flex items-center justify-center md:justify-start">
           <Image
             src="/logo.png"
             alt="Six Speed Photography logo"
-            className="ml-5"
             width={125}
             height={125}
           />
@@ -46,7 +45,7 @@ export function Footer() {
               rel="noreferrer"
               className="text-3xl hover:text-gray-400"
             >
-              <Instagram />
+              <Instagram className="max-md:ml-[12px]"/>
             </a>
           </div>
         </div>
