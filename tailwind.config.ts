@@ -83,11 +83,11 @@ export default {
             transform: "translate(0, 0)",
           },
           "100%": {
-            transform: "translate(-50%, 0)",
+            transform: "translate(-100%, 0)",
           },
         }, bannermovereverse: {
           "0%": {
-            transform: "translate(-50%, 0)",
+            transform: "translate(-100%, 0)",
           },
           "100%": {
             transform: "translate(0, 0)",
@@ -95,7 +95,7 @@ export default {
         },
       },
       animation: {
-        bannermove: "bannermove 10s linear infinite",
+        bannermove: "bannermove 10s  infinite",
         bannermovereverse: "bannermovereverse 10s linear infinite",
       },
       borderRadius: {

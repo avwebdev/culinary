@@ -8,89 +8,96 @@ export function Navbar() {
   // State to toggle the mobile menu
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const handleLogoClick = () => {
-    if (window.matchMedia("(max-width: 640px)").matches) {
-      setMenuOpen((prev) => !prev);
-    }
-  };
-
   useEffect(() => {
     const handleResize = () => {
-      if (!window.matchMedia("(max-width: 640px)").matches && menuOpen) {
+      if (window.innerWidth > 700) {
         setMenuOpen(false);
       }
     };
 
     window.addEventListener("resize", handleResize);
+    handleResize(); // Check on mount
+
     return () => window.removeEventListener("resize", handleResize);
-  }, [menuOpen]);
+  }, []);
+
+  const handleLogoClick = () => {
+    if (window.matchMedia("(max-width: 700px)").matches) {
+      setMenuOpen((prev) => !prev);
+    }
+  };
+
 
   return (
     <div className="absolute top-0 w-full z-10">
-      <nav className="flex w-full justify-center sm:justify-between items-center ~md/lg:~px-10/20 pt-1">
+      <nav className={`flex w-full justify-center min-[700px]:justify-between items-center px-20 pt-1 ${menuOpen ? "max-[700px]:bg-black" : ""} `}>
         <Link
-          className="uppercase drop-shadow-xl ~md/lg:~text-xl/2xl hidden sm:block"
+          className="uppercase drop-shadow-xl text-2xl max-[700px]:hidden"
           href="/"
         >
           home
         </Link>
         <Link
-          className="uppercase drop-shadow-xl ~md/lg:~text-xl/2xl hidden sm:block"
+          className="uppercase drop-shadow-xl text-2xl max-[700px]:hidden"
           href="/#about"
         >
           about
         </Link>
         <div className="cursor-pointer" onClick={handleLogoClick}>
+        <Link
+          href="/"
+        >
           <Image
             src="/logo.png"
+            className="justify-center"
             alt="Six Speed Photography logo"
             width={150}
             height={150}
-            className="w-32"
           />
+        </Link>
         </div>
 
         <Link
-          className="uppercase drop-shadow-xl ~md/lg:~text-xl/2xl hidden sm:block"
-          href="#"
+          className="uppercase drop-shadow-xl text-2xl max-[700px]:hidden"
+          href="/#gallery"
         >
           gallery
         </Link>
         <Link
-          className="uppercase drop-shadow-xl ~md/lg:~text-xl/2xl hidden sm:block"
-          href="/contact"
+          className="uppercase drop-shadow-xl text-2xl max-[700px]:hidden"
+          href="/contact#contact"
         >
           contact
         </Link>
       </nav>
 
       {menuOpen && (
-        <div className="absolute top-full left-0 w-[94%] mx-[3%] rounded-lg bg-neutral-200 shadow-md flex flex-col items-center sm:hidden text-black">
+        <div className="-translate-y-1 absolute top-full left-0 w-full rounded-b-lg bg-black shadow-md flex flex-col items-center max-[700px]:visible text-[#fdbd57]">
           <Link
             onClick={() => setMenuOpen(false)}
-            className="uppercase drop-shadow-xl ~md/lg:~text-xl/2xl py-2"
+            className="uppercase drop-shadow-xl text-2xl py-2"
             href="/"
           >
             home
           </Link>
           <Link
             onClick={() => setMenuOpen(false)}
-            className="uppercase drop-shadow-xl ~md/lg:~text-xl/2xl py-2"
+            className="uppercase drop-shadow-xl text-2xl py-2"
             href="/#about"
           >
             about
           </Link>
           <Link
             onClick={() => setMenuOpen(false)}
-            className="uppercase drop-shadow-xl ~md/lg:~text-xl/2xl py-2"
-            href="#"
+            className="uppercase drop-shadow-xl text-2xl py-2"
+            href="/#gallery"
           >
             gallery
           </Link>
           <Link
             onClick={() => setMenuOpen(false)}
-            className="uppercase drop-shadow-xl ~md/lg:~text-xl/2xl py-2"
-            href="/contact"
+            className="uppercase drop-shadow-xl text-2xl py-2"
+            href="/contact#contact"
           >
             contact
           </Link>

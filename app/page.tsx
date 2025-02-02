@@ -20,14 +20,25 @@ export default function Home() {
         description="At 6 Speed Photography, based in the Bay Area, CA, we offer top-tier photography and videography services tailored to automotive enthusiasts and event organizers. Our services include car photography, event photography, and graphic design to bring your vision to life. With a passion for detail and a commitment to quality, we're here to make your memories stand out. DM us today for inquiries or to book your session!"
         image={Section1}
       />
+      <div id="gallery">
       <AutoGallery
         images={[
-          "https://dummyimage.com/800x400/ff7f7f/333?text=Slide+1",
-          "https://dummyimage.com/800x400/7f7fff/333?text=Slide+2",
-          "https://dummyimage.com/800x400/7fff7f/333?text=Slide+3",
-          "https://dummyimage.com/800x400/ffff7f/333?text=Slide+4",
+          "https://i.imghippo.com/files/cfz2963EqA.jpg",
+"https://i.imghippo.com/files/oFP4739grs.jpg",
+"https://i.imghippo.com/files/gUv4237qyc.jpg",
+"https://i.imghippo.com/files/ISz4707xo.jpg",
+"https://i.imghippo.com/files/aJQi5028PqM.jpg",
+"https://i.imghippo.com/files/HeZ1928bWs.jpg",
+        ]}
+        images2={[
+"https://i.imghippo.com/files/Dxu6079Kug.jpg",
+"https://i.imghippo.com/files/yKLP1117lI.jpg",
+"https://i.imghippo.com/files/swx2919VVM.jpg",
+"https://i.imghippo.com/files/rge3750eXU.jpg",
+"https://i.imghippo.com/files/Vei7410cho.jpg",
         ]}
       />
+      </div>
       <div className="w-full relative max-w-none h-[500px]" style={{
         aspectRatio: ContactImage.width / ContactImage.height,
       }}>
