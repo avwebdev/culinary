@@ -16,11 +16,18 @@ type FormDataType = {
     try {
       console.log("Received form data:", formData);
 
+      const emailContent = await EmailTemplate({ 
+        firstName: formData.firstName, 
+        lastName: formData.lastName, 
+        message: formData.message, 
+        email: formData.email 
+      });
+
       const { error } = await resend.emails.send({
         from: `${formData.firstName} ${formData.lastName} <${process.env.RESEND_FROM_EMAIL}>`,
         to: "6speedphoto.multimedia@gmail.com",
         subject: formData.subject,
-        react: EmailTemplate({ firstName: formData.firstName, lastName: formData.lastName, message: formData.message, email: formData.email }),
+        react: emailContent,
       });
 
       if(error){

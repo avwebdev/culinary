@@ -23,7 +23,7 @@ export function Navbar() {
 
   const handleLogoClick = () => {
     if (window.matchMedia("(max-width: 700px)").matches) {
-      setMenuOpen((prev) => !prev);
+      setMenuOpen((prev: boolean) => !prev);
     }
   };
 
