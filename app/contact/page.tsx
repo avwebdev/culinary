@@ -30,7 +30,7 @@ export default function Contact() {
     try {
       const response = await sendFormData(formData);
   
-      if (!response.ok) {
+      if (!response.success) {
         throw new Error("Failed to send form data");
       }
   
