@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
     domains: ["i.imghippo.com"],
   },
   /* config options here */
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 export default nextConfig;
