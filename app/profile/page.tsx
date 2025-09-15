@@ -3,24 +3,28 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { 
-  User, 
-  Mail, 
-  Phone, 
-  MapPin, 
+import {
+  User,
+  Mail,
+  Phone,
+  MapPin,
   Calendar,
   Edit,
   Save,
   X,
   Shield,
   ShoppingCart,
-  Clock,
-  CheckCircle
 } from "lucide-react";
 import Link from "next/link";
 
@@ -33,7 +37,7 @@ const userProfile = {
   joinDate: "2024-01-01",
   totalOrders: 12,
   totalSpent: 245.67,
-  favoriteItems: ["Grilled Chicken Salad", "Iced Latte", "Beef Burger"]
+  favoriteItems: ["Grilled Chicken Salad", "Iced Latte", "Beef Burger"],
 };
 
 const recentOrders = [
@@ -42,22 +46,22 @@ const recentOrders = [
     date: "2024-01-15",
     items: ["Grilled Chicken Salad", "Iced Tea"],
     total: 16.98,
-    status: "completed"
+    status: "completed",
   },
   {
     id: "2",
     date: "2024-01-12",
     items: ["Beef Burger", "French Fries"],
     total: 21.98,
-    status: "completed"
+    status: "completed",
   },
   {
     id: "3",
     date: "2024-01-10",
     items: ["Vegetarian Pasta", "Garlic Bread"],
     total: 21.99,
-    status: "completed"
-  }
+    status: "completed",
+  },
 ];
 
 const recentReservations = [
@@ -67,7 +71,7 @@ const recentReservations = [
     time: "6:30 PM",
     partySize: 4,
     school: "Amador Valley High",
-    status: "confirmed"
+    status: "confirmed",
   },
   {
     id: "2",
@@ -75,8 +79,8 @@ const recentReservations = [
     time: "12:00 PM",
     partySize: 2,
     school: "Amador Valley High",
-    status: "completed"
-  }
+    status: "completed",
+  },
 ];
 
 export default function Profile() {
@@ -86,12 +90,12 @@ export default function Profile() {
   const [formData, setFormData] = useState({
     name: userProfile.name,
     phone: userProfile.phone,
-    school: userProfile.school
+    school: userProfile.school,
   });
 
   useEffect(() => {
     if (status === "loading") return;
-    
+
     if (!session) {
       router.push("/auth/signin");
     }
@@ -108,7 +112,7 @@ export default function Profile() {
     setFormData({
       name: userProfile.name,
       phone: userProfile.phone,
-      school: userProfile.school
+      school: userProfile.school,
     });
     setIsEditing(false);
   };
@@ -142,9 +146,16 @@ export default function Profile() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <Shield className="h-16 w-16 text-red-500 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Authentication Required</h2>
-          <p className="text-gray-600 mb-4">Please sign in to view your profile.</p>
-          <Button onClick={() => router.push("/auth/signin")} className="bg-emerald-600 hover:bg-emerald-700 text-white">
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            Authentication Required
+          </h2>
+          <p className="text-gray-600 mb-4">
+            Please sign in to view your profile.
+          </p>
+          <Button
+            onClick={() => router.push("/auth/signin")}
+            className="bg-emerald-600 hover:bg-emerald-700 text-white"
+          >
             Sign In
           </Button>
         </div>
@@ -158,7 +169,9 @@ export default function Profile() {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">My Profile</h1>
-          <p className="text-gray-600 mt-2">Manage your account information and preferences</p>
+          <p className="text-gray-600 mt-2">
+            Manage your account information and preferences
+          </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -174,7 +187,11 @@ export default function Profile() {
                     onClick={() => setIsEditing(!isEditing)}
                     className="bg-white border-gray-300 text-gray-700 hover:bg-gray-50"
                   >
-                    {isEditing ? <X className="h-4 w-4" /> : <Edit className="h-4 w-4" />}
+                    {isEditing ? (
+                      <X className="h-4 w-4" />
+                    ) : (
+                      <Edit className="h-4 w-4" />
+                    )}
                   </Button>
                 </div>
               </CardHeader>
@@ -186,12 +203,16 @@ export default function Profile() {
                       <Input
                         id="name"
                         value={formData.name}
-                        onChange={(e) => setFormData({...formData, name: e.target.value})}
+                        onChange={(e) =>
+                          setFormData({ ...formData, name: e.target.value })
+                        }
                       />
                     ) : (
                       <div className="flex items-center space-x-2 mt-1">
                         <User className="h-4 w-4 text-gray-500" />
-                        <span className="text-gray-900">{userProfile.name}</span>
+                        <span className="text-gray-900">
+                          {userProfile.name}
+                        </span>
                       </div>
                     )}
                   </div>
@@ -199,7 +220,7 @@ export default function Profile() {
                   <div>
                     <Label>Email</Label>
                     <div className="flex items-center space-x-2 mt-1">
-                                              <Mail className="h-4 w-4 text-gray-500" />
+                      <Mail className="h-4 w-4 text-gray-500" />
                       <span className="text-gray-900">{userProfile.email}</span>
                     </div>
                   </div>
@@ -210,12 +231,16 @@ export default function Profile() {
                       <Input
                         id="phone"
                         value={formData.phone}
-                        onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                        onChange={(e) =>
+                          setFormData({ ...formData, phone: e.target.value })
+                        }
                       />
                     ) : (
                       <div className="flex items-center space-x-2 mt-1">
                         <Phone className="h-4 w-4 text-gray-500" />
-                        <span className="text-gray-900">{userProfile.phone}</span>
+                        <span className="text-gray-900">
+                          {userProfile.phone}
+                        </span>
                       </div>
                     )}
                   </div>
@@ -226,17 +251,23 @@ export default function Profile() {
                       <select
                         id="school"
                         value={formData.school}
-                        onChange={(e) => setFormData({...formData, school: e.target.value})}
+                        onChange={(e) =>
+                          setFormData({ ...formData, school: e.target.value })
+                        }
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500"
                       >
-                        <option value="Amador Valley High">Amador Valley High</option>
+                        <option value="Amador Valley High">
+                          Amador Valley High
+                        </option>
                         <option value="Foothill High">Foothill High</option>
                         <option value="Village High">Village High</option>
                       </select>
                     ) : (
                       <div className="flex items-center space-x-2 mt-1">
                         <MapPin className="h-4 w-4 text-gray-500" />
-                        <span className="text-gray-900">{userProfile.school}</span>
+                        <span className="text-gray-900">
+                          {userProfile.school}
+                        </span>
                       </div>
                     )}
                   </div>
@@ -244,18 +275,27 @@ export default function Profile() {
                   <div>
                     <Label>Member Since</Label>
                     <div className="flex items-center space-x-2 mt-1">
-                                              <Calendar className="h-4 w-4 text-gray-500" />
-                      <span className="text-gray-900">{new Date(userProfile.joinDate).toLocaleDateString()}</span>
+                      <Calendar className="h-4 w-4 text-gray-500" />
+                      <span className="text-gray-900">
+                        {new Date(userProfile.joinDate).toLocaleDateString()}
+                      </span>
                     </div>
                   </div>
 
                   {isEditing && (
                     <div className="flex space-x-2 pt-4">
-                      <Button onClick={handleSave} className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white">
+                      <Button
+                        onClick={handleSave}
+                        className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white"
+                      >
                         <Save className="h-4 w-4 mr-2" />
                         Save Changes
                       </Button>
-                      <Button onClick={handleCancel} variant="outline" className="flex-1 bg-white border-gray-300 text-gray-700 hover:bg-gray-50">
+                      <Button
+                        onClick={handleCancel}
+                        variant="outline"
+                        className="flex-1 bg-white border-gray-300 text-gray-700 hover:bg-gray-50"
+                      >
                         Cancel
                       </Button>
                     </div>
@@ -273,15 +313,21 @@ export default function Profile() {
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
                     <span className="text-gray-600">Total Orders</span>
-                    <span className="font-semibold">{userProfile.totalOrders}</span>
+                    <span className="font-semibold">
+                      {userProfile.totalOrders}
+                    </span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-600">Total Spent</span>
-                    <span className="font-semibold">${userProfile.totalSpent}</span>
+                    <span className="font-semibold">
+                      ${userProfile.totalSpent}
+                    </span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-600">Favorite Items</span>
-                    <span className="font-semibold">{userProfile.favoriteItems.length}</span>
+                    <span className="font-semibold">
+                      {userProfile.favoriteItems.length}
+                    </span>
                   </div>
                 </div>
               </CardContent>
@@ -297,12 +343,17 @@ export default function Profile() {
                   <ShoppingCart className="h-5 w-5" />
                   <span>Recent Orders</span>
                 </CardTitle>
-                <CardDescription>Your latest food orders and their status</CardDescription>
+                <CardDescription>
+                  Your latest food orders and their status
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   {recentOrders.map((order) => (
-                    <div key={order.id} className="flex items-center justify-between p-4 border rounded-lg">
+                    <div
+                      key={order.id}
+                      className="flex items-center justify-between p-4 border rounded-lg"
+                    >
                       <div className="flex-1">
                         <div className="flex items-center space-x-2">
                           <h4 className="font-medium">Order #{order.id}</h4>
@@ -345,21 +396,29 @@ export default function Profile() {
                   <Calendar className="h-5 w-5" />
                   <span>Recent Reservations</span>
                 </CardTitle>
-                <CardDescription>Your latest dining reservations</CardDescription>
+                <CardDescription>
+                  Your latest dining reservations
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   {recentReservations.map((reservation) => (
-                    <div key={reservation.id} className="flex items-center justify-between p-4 border rounded-lg">
+                    <div
+                      key={reservation.id}
+                      className="flex items-center justify-between p-4 border rounded-lg"
+                    >
                       <div className="flex-1">
                         <div className="flex items-center space-x-2">
-                          <h4 className="font-medium">Reservation #{reservation.id}</h4>
+                          <h4 className="font-medium">
+                            Reservation #{reservation.id}
+                          </h4>
                           <Badge className={getStatusColor(reservation.status)}>
                             {reservation.status}
                           </Badge>
                         </div>
                         <p className="text-sm text-gray-600 mt-1">
-                          {new Date(reservation.date).toLocaleDateString()} at {reservation.time}
+                          {new Date(reservation.date).toLocaleDateString()} at{" "}
+                          {reservation.time}
                         </p>
                         <p className="text-xs text-gray-500 mt-1">
                           {reservation.partySize} people • {reservation.school}
@@ -394,13 +453,20 @@ export default function Profile() {
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {userProfile.favoriteItems.map((item, index) => (
-                    <div key={index} className="flex items-center space-x-3 p-3 border rounded-lg">
+                    <div
+                      key={index}
+                      className="flex items-center space-x-3 p-3 border rounded-lg"
+                    >
                       <div className="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center">
-                        <span className="text-emerald-600 font-semibold">{index + 1}</span>
+                        <span className="text-emerald-600 font-semibold">
+                          {index + 1}
+                        </span>
                       </div>
                       <div>
                         <p className="font-medium">{item}</p>
-                        <p className="text-sm text-gray-500">Frequently ordered</p>
+                        <p className="text-sm text-gray-500">
+                          Frequently ordered
+                        </p>
                       </div>
                     </div>
                   ))}

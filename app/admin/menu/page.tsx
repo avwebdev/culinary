@@ -3,24 +3,29 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { 
-  Utensils, 
-  Plus, 
-  Edit, 
-  Trash2, 
+import {
+  Utensils,
+  Plus,
+  Edit,
+  Trash2,
   ArrowLeft,
   Search,
   X,
-  Building
 } from "lucide-react";
 import Link from "next/link";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const categories = [
   { id: "1", name: "Breakfast", color: "bg-yellow-100 text-yellow-800" },
@@ -31,12 +36,53 @@ const categories = [
 ];
 
 const menuItems = [
-  { id: "1", name: "Grilled Chicken Salad", description: "Fresh mixed greens with grilled chicken breast, cherry tomatoes, and balsamic vinaigrette", price: 12.99, category: "Lunch", categoryId: "2", image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop", available: true, popular: true, allergens: ["nuts"], schoolId: "amador-valley" },
-  { id: "2", name: "Vegetarian Pasta", description: "Penne pasta with seasonal vegetables in a light tomato sauce", price: 14.99, category: "Dinner", categoryId: "3", image: "https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?w=400&h=300&fit=crop", available: true, popular: false, allergens: ["gluten"], schoolId: "foothill" },
-  { id: "3", name: "Beef Burger", description: "Juicy beef patty with lettuce, tomato, and special sauce on a brioche bun", price: 16.99, category: "Lunch", categoryId: "2", image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop", available: true, popular: true, allergens: ["gluten", "dairy"], schoolId: "amador-valley" },
+  {
+    id: "1",
+    name: "Grilled Chicken Salad",
+    description:
+      "Fresh mixed greens with grilled chicken breast, cherry tomatoes, and balsamic vinaigrette",
+    price: 12.99,
+    category: "Lunch",
+    categoryId: "2",
+    image:
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+    available: true,
+    popular: true,
+    allergens: ["nuts"],
+    schoolId: "amador-valley",
+  },
+  {
+    id: "2",
+    name: "Vegetarian Pasta",
+    description: "Penne pasta with seasonal vegetables in a light tomato sauce",
+    price: 14.99,
+    category: "Dinner",
+    categoryId: "3",
+    image:
+      "https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?w=400&h=300&fit=crop",
+    available: true,
+    popular: false,
+    allergens: ["gluten"],
+    schoolId: "foothill",
+  },
+  {
+    id: "3",
+    name: "Beef Burger",
+    description:
+      "Juicy beef patty with lettuce, tomato, and special sauce on a brioche bun",
+    price: 16.99,
+    category: "Lunch",
+    categoryId: "2",
+    image:
+      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop",
+    available: true,
+    popular: true,
+    allergens: ["gluten", "dairy"],
+    schoolId: "amador-valley",
+  },
 ];
 
-type MenuItem = typeof menuItems[0];
+type MenuItem = (typeof menuItems)[0];
 
 export default function AdminMenu() {
   const { data: session, status } = useSession();
@@ -47,7 +93,16 @@ export default function AdminMenu() {
   const [searchTerm, setSearchTerm] = useState("");
   const [showForm, setShowForm] = useState(false);
   const [editingItem, setEditingItem] = useState<MenuItem | null>(null);
-  const [formData, setFormData] = useState({ name: "", description: "", price: "", categoryId: "", schoolId: "", image: "", available: true, popular: false });
+  const [formData, setFormData] = useState({
+    name: "",
+    description: "",
+    price: "",
+    categoryId: "",
+    schoolId: "",
+    image: "",
+    available: true,
+    popular: false,
+  });
 
   useEffect(() => {
     if (status === "loading") return;
@@ -56,24 +111,47 @@ export default function AdminMenu() {
 
   useEffect(() => {
     let filtered = menuItems;
-    if (schoolFilter !== "all") filtered = filtered.filter(item => item.schoolId === schoolFilter);
-    if (categoryFilter !== "all") filtered = filtered.filter(item => item.categoryId === categoryFilter);
-    if (searchTerm) filtered = filtered.filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase()));
+    if (schoolFilter !== "all")
+      filtered = filtered.filter((item) => item.schoolId === schoolFilter);
+    if (categoryFilter !== "all")
+      filtered = filtered.filter((item) => item.categoryId === categoryFilter);
+    if (searchTerm)
+      filtered = filtered.filter((item) =>
+        item.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
     setFilteredItems(filtered);
   }, [schoolFilter, categoryFilter, searchTerm]);
 
   const resetForm = () => {
-    setFormData({ name: "", description: "", price: "", categoryId: "", schoolId: "", image: "", available: true, popular: false });
+    setFormData({
+      name: "",
+      description: "",
+      price: "",
+      categoryId: "",
+      schoolId: "",
+      image: "",
+      available: true,
+      popular: false,
+    });
     setEditingItem(null);
     setShowForm(false);
   };
 
   const handleEdit = (item: MenuItem) => {
     setEditingItem(item);
-    setFormData({ name: item.name, description: item.description, price: item.price.toString(), categoryId: item.categoryId, schoolId: item.schoolId, image: item.image, available: item.available, popular: item.popular });
+    setFormData({
+      name: item.name,
+      description: item.description,
+      price: item.price.toString(),
+      categoryId: item.categoryId,
+      schoolId: item.schoolId,
+      image: item.image,
+      available: item.available,
+      popular: item.popular,
+    });
     setShowForm(true);
   };
-  
+
   const handleSubmit = () => {
     if (editingItem) {
       console.log("Updating item:", editingItem.id, formData);
@@ -92,8 +170,12 @@ export default function AdminMenu() {
     }
   };
 
-  if (status === "loading" || !session || session.user?.role !== 'admin') {
-    return <div className="min-h-screen flex items-center justify-center bg-gray-50"><div className="animate-spin rounded-full h-32 w-32 border-b-2 border-emerald-600"></div></div>;
+  if (status === "loading" || !session || session.user?.role !== "admin") {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-emerald-600"></div>
+      </div>
+    );
   }
 
   return (
@@ -102,39 +184,171 @@ export default function AdminMenu() {
         <div className="mb-8 flex items-center justify-between">
           <div>
             <div className="flex items-center space-x-4">
-              <Link href="/admin"><Button variant="outline" size="sm"><ArrowLeft className="h-4 w-4 mr-2" />Back</Button></Link>
-              <h1 className="text-4xl font-bubblegum text-slate-900">Menu Management</h1>
+              <Link href="/admin">
+                <Button variant="outline" size="sm">
+                  <ArrowLeft className="h-4 w-4 mr-2" />
+                  Back
+                </Button>
+              </Link>
+              <h1 className="text-4xl font-bubblegum text-slate-900">
+                Menu Management
+              </h1>
             </div>
-            <p className="text-lg text-gray-600 mt-2">Manage your menu items, categories, and pricing across all schools.</p>
+            <p className="text-lg text-gray-600 mt-2">
+              Manage your menu items, categories, and pricing across all
+              schools.
+            </p>
           </div>
-          <Button onClick={() => setShowForm(true)} size="lg"><Plus className="h-5 w-5 mr-2" />Add Menu Item</Button>
+          <Button onClick={() => setShowForm(true)} size="lg">
+            <Plus className="h-5 w-5 mr-2" />
+            Add Menu Item
+          </Button>
         </div>
 
         <Card className="mb-6 shadow-sm">
           <CardContent className="pt-6">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <div className="relative md:col-span-2"><Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" /><input type="text" placeholder="Search menu items..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="pl-10 pr-4 py-2 border rounded-md w-full focus:ring-emerald-500 focus:border-emerald-500 h-11 text-base"/></div>
-              <Select value={schoolFilter} onValueChange={setSchoolFilter}><SelectTrigger className="h-11 text-base"><SelectValue placeholder="All Schools" /></SelectTrigger><SelectContent><SelectItem value="all">All Schools</SelectItem><SelectItem value="amador-valley">Amador Valley</SelectItem><SelectItem value="foothill">Foothill</SelectItem><SelectItem value="village">Village</SelectItem></SelectContent></Select>
-              <Select value={categoryFilter} onValueChange={setCategoryFilter}><SelectTrigger className="h-11 text-base"><SelectValue placeholder="All Categories" /></SelectTrigger><SelectContent><SelectItem value="all">All Categories</SelectItem>{categories.map(c => <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>)}</SelectContent></Select>
+              <div className="relative md:col-span-2">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                <input
+                  type="text"
+                  placeholder="Search menu items..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10 pr-4 py-2 border rounded-md w-full focus:ring-emerald-500 focus:border-emerald-500 h-11 text-base"
+                />
+              </div>
+              <Select value={schoolFilter} onValueChange={setSchoolFilter}>
+                <SelectTrigger className="h-11 text-base">
+                  <SelectValue placeholder="All Schools" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Schools</SelectItem>
+                  <SelectItem value="amador-valley">Amador Valley</SelectItem>
+                  <SelectItem value="foothill">Foothill</SelectItem>
+                  <SelectItem value="village">Village</SelectItem>
+                </SelectContent>
+              </Select>
+              <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+                <SelectTrigger className="h-11 text-base">
+                  <SelectValue placeholder="All Categories" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Categories</SelectItem>
+                  {categories.map((c) => (
+                    <SelectItem key={c.id} value={c.id}>
+                      {c.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
           </CardContent>
         </Card>
 
         {showForm && (
           <Card className="mb-6 shadow-lg">
-            <CardHeader><CardTitle>{editingItem ? "Edit Menu Item" : "Add New Menu Item"}</CardTitle></CardHeader>
+            <CardHeader>
+              <CardTitle>
+                {editingItem ? "Edit Menu Item" : "Add New Menu Item"}
+              </CardTitle>
+            </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div><Label htmlFor="name">Item Name</Label><Input id="name" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} placeholder="e.g., Supreme Pizza"/></div>
-                <div><Label htmlFor="price">Price</Label><Input id="price" type="number" value={formData.price} onChange={(e) => setFormData({...formData, price: e.target.value})} placeholder="15.99"/></div>
-                <div className="md:col-span-2"><Label htmlFor="description">Description</Label><Textarea id="description" value={formData.description} onChange={(e) => setFormData({...formData, description: e.target.value})} placeholder="A short, tasty description..."/></div>
-                <div><Label htmlFor="school">School</Label><Select value={formData.schoolId} onValueChange={(v) => setFormData({...formData, schoolId: v})}><SelectTrigger><SelectValue placeholder="Select School" /></SelectTrigger><SelectContent><SelectItem value="amador-valley">Amador Valley</SelectItem><SelectItem value="foothill">Foothill</SelectItem><SelectItem value="village">Village</SelectItem></SelectContent></Select></div>
-                <div><Label htmlFor="category">Category</Label><Select value={formData.categoryId} onValueChange={(v) => setFormData({...formData, categoryId: v})}><SelectTrigger><SelectValue placeholder="Select Category" /></SelectTrigger><SelectContent>{categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}</SelectContent></Select></div>
-                <div><Label htmlFor="image">Image URL</Label><Input id="image" value={formData.image} onChange={(e) => setFormData({...formData, image: e.target.value})} placeholder="https://images.unsplash.com/..."/></div>
+                <div>
+                  <Label htmlFor="name">Item Name</Label>
+                  <Input
+                    id="name"
+                    value={formData.name}
+                    onChange={(e) =>
+                      setFormData({ ...formData, name: e.target.value })
+                    }
+                    placeholder="e.g., Supreme Pizza"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="price">Price</Label>
+                  <Input
+                    id="price"
+                    type="number"
+                    value={formData.price}
+                    onChange={(e) =>
+                      setFormData({ ...formData, price: e.target.value })
+                    }
+                    placeholder="15.99"
+                  />
+                </div>
+                <div className="md:col-span-2">
+                  <Label htmlFor="description">Description</Label>
+                  <Textarea
+                    id="description"
+                    value={formData.description}
+                    onChange={(e) =>
+                      setFormData({ ...formData, description: e.target.value })
+                    }
+                    placeholder="A short, tasty description..."
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="school">School</Label>
+                  <Select
+                    value={formData.schoolId}
+                    onValueChange={(v) =>
+                      setFormData({ ...formData, schoolId: v })
+                    }
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select School" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="amador-valley">
+                        Amador Valley
+                      </SelectItem>
+                      <SelectItem value="foothill">Foothill</SelectItem>
+                      <SelectItem value="village">Village</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label htmlFor="category">Category</Label>
+                  <Select
+                    value={formData.categoryId}
+                    onValueChange={(v) =>
+                      setFormData({ ...formData, categoryId: v })
+                    }
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select Category" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {categories.map((c) => (
+                        <option key={c.id} value={c.id}>
+                          {c.name}
+                        </option>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label htmlFor="image">Image URL</Label>
+                  <Input
+                    id="image"
+                    value={formData.image}
+                    onChange={(e) =>
+                      setFormData({ ...formData, image: e.target.value })
+                    }
+                    placeholder="https://images.unsplash.com/..."
+                  />
+                </div>
               </div>
               <div className="flex justify-end space-x-4 mt-6">
-                <Button variant="outline" onClick={resetForm}><X className="h-4 w-4 mr-2" />Cancel</Button>
-                <Button onClick={handleSubmit}>{editingItem ? "Update Item" : "Add Item"}</Button>
+                <Button variant="outline" onClick={resetForm}>
+                  <X className="h-4 w-4 mr-2" />
+                  Cancel
+                </Button>
+                <Button onClick={handleSubmit}>
+                  {editingItem ? "Update Item" : "Add Item"}
+                </Button>
               </div>
             </CardContent>
           </Card>
@@ -142,21 +356,56 @@ export default function AdminMenu() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredItems.map((item) => (
-            <Card key={item.id} className="shadow-sm hover:shadow-md transition-shadow">
-              <img src={item.image} alt={item.name} className="w-full h-48 object-cover rounded-t-lg"/>
+            <Card
+              key={item.id}
+              className="shadow-sm hover:shadow-md transition-shadow"
+            >
+              <img
+                src={item.image}
+                alt={item.name}
+                className="w-full h-48 object-cover rounded-t-lg"
+              />
               <CardContent className="pt-4">
                 <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-lg font-semibold text-slate-900">{item.name}</h3>
-                  <p className="text-lg font-bold text-emerald-600">${item.price}</p>
+                  <h3 className="text-lg font-semibold text-slate-900">
+                    {item.name}
+                  </h3>
+                  <p className="text-lg font-bold text-emerald-600">
+                    ${item.price}
+                  </p>
                 </div>
-                <p className="text-sm text-gray-600 mb-3 h-10">{item.description}</p>
+                <p className="text-sm text-gray-600 mb-3 h-10">
+                  {item.description}
+                </p>
                 <div className="flex items-center justify-between mb-4">
-                  <Badge className={categories.find(c => c.id === item.categoryId)?.color}>{item.category}</Badge>
-                  <Badge variant={item.available ? "default" : "destructive"}>{item.available ? "Available" : "Unavailable"}</Badge>
+                  <Badge
+                    className={
+                      categories.find((c) => c.id === item.categoryId)?.color
+                    }
+                  >
+                    {item.category}
+                  </Badge>
+                  <Badge variant={item.available ? "default" : "destructive"}>
+                    {item.available ? "Available" : "Unavailable"}
+                  </Badge>
                 </div>
                 <div className="flex justify-end space-x-2">
-                  <Button variant="outline" size="sm" onClick={() => handleEdit(item)}><Edit className="h-4 w-4 mr-1" />Edit</Button>
-                  <Button variant="destructive" size="sm" onClick={() => handleDelete(item.id)}><Trash2 className="h-4 w-4 mr-1" />Delete</Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handleEdit(item)}
+                  >
+                    <Edit className="h-4 w-4 mr-1" />
+                    Edit
+                  </Button>
+                  <Button
+                    variant="destructive"
+                    size="sm"
+                    onClick={() => handleDelete(item.id)}
+                  >
+                    <Trash2 className="h-4 w-4 mr-1" />
+                    Delete
+                  </Button>
                 </div>
               </CardContent>
             </Card>
@@ -164,7 +413,19 @@ export default function AdminMenu() {
         </div>
 
         {filteredItems.length === 0 && (
-          <Card className="shadow-sm"><CardContent className="pt-6"><div className="text-center py-12"><Utensils className="h-12 w-12 text-gray-300 mx-auto mb-4" /><h3 className="text-xl font-bubblegum text-slate-800 mb-2">No menu items found</h3><p className="text-gray-500">Try adjusting your filters or add a new item.</p></div></CardContent></Card>
+          <Card className="shadow-sm">
+            <CardContent className="pt-6">
+              <div className="text-center py-12">
+                <Utensils className="h-12 w-12 text-gray-300 mx-auto mb-4" />
+                <h3 className="text-xl font-bubblegum text-slate-800 mb-2">
+                  No menu items found
+                </h3>
+                <p className="text-gray-500">
+                  Try adjusting your filters or add a new item.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
         )}
       </div>
     </div>

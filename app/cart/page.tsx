@@ -3,19 +3,24 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { 
-  ShoppingCart, 
-  Trash2, 
-  Plus, 
-  Minus, 
+import {
+  ShoppingCart,
+  Trash2,
+  Plus,
+  Minus,
   ArrowLeft,
   CreditCard,
   Clock,
   MapPin,
-  User
 } from "lucide-react";
 import Link from "next/link";
 import { Label } from "@/components/ui/label";
@@ -27,34 +32,49 @@ const cartItems = [
     name: "Grilled Chicken Salad",
     price: 12.99,
     quantity: 2,
-    image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
     description: "Fresh mixed greens with grilled chicken breast",
-    category: "Lunch"
+    category: "Lunch",
   },
   {
     id: "2",
     name: "Iced Latte",
     price: 4.99,
     quantity: 1,
-    image: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=400&h=300&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=400&h=300&fit=crop",
     description: "Smooth espresso with cold milk and ice",
-    category: "Beverages"
+    category: "Beverages",
   },
   {
     id: "3",
     name: "Beef Burger",
     price: 16.99,
     quantity: 1,
-    image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop",
     description: "Juicy beef patty with lettuce and tomato",
-    category: "Lunch"
-  }
+    category: "Lunch",
+  },
 ];
 
 const schools = [
-  { id: "1", name: "Amador Valley High", address: "1155 Santa Rita Rd, Pleasanton, CA 94566" },
-  { id: "2", name: "Foothill High", address: "4375 Foothill Rd, Pleasanton, CA 94588" },
-  { id: "3", name: "Village High", address: "4645 Bernal Ave, Pleasanton, CA 94566" }
+  {
+    id: "1",
+    name: "Amador Valley High",
+    address: "1155 Santa Rita Rd, Pleasanton, CA 94566",
+  },
+  {
+    id: "2",
+    name: "Foothill High",
+    address: "4375 Foothill Rd, Pleasanton, CA 94588",
+  },
+  {
+    id: "3",
+    name: "Village High",
+    address: "4645 Bernal Ave, Pleasanton, CA 94566",
+  },
 ];
 
 export default function Cart() {
@@ -67,7 +87,7 @@ export default function Cart() {
 
   useEffect(() => {
     if (status === "loading") return;
-    
+
     if (!session) {
       router.push("/auth/signin");
     }
@@ -78,18 +98,20 @@ export default function Cart() {
       removeItem(itemId);
       return;
     }
-    
-    setItems(items.map(item => 
-      item.id === itemId ? { ...item, quantity: newQuantity } : item
-    ));
+
+    setItems(
+      items.map((item) =>
+        item.id === itemId ? { ...item, quantity: newQuantity } : item
+      )
+    );
   };
 
   const removeItem = (itemId: string) => {
-    setItems(items.filter(item => item.id !== itemId));
+    setItems(items.filter((item) => item.id !== itemId));
   };
 
   const getSubtotal = () => {
-    return items.reduce((total, item) => total + (item.price * item.quantity), 0);
+    return items.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
   const getTax = () => {
@@ -105,12 +127,14 @@ export default function Cart() {
       alert("Please select a school for pickup");
       return;
     }
-    
+
     setIsCheckingOut(true);
-    
+
     // Simulate checkout process
     setTimeout(() => {
-      alert("Order placed successfully! You will receive a confirmation email shortly.");
+      alert(
+        "Order placed successfully! You will receive a confirmation email shortly."
+      );
       setItems([]);
       setIsCheckingOut(false);
       router.push("/orders");
@@ -133,9 +157,16 @@ export default function Cart() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <ShoppingCart className="h-16 w-16 text-red-500 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Sign In Required</h2>
-          <p className="text-gray-600 mb-4">Please sign in to view your cart.</p>
-          <Button onClick={() => router.push("/auth/signin")} className="bg-emerald-600 hover:bg-emerald-700 text-white">
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            Sign In Required
+          </h2>
+          <p className="text-gray-600 mb-4">
+            Please sign in to view your cart.
+          </p>
+          <Button
+            onClick={() => router.push("/auth/signin")}
+            className="bg-emerald-600 hover:bg-emerald-700 text-white"
+          >
             Sign In
           </Button>
         </div>
@@ -149,8 +180,12 @@ export default function Cart() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center py-12">
             <ShoppingCart className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Your cart is empty</h2>
-            <p className="text-gray-600 mb-6">Add some delicious items to get started!</p>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              Your cart is empty
+            </h2>
+            <p className="text-gray-600 mb-6">
+              Add some delicious items to get started!
+            </p>
             <Link href="/menu">
               <Button className="bg-emerald-600 hover:bg-emerald-700">
                 Browse Menu
@@ -176,7 +211,9 @@ export default function Cart() {
             </Link>
             <h1 className="text-3xl font-bold text-gray-900">Shopping Cart</h1>
           </div>
-          <p className="text-gray-700 mt-2">Review your items and complete your order</p>
+          <p className="text-gray-700 mt-2">
+            Review your items and complete your order
+          </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -192,7 +229,10 @@ export default function Cart() {
               <CardContent>
                 <div className="space-y-4">
                   {items.map((item) => (
-                    <div key={item.id} className="flex items-center space-x-4 p-4 border rounded-lg">
+                    <div
+                      key={item.id}
+                      className="flex items-center space-x-4 p-4 border rounded-lg"
+                    >
                       <img
                         src={item.image}
                         alt={item.name}
@@ -201,8 +241,12 @@ export default function Cart() {
                       <div className="flex-1">
                         <div className="flex items-start justify-between">
                           <div>
-                            <h3 className="font-semibold text-gray-900">{item.name}</h3>
-                            <p className="text-sm text-gray-600">{item.description}</p>
+                            <h3 className="font-semibold text-gray-900">
+                              {item.name}
+                            </h3>
+                            <p className="text-sm text-gray-600">
+                              {item.description}
+                            </p>
                             <Badge className="mt-1">{item.category}</Badge>
                           </div>
                           <Button
@@ -214,30 +258,40 @@ export default function Cart() {
                             <Trash2 className="h-4 w-4" />
                           </Button>
                         </div>
-                        
+
                         <div className="flex items-center justify-between mt-4">
                           <div className="flex items-center space-x-2">
                             <Button
                               variant="outline"
                               size="sm"
-                              onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                              onClick={() =>
+                                updateQuantity(item.id, item.quantity - 1)
+                              }
                               className="bg-white border-gray-300 text-gray-700 hover:bg-gray-50"
                             >
                               <Minus className="h-4 w-4" />
                             </Button>
-                            <span className="w-8 text-center font-medium">{item.quantity}</span>
+                            <span className="w-8 text-center font-medium">
+                              {item.quantity}
+                            </span>
                             <Button
                               variant="outline"
                               size="sm"
-                              onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                              onClick={() =>
+                                updateQuantity(item.id, item.quantity + 1)
+                              }
                               className="bg-white border-gray-300 text-gray-700 hover:bg-gray-50"
                             >
                               <Plus className="h-4 w-4" />
                             </Button>
                           </div>
                           <div className="text-right">
-                            <p className="font-semibold">${(item.price * item.quantity).toFixed(2)}</p>
-                            <p className="text-sm text-gray-500">${item.price} each</p>
+                            <p className="font-semibold">
+                              ${(item.price * item.quantity).toFixed(2)}
+                            </p>
+                            <p className="text-sm text-gray-500">
+                              ${item.price} each
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -268,7 +322,7 @@ export default function Cart() {
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500"
                     >
                       <option value="">Select a school</option>
-                      {schools.map(school => (
+                      {schools.map((school) => (
                         <option key={school.id} value={school.id}>
                           {school.name}
                         </option>
@@ -276,7 +330,7 @@ export default function Cart() {
                     </select>
                     {selectedSchool && (
                       <p className="text-xs text-gray-500 mt-1">
-                        {schools.find(s => s.id === selectedSchool)?.address}
+                        {schools.find((s) => s.id === selectedSchool)?.address}
                       </p>
                     )}
                   </div>

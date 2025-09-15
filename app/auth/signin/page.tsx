@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Utensils } from "lucide-react";
@@ -10,7 +9,6 @@ import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
 
 export default function SignInPage() {
-  const router = useRouter();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -21,6 +19,7 @@ export default function SignInPage() {
       await signIn("google", {
         callbackUrl: "/",
       });
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       toast({
         title: "Sign in failed",

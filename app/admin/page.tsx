@@ -3,7 +3,7 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { 
   Users, 
@@ -94,7 +94,7 @@ export default function AdminDashboard() {
         <div className="mb-8 flex flex-col md:flex-row md:items-center md:justify-between">
           <div>
             <h1 className="text-4xl font-bubblegum text-slate-900">Admin Dashboard</h1>
-            <p className="text-lg text-gray-600">Welcome back, {session.user?.name}. Here's what's happening.</p>
+            <p className="text-lg text-gray-600">Welcome back, {session.user?.name}. Here&lsquo;s what&lsquo;s happening.</p>
           </div>
           <div className="mt-4 md:mt-0">
             <Select value={selectedSchool} onValueChange={setSelectedSchool}>

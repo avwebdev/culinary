@@ -20,13 +20,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Lightbulb,
-  Clock,
-  CheckCircle,
-  Calendar as CalendarIcon,
-  Building,
-} from "lucide-react";
+import { Calendar as CalendarIcon } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import {
   Popover,

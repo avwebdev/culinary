@@ -10,8 +10,6 @@ import {
   Settings,
   ShoppingCart,
   Menu as MenuIcon,
-  Image as ImageIcon,
-  ChevronDown,
   Contact,
   LayoutDashboard,
 } from "lucide-react";

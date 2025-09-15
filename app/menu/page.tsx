@@ -1,11 +1,5 @@
 import Link from "next/link";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Utensils, ArrowRight } from "lucide-react";
 import Image from "next/image";
 
@@ -13,20 +7,17 @@ const schools = [
   {
     name: "Amador Valley High School",
     slug: "amador-valley",
-    image:
-      "/schools/amador-valley.png",
+    image: "/schools/amador-valley.png",
   },
   {
     name: "Foothill High School",
     slug: "foothill",
-    image:
-      "/schools/foothill.png",
+    image: "/schools/foothill.png",
   },
   {
     name: "Village High School",
     slug: "village",
-    image:
-      "/schools/village.png",
+    image: "/schools/village.png",
   },
 ];
 
