@@ -12,13 +12,15 @@ import {
   Leaf,
   Smile
 } from "lucide-react";
+import { FloatingKnives } from "@/components/FloatingKnives";
 
 export default function Home() {
   return (
     <div className="bg-gray-50 text-gray-800">
       {/* Hero Section */}
-      <section className="relative bg-white pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+      <section className="relative bg-white pt-24 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-white to-green-50 z-0"></div>
+        {/* <FloatingKnives /> */}
         <div className="relative max-w-7xl mx-auto text-center z-10">
           <h1 className="text-5xl md:text-7xl font-bubblegum text-emerald-900 leading-tight">
             Fresh Meals,
@@ -29,7 +31,7 @@ export default function Home() {
           </p>
           <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button asChild size="lg" className="px-8 py-6 text-lg shadow-lg">
-              <Link href="/menu/amador-valley">
+              <Link href="/menu">
                 <Utensils className="mr-2 h-5 w-5" />
                 Explore Menus
               </Link>
@@ -118,7 +120,7 @@ export default function Home() {
             Join us in supporting student success. Your next lunch could be a lesson for a future chef.
           </p>
           <Button asChild size="lg" className="bg-white text-emerald-600 hover:bg-gray-100 px-8 py-6 text-lg shadow-lg">
-            <Link href="/menu/amador-valley">
+            <Link href="/menu">
               Start Your Order
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>

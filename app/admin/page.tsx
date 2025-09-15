@@ -9,48 +9,63 @@ import {
   Users, 
   ShoppingCart, 
   DollarSign, 
-  TrendingUp, 
-  Settings,
   BarChart3,
-  Shield,
-  X,
   Utensils,
-  CheckCircle,
-  Clock
+  Building,
+  Activity
 } from "lucide-react";
 import Link from "next/link";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-const stats = {
-  totalUsers: 1247,
-  totalOrders: 89,
-  totalRevenue: 12450.75,
-  weeklyGrowth: 12.5,
-  monthlyGrowth: 8.3,
-  todayOrders: 15,
+const schoolData = {
+  all: {
+    totalUsers: 1247,
+    totalOrders: 89,
+    totalRevenue: 12450.75,
+    todayOrders: 15,
+  },
+  "amador-valley": {
+    totalUsers: 600,
+    totalOrders: 45,
+    totalRevenue: 6500.50,
+    todayOrders: 8,
+  },
+  "foothill": {
+    totalUsers: 450,
+    totalOrders: 30,
+    totalRevenue: 4500.25,
+    todayOrders: 5,
+  },
+  "village": {
+    totalUsers: 197,
+    totalOrders: 14,
+    totalRevenue: 1450.00,
+    todayOrders: 2,
+  }
 };
 
 const recentOrders = [
-  { id: "1", customer: "John Smith", items: 3, total: 45.99, status: "pending", time: "2 min ago" },
-  { id: "2", customer: "Sarah Johnson", items: 2, total: 28.50, status: "preparing", time: "15 min ago" },
-  { id: "3", customer: "Mike Davis", items: 1, total: 12.99, status: "ready", time: "25 min ago" },
-  { id: "4", customer: "Emily Wilson", items: 4, total: 67.25, status: "completed", time: "1 hour ago" },
+  { id: "1", customer: "John Smith", items: 3, total: 45.99, status: "pending", time: "2 min ago", school: "Amador Valley" },
+  { id: "2", customer: "Sarah Johnson", items: 2, total: 28.50, status: "preparing", time: "15 min ago", school: "Foothill" },
+  { id: "3", customer: "Mike Davis", items: 1, total: 12.99, status: "ready", time: "25 min ago", school: "Village" },
+  { id: "4", customer: "Emily Wilson", items: 4, total: 67.25, status: "completed", time: "1 hour ago", school: "Amador Valley" },
 ];
-
-const recentActivity = [
-    { id: "1", type: "New Order", description: "Order #1234 by John Smith", time: "2 min ago", icon: ShoppingCart, color: "text-blue-500" },
-    { id: "2", type: "New User", description: "Sarah Johnson just signed up.", time: "15 min ago", icon: Users, color: "text-green-500" },
-    { id: "3", type: "Custom Request", description: "Request for a vegan menu from Mike Davis.", time: "1 hour ago", icon: Settings, color: "text-yellow-500" }
-]
 
 export default function AdminDashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const [selectedSchool, setSelectedSchool] = useState("all");
+  const [stats, setStats] = useState(schoolData.all);
 
   useEffect(() => {
     if (status === "loading") return;
     if (!session) router.push("/auth/signin");
     if (session?.user?.role !== "admin") router.push("/");
   }, [session, status, router]);
+
+  useEffect(() => {
+    setStats(schoolData[selectedSchool as keyof typeof schoolData]);
+  }, [selectedSchool]);
 
   if (status === "loading" || !session || session.user?.role !== 'admin') {
     return (
@@ -76,15 +91,30 @@ export default function AdminDashboard() {
   return (
     <div className="bg-gray-50 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bubblegum text-slate-900">Admin Dashboard</h1>
-          <p className="text-lg text-gray-600">Welcome back, {session.user?.name}. Here's what's happening.</p>
+        <div className="mb-8 flex flex-col md:flex-row md:items-center md:justify-between">
+          <div>
+            <h1 className="text-4xl font-bubblegum text-slate-900">Admin Dashboard</h1>
+            <p className="text-lg text-gray-600">Welcome back, {session.user?.name}. Here's what's happening.</p>
+          </div>
+          <div className="mt-4 md:mt-0">
+            <Select value={selectedSchool} onValueChange={setSelectedSchool}>
+              <SelectTrigger className="w-full md:w-[280px] bg-white">
+                <SelectValue placeholder="Select a school" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Schools</SelectItem>
+                <SelectItem value="amador-valley">Amador Valley High School</SelectItem>
+                <SelectItem value="foothill">Foothill High School</SelectItem>
+                <SelectItem value="village">Village High School</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          <StatCard icon={DollarSign} title="Total Revenue" value={`$${stats.totalRevenue.toLocaleString()}`} change={`+${stats.monthlyGrowth}% this month`} />
-          <StatCard icon={ShoppingCart} title="Total Orders" value={stats.totalOrders.toLocaleString()} change={`+${stats.todayOrders} today`} />
-          <StatCard icon={Users} title="Total Users" value={stats.totalUsers.toLocaleString()} change={`+${stats.weeklyGrowth}% this week`} />
+          <StatCard icon={DollarSign} title="Total Revenue" value={`$${stats.totalRevenue.toLocaleString()}`} />
+          <StatCard icon={ShoppingCart} title="Total Orders" value={stats.totalOrders.toLocaleString()} />
+          <StatCard icon={Users} title="Total Users" value={stats.totalUsers.toLocaleString()} />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
@@ -104,7 +134,7 @@ export default function AdminDashboard() {
                   <div key={order.id} className="flex items-center justify-between p-3 border rounded-lg bg-white">
                     <div>
                       <p className="font-medium">{order.customer}</p>
-                      <p className="text-sm text-gray-500">{order.items} items • ${order.total}</p>
+                      <p className="text-sm text-gray-500">{order.items} items • ${order.total} • {order.school}</p>
                     </div>
                     <div className="flex items-center space-x-2">
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(order.status)}`}>{order.status}</span>
@@ -117,20 +147,12 @@ export default function AdminDashboard() {
           </Card>
 
           <Card className="shadow-sm">
-            <CardHeader><CardTitle>Recent Activity</CardTitle></CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {recentActivity.map((activity) => (
-                  <div key={activity.id} className="flex items-start space-x-3 p-3">
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center ${activity.color} bg-opacity-10`}><activity.icon className="h-4 w-4" /></div>
-                    <div>
-                      <p className="font-medium text-sm">{activity.type}</p>
-                      <p className="text-sm text-gray-500">{activity.description}</p>
-                    </div>
-                    <span className="text-xs text-gray-500 ml-auto">{activity.time}</span>
-                  </div>
-                ))}
-              </div>
+            <CardHeader><CardTitle>Quick Actions</CardTitle></CardHeader>
+            <CardContent className="grid grid-cols-2 gap-4">
+               <QuickAction icon={Building} title="Manage Schools" />
+               <QuickAction icon={Users} title="Manage Users" />
+               <QuickAction icon={Activity} title="System Health" />
+               <QuickAction icon={Utensils} title="Add New Item" href="/admin/menu" />
             </CardContent>
           </Card>
         </div>
@@ -139,7 +161,7 @@ export default function AdminDashboard() {
   );
 }
 
-const StatCard = ({ icon: Icon, title, value, change }: { icon: React.ElementType, title: string, value: string, change: string }) => (
+const StatCard = ({ icon: Icon, title, value }: { icon: React.ElementType, title: string, value: string }) => (
   <Card className="shadow-sm">
     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
       <CardTitle className="text-sm font-medium">{title}</CardTitle>
@@ -147,7 +169,6 @@ const StatCard = ({ icon: Icon, title, value, change }: { icon: React.ElementTyp
     </CardHeader>
     <CardContent>
       <div className="text-2xl font-bold">{value}</div>
-      <p className="text-xs text-muted-foreground text-green-600">{change}</p>
     </CardContent>
   </Card>
 );
@@ -164,3 +185,14 @@ const ActionCard = ({ icon: Icon, title, href }: { icon: React.ElementType, titl
     </Card>
   </Link>
 );
+
+const QuickAction = ({ icon: Icon, title, href = "#" }: { icon: React.ElementType, title: string, href?: string }) => (
+    <Link href={href}>
+        <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 transition-colors">
+            <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
+                <Icon className="h-5 w-5 text-gray-600" />
+            </div>
+            <p className="font-medium text-gray-800">{title}</p>
+        </div>
+    </Link>
+)

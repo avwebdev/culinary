@@ -43,6 +43,7 @@ export const menuItems = pgTable('menu_items', {
   description: text('description'),
   price: decimal('price', { precision: 10, scale: 2 }).notNull(),
   categoryId: uuid('category_id').references(() => categories.id),
+  schoolId: uuid('school_id').references(() => schools.id), // Added schoolId
   image: text('image'),
   isAvailable: boolean('is_available').default(true),
   isCustomizable: boolean('is_customizable').default(false),
@@ -142,6 +143,7 @@ export const schoolsRelations = relations(schools, ({ many }) => ({
   reservations: many(reservations),
   customRequests: many(customRequests),
   availabilitySettings: many(availabilitySettings),
+  menuItems: many(menuItems), // Added relation to menuItems
 }));
 
 export const categoriesRelations = relations(categories, ({ many }) => ({
@@ -152,6 +154,10 @@ export const menuItemsRelations = relations(menuItems, ({ one, many }) => ({
   category: one(categories, {
     fields: [menuItems.categoryId],
     references: [categories.id],
+  }),
+  school: one(schools, { // Added relation to schools
+    fields: [menuItems.schoolId],
+    references: [schools.id],
   }),
   orderItems: many(orderItems),
 }));

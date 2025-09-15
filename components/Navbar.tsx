@@ -3,17 +3,17 @@
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { Button } from "@/components/ui/button";
-import { 
-  Utensils, 
-  User, 
-  LogOut, 
+import {
+  Utensils,
+  User,
+  LogOut,
   Settings,
   ShoppingCart,
   Menu as MenuIcon,
   Image as ImageIcon,
   ChevronDown,
   Contact,
-  LayoutDashboard
+  LayoutDashboard,
 } from "lucide-react";
 import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -31,14 +31,9 @@ export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navigation = [
+    { name: "Menu", href: "/menu", icon: Utensils },
     { name: "Custom Requests", href: "/custom-requests", icon: Settings },
     { name: "Contact", href: "/contact", icon: Contact },
-  ];
-
-  const menuSchools = [
-    { name: "Amador Valley", href: "/menu/amador-valley" },
-    { name: "Foothill", href: "/menu/foothill" },
-    { name: "Village", href: "/menu/village" },
   ];
 
   const adminNavigation = [
@@ -57,29 +52,14 @@ export function Navbar() {
               <div className="w-12 h-12 bg-emerald-600 rounded-full flex items-center justify-center shadow-md">
                 <Utensils className="h-6 w-6 text-white" />
               </div>
-              <span className="text-2xl font-bubblegum text-slate-900 hidden sm:block">PUSD Culinary</span>
+              <span className="text-2xl font-bubblegum text-slate-900 hidden sm:block">
+                PUSD Culinary
+              </span>
             </Link>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-1">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="text-gray-600 hover:text-emerald-600 px-3 py-2 text-base font-medium flex items-center space-x-1">
-                  <Utensils className="h-5 w-5" />
-                  <span>Menus</span>
-                  <ChevronDown className="h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                {menuSchools.map((school) => (
-                  <DropdownMenuItem key={school.name} asChild>
-                    <Link href={school.href}>{school.name} HS</Link>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-            
             {navigation.map((item) => (
               <Link
                 key={item.name}
@@ -107,9 +87,15 @@ export function Navbar() {
 
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+                    <Button
+                      variant="ghost"
+                      className="relative h-10 w-10 rounded-full"
+                    >
                       <Avatar className="h-10 w-10">
-                        <AvatarImage src={session.user?.image || ""} alt={session.user?.name || ""} />
+                        <AvatarImage
+                          src={session.user?.image || ""}
+                          alt={session.user?.name || ""}
+                        />
                         <AvatarFallback>
                           {session.user?.name?.charAt(0) || "U"}
                         </AvatarFallback>
@@ -119,19 +105,24 @@ export function Navbar() {
                   <DropdownMenuContent className="w-56" align="end" forceMount>
                     <DropdownMenuLabel className="font-normal">
                       <div className="flex flex-col space-y-1">
-                        <p className="text-sm font-medium leading-none">{session.user?.name}</p>
+                        <p className="text-sm font-medium leading-none">
+                          {session.user?.name}
+                        </p>
                         <p className="text-xs leading-none text-muted-foreground">
                           {session.user?.email}
                         </p>
                       </div>
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    
+
                     {session.user?.role === "admin" && (
                       <>
                         {adminNavigation.map((item) => (
                           <DropdownMenuItem key={item.name} asChild>
-                            <Link href={item.href} className="flex items-center space-x-2">
+                            <Link
+                              href={item.href}
+                              className="flex items-center space-x-2"
+                            >
                               <item.icon className="h-4 w-4" />
                               <span>{item.name}</span>
                             </Link>
@@ -142,21 +133,27 @@ export function Navbar() {
                     )}
 
                     <DropdownMenuItem asChild>
-                      <Link href="/profile" className="flex items-center space-x-2">
+                      <Link
+                        href="/profile"
+                        className="flex items-center space-x-2"
+                      >
                         <User className="h-4 w-4" />
                         <span>Profile</span>
                       </Link>
                     </DropdownMenuItem>
-                    
+
                     <DropdownMenuItem asChild>
-                      <Link href="/orders" className="flex items-center space-x-2">
+                      <Link
+                        href="/orders"
+                        className="flex items-center space-x-2"
+                      >
                         <ShoppingCart className="h-4 w-4" />
                         <span>My Orders</span>
                       </Link>
                     </DropdownMenuItem>
 
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem 
+                    <DropdownMenuItem
                       onClick={() => signOut()}
                       className="flex items-center space-x-2 text-red-600 cursor-pointer"
                     >
@@ -195,17 +192,6 @@ export function Navbar() {
       {isMobileMenuOpen && (
         <div className="md:hidden bg-white border-t border-gray-200">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            {menuSchools.map((item) => (
-               <Link
-                key={item.name}
-                href={item.href}
-                className="text-gray-600 hover:text-emerald-600 hover:bg-emerald-50 block px-3 py-2 rounded-md text-base font-medium flex items-center space-x-2"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <Utensils className="h-5 w-5" />
-                <span>{item.name} Menu</span>
-              </Link>
-            ))}
             <div className="border-t border-gray-200 my-2"></div>
             {navigation.map((item) => (
               <Link
@@ -218,11 +204,11 @@ export function Navbar() {
                 <span>{item.name}</span>
               </Link>
             ))}
-            
+
             <div className="border-t border-gray-200 my-2"></div>
             {session ? (
               <>
-                 {session.user?.role === "admin" && (
+                {session.user?.role === "admin" && (
                   <>
                     {adminNavigation.map((item) => (
                       <Link

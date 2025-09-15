@@ -16,9 +16,11 @@ import {
   Trash2, 
   ArrowLeft,
   Search,
-  X
+  X,
+  Building
 } from "lucide-react";
 import Link from "next/link";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const categories = [
   { id: "1", name: "Breakfast", color: "bg-yellow-100 text-yellow-800" },
@@ -29,20 +31,23 @@ const categories = [
 ];
 
 const menuItems = [
-  { id: "1", name: "Grilled Chicken Salad", description: "Fresh mixed greens with grilled chicken breast, cherry tomatoes, and balsamic vinaigrette", price: 12.99, category: "Lunch", categoryId: "2", image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop", available: true, popular: true, allergens: ["nuts"] },
-  { id: "2", name: "Vegetarian Pasta", description: "Penne pasta with seasonal vegetables in a light tomato sauce", price: 14.99, category: "Dinner", categoryId: "3", image: "https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?w=400&h=300&fit=crop", available: true, popular: false, allergens: ["gluten"] },
-  { id: "3", name: "Beef Burger", description: "Juicy beef patty with lettuce, tomato, and special sauce on a brioche bun", price: 16.99, category: "Lunch", categoryId: "2", image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop", available: true, popular: true, allergens: ["gluten", "dairy"] },
+  { id: "1", name: "Grilled Chicken Salad", description: "Fresh mixed greens with grilled chicken breast, cherry tomatoes, and balsamic vinaigrette", price: 12.99, category: "Lunch", categoryId: "2", image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop", available: true, popular: true, allergens: ["nuts"], schoolId: "amador-valley" },
+  { id: "2", name: "Vegetarian Pasta", description: "Penne pasta with seasonal vegetables in a light tomato sauce", price: 14.99, category: "Dinner", categoryId: "3", image: "https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?w=400&h=300&fit=crop", available: true, popular: false, allergens: ["gluten"], schoolId: "foothill" },
+  { id: "3", name: "Beef Burger", description: "Juicy beef patty with lettuce, tomato, and special sauce on a brioche bun", price: 16.99, category: "Lunch", categoryId: "2", image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop", available: true, popular: true, allergens: ["gluten", "dairy"], schoolId: "amador-valley" },
 ];
+
+type MenuItem = typeof menuItems[0];
 
 export default function AdminMenu() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [filteredItems, setFilteredItems] = useState(menuItems);
+  const [schoolFilter, setSchoolFilter] = useState("all");
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
   const [showForm, setShowForm] = useState(false);
-  const [editingItem, setEditingItem] = useState<any>(null);
-  const [formData, setFormData] = useState({ name: "", description: "", price: "", categoryId: "", image: "", available: true, popular: false });
+  const [editingItem, setEditingItem] = useState<MenuItem | null>(null);
+  const [formData, setFormData] = useState({ name: "", description: "", price: "", categoryId: "", schoolId: "", image: "", available: true, popular: false });
 
   useEffect(() => {
     if (status === "loading") return;
@@ -51,20 +56,21 @@ export default function AdminMenu() {
 
   useEffect(() => {
     let filtered = menuItems;
+    if (schoolFilter !== "all") filtered = filtered.filter(item => item.schoolId === schoolFilter);
     if (categoryFilter !== "all") filtered = filtered.filter(item => item.categoryId === categoryFilter);
     if (searchTerm) filtered = filtered.filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase()));
     setFilteredItems(filtered);
-  }, [categoryFilter, searchTerm]);
+  }, [schoolFilter, categoryFilter, searchTerm]);
 
   const resetForm = () => {
-    setFormData({ name: "", description: "", price: "", categoryId: "", image: "", available: true, popular: false });
+    setFormData({ name: "", description: "", price: "", categoryId: "", schoolId: "", image: "", available: true, popular: false });
     setEditingItem(null);
     setShowForm(false);
   };
 
-  const handleEdit = (item: any) => {
+  const handleEdit = (item: MenuItem) => {
     setEditingItem(item);
-    setFormData({ name: item.name, description: item.description, price: item.price.toString(), categoryId: item.categoryId, image: item.image, available: item.available, popular: item.popular });
+    setFormData({ name: item.name, description: item.description, price: item.price.toString(), categoryId: item.categoryId, schoolId: item.schoolId, image: item.image, available: item.available, popular: item.popular });
     setShowForm(true);
   };
   
@@ -99,17 +105,17 @@ export default function AdminMenu() {
               <Link href="/admin"><Button variant="outline" size="sm"><ArrowLeft className="h-4 w-4 mr-2" />Back</Button></Link>
               <h1 className="text-4xl font-bubblegum text-slate-900">Menu Management</h1>
             </div>
-            <p className="text-lg text-gray-600 mt-2">Manage your menu items, categories, and pricing.</p>
+            <p className="text-lg text-gray-600 mt-2">Manage your menu items, categories, and pricing across all schools.</p>
           </div>
           <Button onClick={() => setShowForm(true)} size="lg"><Plus className="h-5 w-5 mr-2" />Add Menu Item</Button>
         </div>
 
         <Card className="mb-6 shadow-sm">
           <CardContent className="pt-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="relative"><Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" /><input type="text" placeholder="Search menu items..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="pl-10 pr-4 py-2 border border-gray-300 rounded-md w-full focus:ring-emerald-500 focus:border-emerald-500 h-11 text-base"/></div>
-              <select value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 bg-white h-11 text-base"><option value="all">All Categories</option>{categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}</select>
-              <Button onClick={() => { setCategoryFilter("all"); setSearchTerm(""); }} variant="outline" className="h-11 text-base">Clear Filters</Button>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div className="relative md:col-span-2"><Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" /><input type="text" placeholder="Search menu items..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="pl-10 pr-4 py-2 border rounded-md w-full focus:ring-emerald-500 focus:border-emerald-500 h-11 text-base"/></div>
+              <Select value={schoolFilter} onValueChange={setSchoolFilter}><SelectTrigger className="h-11 text-base"><SelectValue placeholder="All Schools" /></SelectTrigger><SelectContent><SelectItem value="all">All Schools</SelectItem><SelectItem value="amador-valley">Amador Valley</SelectItem><SelectItem value="foothill">Foothill</SelectItem><SelectItem value="village">Village</SelectItem></SelectContent></Select>
+              <Select value={categoryFilter} onValueChange={setCategoryFilter}><SelectTrigger className="h-11 text-base"><SelectValue placeholder="All Categories" /></SelectTrigger><SelectContent><SelectItem value="all">All Categories</SelectItem>{categories.map(c => <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>)}</SelectContent></Select>
             </div>
           </CardContent>
         </Card>
@@ -122,7 +128,8 @@ export default function AdminMenu() {
                 <div><Label htmlFor="name">Item Name</Label><Input id="name" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} placeholder="e.g., Supreme Pizza"/></div>
                 <div><Label htmlFor="price">Price</Label><Input id="price" type="number" value={formData.price} onChange={(e) => setFormData({...formData, price: e.target.value})} placeholder="15.99"/></div>
                 <div className="md:col-span-2"><Label htmlFor="description">Description</Label><Textarea id="description" value={formData.description} onChange={(e) => setFormData({...formData, description: e.target.value})} placeholder="A short, tasty description..."/></div>
-                <div><Label htmlFor="category">Category</Label><select id="category" value={formData.categoryId} onChange={(e) => setFormData({...formData, categoryId: e.target.value})} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 bg-white h-10"><option value="">Select Category</option>{categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}</select></div>
+                <div><Label htmlFor="school">School</Label><Select value={formData.schoolId} onValueChange={(v) => setFormData({...formData, schoolId: v})}><SelectTrigger><SelectValue placeholder="Select School" /></SelectTrigger><SelectContent><SelectItem value="amador-valley">Amador Valley</SelectItem><SelectItem value="foothill">Foothill</SelectItem><SelectItem value="village">Village</SelectItem></SelectContent></Select></div>
+                <div><Label htmlFor="category">Category</Label><Select value={formData.categoryId} onValueChange={(v) => setFormData({...formData, categoryId: v})}><SelectTrigger><SelectValue placeholder="Select Category" /></SelectTrigger><SelectContent>{categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}</SelectContent></Select></div>
                 <div><Label htmlFor="image">Image URL</Label><Input id="image" value={formData.image} onChange={(e) => setFormData({...formData, image: e.target.value})} placeholder="https://images.unsplash.com/..."/></div>
               </div>
               <div className="flex justify-end space-x-4 mt-6">

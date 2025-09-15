@@ -16,9 +16,12 @@ import {
   Calendar,
   BarChart3,
   PieChart,
-  Activity
+  Activity,
+  Building
 } from "lucide-react";
 import Link from "next/link";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
 
 // Mock data - in real app this would come from the database
 const analyticsData = {
@@ -58,6 +61,7 @@ const analyticsData = {
 export default function AdminAnalytics() {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const [selectedSchool, setSelectedSchool] = useState("all");
 
   useEffect(() => {
     if (status === "loading") return;
@@ -102,27 +106,34 @@ export default function AdminAnalytics() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between">
             <div>
               <div className="flex items-center space-x-4">
                 <Link href="/admin">
-                                  <Button variant="ghost" size="sm" className="bg-gray-100 hover:bg-gray-200 text-gray-700">
-                  <ArrowLeft className="h-4 w-4 mr-2" />
-                  Back to Dashboard
-                </Button>
+                  <Button variant="ghost" size="sm" className="bg-gray-100 hover:bg-gray-200 text-gray-700">
+                    <ArrowLeft className="h-4 w-4 mr-2" />
+                    Back to Dashboard
+                  </Button>
                 </Link>
                 <h1 className="text-3xl font-bold text-gray-900">Analytics</h1>
               </div>
               <p className="text-gray-600 mt-2">Business insights and performance metrics</p>
             </div>
-            <div className="flex space-x-2">
+            <div className="flex items-center space-x-2 mt-4 md:mt-0">
+               <Select value={selectedSchool} onValueChange={setSelectedSchool}>
+                <SelectTrigger className="w-full md:w-[200px] bg-white">
+                  <SelectValue placeholder="Select school" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Schools</SelectItem>
+                  <SelectItem value="amador-valley">Amador Valley</SelectItem>
+                  <SelectItem value="foothill">Foothill</SelectItem>
+                  <SelectItem value="village">Village</SelectItem>
+                </SelectContent>
+              </Select>
               <Button variant="outline" className="bg-white border-gray-300 text-gray-700 hover:bg-gray-50">
                 <Calendar className="h-4 w-4 mr-2" />
                 Last 30 Days
-              </Button>
-              <Button variant="outline" className="bg-white border-gray-300 text-gray-700 hover:bg-gray-50">
-                <BarChart3 className="h-4 w-4 mr-2" />
-                Export Report
               </Button>
             </div>
           </div>
@@ -246,7 +257,7 @@ export default function AdminAnalytics() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
-                <BarChart3 className="h-5 w-5" />
+                <Building className="h-5 w-5" />
                 <span>School Performance</span>
               </CardTitle>
               <CardDescription>Orders and revenue by school location</CardDescription>
@@ -306,61 +317,6 @@ export default function AdminAnalytics() {
                   </div>
                 </div>
               ))}
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Key Insights */}
-        <Card className="mt-8">
-          <CardHeader>
-            <CardTitle>Key Insights</CardTitle>
-            <CardDescription>Automated business intelligence highlights</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-4">
-                <div className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
-                  <div>
-                    <p className="font-medium">Revenue Growth</p>
-                    <p className="text-sm text-gray-600">
-                      Revenue increased by {analyticsData.overview.revenueGrowth}% this month, 
-                      driven by higher order volumes and average order values.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
-                  <div>
-                    <p className="font-medium">Customer Acquisition</p>
-                    <p className="text-sm text-gray-600">
-                      {analyticsData.overview.customerGrowth}% growth in customer base indicates 
-                      successful marketing and retention strategies.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="space-y-4">
-                <div className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-orange-500 rounded-full mt-2"></div>
-                  <div>
-                    <p className="font-medium">Top Performer</p>
-                    <p className="text-sm text-gray-600">
-                      Grilled Chicken Salad is the top-selling item with {analyticsData.topItems[0].orders} orders 
-                      and ${analyticsData.topItems[0].revenue.toFixed(2)} in revenue.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-purple-500 rounded-full mt-2"></div>
-                  <div>
-                    <p className="font-medium">School Performance</p>
-                    <p className="text-sm text-gray-600">
-                      Foothill High leads in revenue per order, while Amador Valley High has the highest customer count.
-                    </p>
-                  </div>
-                </div>
-              </div>
             </div>
           </CardContent>
         </Card>
