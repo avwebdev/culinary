@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Poppins } from "next/font/google";
+import { Inter, Poppins, Bubblegum_Sans, DM_Sans } from "next/font/google";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
@@ -13,6 +13,18 @@ const inter = Inter({
 
 const poppins = Poppins({
   variable: "--font-poppins",
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
+
+const bubblegum = Bubblegum_Sans({
+  variable: "--font-bubblegum",
+  subsets: ["latin"],
+  weight: ["400"],
+});
+
+const dmSans = DM_Sans({
+  variable: "--font-dmsans",
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
@@ -31,7 +43,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${poppins.variable} antialiased`}
+        className={`${dmSans.className} ${dmSans.variable} ${bubblegum.variable} antialiased`}
       >
         <AuthProvider>
           <Navbar />
