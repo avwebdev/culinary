@@ -28,7 +28,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         session.user.id = user?.id || token?.sub || "temp-user-id";
         
         // Check if user email matches admin email
-        const isAdmin = session.user.email === "kethan@vegunta.com";
+        const isAdmin = session.user.email === "kethan@vegunta.com" || session.user.email === "aarushtahiliani8@gmail.com";
         session.user.role = isAdmin ? "admin" : (typeof user?.role === 'string' ? user.role : typeof token?.role === 'string' ? token.role : "user");
         session.user.schoolId = typeof user?.schoolId === 'string' ? user.schoolId : typeof token?.schoolId === 'string' ? token.schoolId : null;
       }
@@ -37,7 +37,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async jwt({ token, user }) {
       if (user) {
         // Check if user email matches admin email
-        const isAdmin = user.email === "kethan@vegunta.com";
+        const isAdmin = user.email === "kethan@vegunta.com" || user.email === "aarushtahiliani8@gmail.com";
         token.role = isAdmin ? "admin" : (user.role ?? "user");
         token.schoolId = user.schoolId;
       }
