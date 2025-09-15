@@ -29,8 +29,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         
         // Check if user email matches admin email
         const isAdmin = session.user.email === "kethan@vegunta.com";
-        session.user.role = isAdmin ? "admin" : (user?.role || token?.role || "user");
-        session.user.schoolId = user?.schoolId || token?.schoolId || null;
+        session.user.role = isAdmin ? "admin" : (typeof user?.role === 'string' ? user.role : typeof token?.role === 'string' ? token.role : "user");
+        session.user.schoolId = typeof user?.schoolId === 'string' ? user.schoolId : typeof token?.schoolId === 'string' ? token.schoolId : null;
       }
       return session;
     },
@@ -38,7 +38,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (user) {
         // Check if user email matches admin email
         const isAdmin = user.email === "kethan@vegunta.com";
-        token.role = isAdmin ? "admin" : (user.role || "user");
+        token.role = isAdmin ? "admin" : (user.role ?? "user");
         token.schoolId = user.schoolId;
       }
       return token;
