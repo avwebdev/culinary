@@ -11,84 +11,42 @@ import {
   Mail, 
   Phone, 
   MapPin, 
-  Clock, 
   MessageSquare,
   Send,
-  CheckCircle
+  Instagram,
+  Building
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
-const contactMethods = [
-  {
-    icon: Phone,
-    title: "Phone",
-    description: "Call us during business hours",
-    value: "(925) 462-5500",
-    link: "tel:+19254625500",
-  },
-  {
-    icon: Mail,
-    title: "Email",
-    description: "Send us an email anytime",
-    value: "culinary@pleasantonusd.net",
-    link: "mailto:culinary@pleasantonusd.net",
-  },
-  {
-    icon: MapPin,
-    title: "Address",
-    description: "Visit our main office",
-    value: "4665 Bernal Ave, Pleasanton, CA 94566",
-    link: "https://maps.google.com/?q=4665+Bernal+Ave+Pleasanton+CA+94566",
-  },
-  {
-    icon: Clock,
-    title: "Hours",
-    description: "Our service hours",
-    value: "Mon-Fri: 7:00 AM - 3:00 PM",
-    link: null,
-  },
-];
-
-const schoolLocations = [
+const schoolContacts = [
   {
     name: "Amador Valley High School",
-    address: "1155 Santa Rita Rd, Pleasanton, CA 94566",
-    phone: "(925) 462-5500",
-    hours: "7:00 AM - 3:00 PM",
+    teacher: "Julia Ford",
+    email: "jford@pleasantonusd.net",
+    instagram: "AVHS.Culinary",
+    instagramLink: "https://www.instagram.com/AVHS.Culinary",
   },
   {
     name: "Foothill High School",
-    address: "4375 Foothill Rd, Pleasanton, CA 94588",
-    phone: "(925) 462-5500",
-    hours: "7:00 AM - 3:00 PM",
+    teacher: "Katrina Wunderlich",
+    email: "kwunderlich@pleasantonusd.net",
+    instagram: "FHSBakingWunders",
+    instagramLink: "https://www.instagram.com/FHSBakingWunders",
   },
   {
     name: "Village High School",
-    address: "4645 Bernal Ave, Pleasanton, CA 94566",
-    phone: "(925) 462-5500",
-    hours: "7:00 AM - 3:00 PM",
-  },
-  {
-    name: "Hart Middle School",
-    address: "4433 Willow Rd, Pleasanton, CA 94588",
-    phone: "(925) 462-5500",
-    hours: "7:00 AM - 3:00 PM",
-  },
-  {
-    name: "Pleasanton Middle School",
-    address: "5001 Case Ave, Pleasanton, CA 94566",
-    phone: "(925) 462-5500",
-    hours: "7:00 AM - 3:00 PM",
+    teacher: "Heather Halliday",
+    email: "hhalliday@pleasantonusd.net",
+    instagram: null,
+    instagramLink: null,
   },
 ];
 
 const inquiryTypes = [
   { id: "general", name: "General Inquiry" },
   { id: "menu", name: "Menu Questions" },
-  { id: "reservation", name: "Reservation Help" },
-  { id: "custom", name: "Custom Request" },
-  { id: "feedback", name: "Feedback" },
-  { id: "complaint", name: "Complaint" },
+  { id: "catering", name: "Catering & Custom Events" },
+  { id: "feedback", name: "Feedback & Suggestions" },
   { id: "other", name: "Other" },
 ];
 
@@ -119,23 +77,14 @@ export default function ContactPage() {
     setIsSubmitting(true);
 
     try {
-      // In a real app, this would make an API call to send the message
-      await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 2000));
       
       toast({
         title: "Message Sent!",
-        description: "Thank you for contacting us. We'll get back to you within 24 hours.",
+        description: "Thank you for contacting us. We'll get back to you shortly.",
       });
 
-      // Reset form
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        inquiryType: "",
-        subject: "",
-        message: "",
-      });
+      setFormData({ name: "", email: "", phone: "", inquiryType: "", subject: "", message: "" });
     } catch (error) {
       toast({
         title: "Message Failed",
@@ -148,49 +97,61 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="bg-gray-50 py-12 sm:py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Contact Us</h1>
-                          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-            Have questions about our services, menu, or reservations? We're here to help! 
-            Reach out to us through any of the methods below.
+          <h1 className="text-5xl md:text-6xl font-bubblegum text-slate-900">Get in Touch</h1>
+          <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
+            Have questions about our program, menus, or catering services? We're here to help!
           </p>
         </div>
 
-        {/* Contact Methods */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {contactMethods.map((method) => (
-            <Card key={method.title} className="text-center hover:shadow-lg transition-shadow">
-              <CardContent className="pt-6">
-                <div className="mx-auto w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mb-4">
-                  <method.icon className="h-6 w-6 text-emerald-600" />
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-1">{method.title}</h3>
-                <p className="text-sm text-gray-600 mb-3">{method.description}</p>
-                {method.link ? (
-                  <a
-                    href={method.link}
-                    className="text-emerald-600 hover:text-emerald-700 font-medium"
-                  >
-                    {method.value}
-                  </a>
-                ) : (
-                  <p className="text-gray-900 font-medium">{method.value}</p>
-                )}
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
+          {/* School Contacts */}
+          <div className="lg:col-span-2 space-y-8">
+            <div>
+              <h2 className="text-3xl font-bubblegum text-slate-900 mb-4">Teacher Contacts</h2>
+              <div className="space-y-6">
+                {schoolContacts.map((school) => (
+                  <Card key={school.name} className="shadow-sm">
+                    <CardHeader>
+                      <CardTitle className="flex items-center text-xl">
+                        <Building className="h-5 w-5 mr-3 text-emerald-600" />
+                        {school.name}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-3">
+                       <p className="flex items-center text-sm text-gray-700">
+                          <span className="font-medium text-gray-800 w-20">Teacher:</span>
+                          {school.teacher}
+                        </p>
+                        <p className="flex items-center text-sm text-gray-700">
+                          <Mail className="h-4 w-4 mr-3 text-emerald-600" />
+                          <a href={`mailto:${school.email}`} className="hover:text-emerald-600 break-all">
+                            {school.email}
+                          </a>
+                        </p>
+                        {school.instagram && (
+                          <p className="flex items-center text-sm text-gray-700">
+                            <Instagram className="h-4 w-4 mr-3 text-emerald-600" />
+                            <a href={school.instagramLink!} target="_blank" rel="noopener noreferrer" className="hover:text-emerald-600">
+                              @{school.instagram}
+                            </a>
+                          </p>
+                        )}
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Form */}
-          <div>
-            <Card>
+          <div className="lg:col-span-3">
+            <Card className="shadow-lg">
               <CardHeader>
-                <CardTitle className="flex items-center">
-                  <MessageSquare className="h-5 w-5 mr-2 text-emerald-600" />
+                <CardTitle className="flex items-center text-2xl">
+                  <MessageSquare className="h-6 w-6 mr-3 text-emerald-600" />
                   Send us a Message
                 </CardTitle>
                 <CardDescription>
@@ -199,40 +160,20 @@ export default function ContactPage() {
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <Label htmlFor="name">Full Name *</Label>
-                      <Input
-                        id="name"
-                        placeholder="Your full name"
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        required
-                      />
+                      <Input id="name" placeholder="Your Name" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} required />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="email">Email Address *</Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        placeholder="your.email@example.com"
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        required
-                      />
+                      <Input id="email" type="email" placeholder="your.email@example.com" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} required />
                     </div>
                   </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <Label htmlFor="phone">Phone Number</Label>
-                      <Input
-                        id="phone"
-                        type="tel"
-                        placeholder="(555) 123-4567"
-                        value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      />
+                      <Input id="phone" type="tel" placeholder="(555) 123-4567" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="inquiryType">Inquiry Type</Label>
@@ -242,149 +183,28 @@ export default function ContactPage() {
                         </SelectTrigger>
                         <SelectContent>
                           {inquiryTypes.map((type) => (
-                            <SelectItem key={type.id} value={type.id}>
-                              {type.name}
-                            </SelectItem>
+                            <SelectItem key={type.id} value={type.id}>{type.name}</SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
                     </div>
                   </div>
-
                   <div className="space-y-2">
                     <Label htmlFor="subject">Subject *</Label>
-                    <Input
-                      id="subject"
-                      placeholder="Brief description of your inquiry"
-                      value={formData.subject}
-                      onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                      required
-                    />
+                    <Input id="subject" placeholder="Brief description of your inquiry" value={formData.subject} onChange={(e) => setFormData({ ...formData, subject: e.target.value })} required />
                   </div>
-
                   <div className="space-y-2">
                     <Label htmlFor="message">Message *</Label>
-                    <Textarea
-                      id="message"
-                      placeholder="Please provide details about your inquiry..."
-                      value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      rows={5}
-                      required
-                    />
+                    <Textarea id="message" placeholder="Please provide details about your inquiry..." value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} rows={5} required />
                   </div>
-
-                  <Button 
-                    type="submit" 
-                    className="w-full bg-emerald-600 hover:bg-emerald-700"
-                    disabled={isSubmitting}
-                  >
-                    <Send className="h-4 w-4 mr-2" />
-                    {isSubmitting ? "Sending Message..." : "Send Message"}
+                  <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
+                    <Send className="h-5 w-5 mr-2" />
+                    {isSubmitting ? "Sending..." : "Send Message"}
                   </Button>
                 </form>
               </CardContent>
             </Card>
           </div>
-
-          {/* School Locations */}
-          <div>
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center">
-                  <MapPin className="h-5 w-5 mr-2 text-emerald-600" />
-                  School Locations
-                </CardTitle>
-                <CardDescription>
-                  Find contact information for all our school locations.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {schoolLocations.map((school) => (
-                    <div key={school.name} className="p-4 border rounded-lg">
-                      <h4 className="font-semibold text-gray-900 mb-2">{school.name}</h4>
-                      <div className="space-y-1 text-sm text-gray-600">
-                        <p className="flex items-center">
-                          <MapPin className="h-4 w-4 mr-2 text-emerald-600" />
-                          {school.address}
-                        </p>
-                        <p className="flex items-center">
-                          <Phone className="h-4 w-4 mr-2 text-emerald-600" />
-                          <a href={`tel:${school.phone}`} className="hover:text-emerald-600">
-                            {school.phone}
-                          </a>
-                        </p>
-                        <p className="flex items-center">
-                          <Clock className="h-4 w-4 mr-2 text-emerald-600" />
-                          {school.hours}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* FAQ Section */}
-            <Card className="mt-6">
-              <CardHeader>
-                <CardTitle>Frequently Asked Questions</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div>
-                    <h4 className="font-medium text-gray-900 mb-2">
-                      How do I make a reservation?
-                    </h4>
-                    <p className="text-sm text-gray-600">
-                      You can make reservations through our online reservation system. Visit the Reservations page to book your table.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-gray-900 mb-2">
-                      Can I place orders online?
-                    </h4>
-                    <p className="text-sm text-gray-600">
-                      Yes! Browse our menu and place orders online for pickup or delivery at participating locations.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-gray-900 mb-2">
-                      Do you accommodate dietary restrictions?
-                    </h4>
-                    <p className="text-sm text-gray-600">
-                      Absolutely! We offer various dietary options and can accommodate special requests. Contact us for custom arrangements.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-gray-900 mb-2">
-                      What are your hours of operation?
-                    </h4>
-                    <p className="text-sm text-gray-600">
-                      We're open Monday through Friday from 7:00 AM to 3:00 PM, and Saturdays from 8:00 AM to 2:00 PM.
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-
-        {/* Response Time Info */}
-        <div className="mt-12 text-center">
-          <Card className="max-w-2xl mx-auto">
-            <CardContent className="pt-6">
-              <div className="flex items-center justify-center space-x-2 mb-2">
-                <CheckCircle className="h-5 w-5 text-emerald-600" />
-                <h3 className="font-semibold text-gray-900">Quick Response Time</h3>
-              </div>
-              <p className="text-gray-600">
-                We typically respond to all inquiries within 24 hours during business days. 
-                For urgent matters, please call us directly.
-              </p>
-            </CardContent>
-          </Card>
         </div>
       </div>
     </div>

@@ -1,32 +1,21 @@
 import type { Metadata } from "next";
-import { Inter, Poppins, Bubblegum_Sans, DM_Sans } from "next/font/google";
+import { DM_Sans, Bubblegum_Sans } from "next/font/google";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from "@/components/providers/AuthProvider";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const dmSans = DM_Sans({
+  variable: "--font-dmsans",
   subsets: ["latin"],
-});
-
-const poppins = Poppins({
-  variable: "--font-poppins",
-  subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  weight: ["400", "500", "700"],
 });
 
 const bubblegum = Bubblegum_Sans({
   variable: "--font-bubblegum",
   subsets: ["latin"],
   weight: ["400"],
-});
-
-const dmSans = DM_Sans({
-  variable: "--font-dmsans",
-  subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -41,13 +30,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="light">
       <body
-        className={`${dmSans.className} ${dmSans.variable} ${bubblegum.variable} antialiased`}
+        className={`${dmSans.variable} ${bubblegum.variable} antialiased`}
       >
         <AuthProvider>
           <Navbar />
-          <main className="min-h-screen">
+          <main className="min-h-screen bg-gray-50">
             {children}
           </main>
           <Footer />

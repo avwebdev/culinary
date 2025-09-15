@@ -5,12 +5,15 @@ import { useSession, signOut } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { 
   Utensils, 
-  Calendar, 
   User, 
   LogOut, 
   Settings,
   ShoppingCart,
-  Menu as MenuIcon
+  Menu as MenuIcon,
+  Image as ImageIcon,
+  ChevronDown,
+  Contact,
+  LayoutDashboard
 } from "lucide-react";
 import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -28,68 +31,85 @@ export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navigation = [
-    { name: "Menu", href: "/menu", icon: Utensils },
-    { name: "Reservations", href: "/reservations", icon: Calendar },
     { name: "Custom Requests", href: "/custom-requests", icon: Settings },
-    { name: "Contact", href: "/contact", icon: User },
+    { name: "Gallery", href: "/gallery", icon: ImageIcon },
+    { name: "Contact", href: "/contact", icon: Contact },
+  ];
+
+  const menuSchools = [
+    { name: "Amador Valley", href: "/menu/amador-valley" },
+    { name: "Foothill", href: "/menu/foothill" },
+    { name: "Village", href: "/menu/village" },
   ];
 
   const adminNavigation = [
-    { name: "Dashboard", href: "/admin", icon: Settings },
+    { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
     { name: "Orders", href: "/admin/orders", icon: ShoppingCart },
     { name: "Menu Management", href: "/admin/menu", icon: Utensils },
-    { name: "Reservations", href: "/admin/reservations", icon: Calendar },
   ];
 
   return (
-    <nav className="bg-white shadow-lg border-b border-gray-200 sticky top-0 z-50">
+    <header className="bg-white/80 backdrop-blur-lg border-b border-gray-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          {/* Logo and main navigation */}
-          <div className="flex items-center">
+        <div className="flex justify-between items-center py-2">
+          {/* Logo */}
+          <div className="flex-shrink-0">
             <Link href="/" className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-emerald-600 rounded-lg flex items-center justify-center">
+              <div className="w-12 h-12 bg-emerald-600 rounded-full flex items-center justify-center shadow-md">
                 <Utensils className="h-6 w-6 text-white" />
               </div>
-              <div className="hidden sm:block">
-                <span className="text-xl font-bold text-gray-900">PUSD Culinary</span>
-              </div>
+              <span className="text-2xl font-bubblegum text-slate-900 hidden sm:block">PUSD Culinary</span>
             </Link>
           </div>
 
-          {/* Desktop navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-1">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="text-gray-600 hover:text-emerald-600 px-3 py-2 text-base font-medium flex items-center space-x-1">
+                  <Utensils className="h-5 w-5" />
+                  <span>Menus</span>
+                  <ChevronDown className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                {menuSchools.map((school) => (
+                  <DropdownMenuItem key={school.name} asChild>
+                    <Link href={school.href}>{school.name} HS</Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+            
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-gray-700 hover:text-emerald-600 px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center space-x-1"
+                className="text-gray-600 hover:text-emerald-600 px-3 py-2 rounded-md text-base font-medium flex items-center space-x-2"
               >
-                <item.icon className="h-4 w-4" />
+                <item.icon className="h-5 w-5" />
                 <span>{item.name}</span>
               </Link>
             ))}
           </div>
 
-          {/* User menu and authentication */}
-          <div className="flex items-center space-x-4">
+          {/* User actions */}
+          <div className="flex items-center space-x-2">
             {session ? (
               <>
-                {/* Shopping cart icon */}
                 <Link href="/cart">
-                  <Button variant="ghost" size="sm" className="relative">
-                    <ShoppingCart className="h-5 w-5" />
-                    <span className="absolute -top-1 -right-1 bg-emerald-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  <Button variant="ghost" size="icon" className="relative">
+                    <ShoppingCart className="h-6 w-6" />
+                    <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
                       0
                     </span>
                   </Button>
                 </Link>
 
-                {/* User dropdown */}
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-                      <Avatar className="h-8 w-8">
+                    <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+                      <Avatar className="h-10 w-10">
                         <AvatarImage src={session.user?.image || ""} alt={session.user?.name || ""} />
                         <AvatarFallback>
                           {session.user?.name?.charAt(0) || "U"}
@@ -108,7 +128,6 @@ export function Navbar() {
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     
-                    {/* Admin navigation for admin users */}
                     {session.user?.role === "admin" && (
                       <>
                         {adminNavigation.map((item) => (
@@ -140,7 +159,7 @@ export function Navbar() {
                     <DropdownMenuSeparator />
                     <DropdownMenuItem 
                       onClick={() => signOut()}
-                      className="flex items-center space-x-2 text-red-600"
+                      className="flex items-center space-x-2 text-red-600 cursor-pointer"
                     >
                       <LogOut className="h-4 w-4" />
                       <span>Sign out</span>
@@ -149,17 +168,13 @@ export function Navbar() {
                 </DropdownMenu>
               </>
             ) : (
-              <div className="flex items-center space-x-2">
-                <Link href="/auth/signin">
-                  <Button variant="outline" size="sm" className="bg-white border-gray-300 text-gray-700 hover:bg-gray-50">
-                    Sign In
-                  </Button>
-                </Link>
-                <Link href="/auth/signin">
-                  <Button size="sm" className="bg-emerald-600 hover:bg-emerald-700">
-                    Get Started
-                  </Button>
-                </Link>
+              <div className="hidden md:flex items-center space-x-2">
+                <Button asChild variant="ghost">
+                  <Link href="/auth/signin">Sign In</Link>
+                </Button>
+                <Button asChild>
+                  <Link href="/auth/signin">Get Started</Link>
+                </Button>
               </div>
             )}
 
@@ -167,10 +182,10 @@ export function Navbar() {
             <div className="md:hidden">
               <Button
                 variant="ghost"
-                size="sm"
+                size="icon"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               >
-                <MenuIcon className="h-5 w-5" />
+                <MenuIcon className="h-6 w-6" />
               </Button>
             </div>
           </div>
@@ -179,39 +194,62 @@ export function Navbar() {
 
       {/* Mobile menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200">
+        <div className="md:hidden bg-white border-t border-gray-200">
+          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            {menuSchools.map((item) => (
+               <Link
+                key={item.name}
+                href={item.href}
+                className="text-gray-600 hover:text-emerald-600 hover:bg-emerald-50 block px-3 py-2 rounded-md text-base font-medium flex items-center space-x-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <Utensils className="h-5 w-5" />
+                <span>{item.name} Menu</span>
+              </Link>
+            ))}
+            <div className="border-t border-gray-200 my-2"></div>
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-gray-700 hover:text-emerald-600 block px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center space-x-2"
+                className="text-gray-600 hover:text-emerald-600 hover:bg-emerald-50 block px-3 py-2 rounded-md text-base font-medium flex items-center space-x-2"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                <item.icon className="h-4 w-4" />
+                <item.icon className="h-5 w-5" />
                 <span>{item.name}</span>
               </Link>
             ))}
             
-            {session?.user?.role === "admin" && (
+            <div className="border-t border-gray-200 my-2"></div>
+            {session ? (
               <>
-                <div className="border-t border-gray-200 my-2"></div>
-                {adminNavigation.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className="text-gray-700 hover:text-emerald-600 block px-3 py-2 rounded-md text-base font-medium transition-colors flex items-center space-x-2"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    <item.icon className="h-4 w-4" />
-                    <span>{item.name}</span>
-                  </Link>
-                ))}
+                 {session.user?.role === "admin" && (
+                  <>
+                    {adminNavigation.map((item) => (
+                      <Link
+                        key={item.name}
+                        href={item.href}
+                        className="text-gray-600 hover:text-emerald-600 hover:bg-emerald-50 block px-3 py-2 rounded-md text-base font-medium flex items-center space-x-2"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        <item.icon className="h-5 w-5" />
+                        <span>{item.name}</span>
+                      </Link>
+                    ))}
+                    <div className="border-t border-gray-200 my-2"></div>
+                  </>
+                )}
               </>
+            ) : (
+              <div className="px-3 py-2">
+                <Button asChild className="w-full">
+                  <Link href="/auth/signin">Sign In</Link>
+                </Button>
+              </div>
             )}
           </div>
         </div>
       )}
-    </nav>
+    </header>
   );
 }

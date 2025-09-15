@@ -15,10 +15,16 @@ import {
   CheckCircle, 
   AlertCircle, 
   DollarSign,
-  Calendar,
-  MapPin
+  Calendar as CalendarIcon,
+  MapPin,
+  Users,
+  Phone
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { cn } from "@/lib/utils";
+import { format } from "date-fns";
 
 // Mock data - in real app this would come from the database
 const schools = [
@@ -37,56 +43,29 @@ const requestTypes = [
   { id: "other", name: "Other", description: "Other special requests" },
 ];
 
-const sampleRequests = [
-  {
-    id: "1",
-    title: "Gluten-Free Birthday Cake",
-    description: "Need a gluten-free birthday cake for a student with celiac disease",
-    type: "dietary",
-    status: "approved",
-    estimatedPrice: 45.00,
-    submittedDate: "2024-01-10",
-    school: "Amador Valley High School",
-  },
-  {
-    id: "2",
-    title: "Vegan Graduation Dinner",
-    description: "Requesting a vegan menu option for graduation dinner celebration",
-    type: "celebration",
-    status: "pending",
-    estimatedPrice: 25.00,
-    submittedDate: "2024-01-12",
-    school: "Foothill High School",
-  },
-  {
-    id: "3",
-    title: "Kosher Meal Options",
-    description: "Looking for kosher meal options for Jewish students",
-    type: "cultural",
-    status: "in-review",
-    estimatedPrice: 30.00,
-    submittedDate: "2024-01-08",
-    school: "Village High School",
-  },
-];
-
 export default function CustomRequestsPage() {
   const { data: session } = useSession();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [eventDate, setEventDate] = useState<Date>();
+  const [pickupDate, setPickupDate] = useState<Date>();
+  const [deliveryDate, setDeliveryDate] = useState<Date>();
+
   const [formData, setFormData] = useState({
-    title: "",
+    name: "",
+    email: "",
+    phone: "",
+    eventTime: "",
+    partySize: "",
     description: "",
+    dietaryRestrictions: "",
     schoolId: "",
-    requestType: "",
-    estimatedPrice: "",
-    specialInstructions: "",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.title || !formData.description || !formData.schoolId || !formData.requestType) {
+    if (!formData.name || !formData.email || !eventDate || !formData.eventTime || !formData.partySize || !formData.description) {
       toast({
         title: "Missing Information",
         description: "Please fill in all required fields.",
@@ -103,18 +82,24 @@ export default function CustomRequestsPage() {
       
       toast({
         title: "Request Submitted!",
-        description: "Your custom request has been submitted and is under review. We'll contact you within 24-48 hours.",
+        description: "Your custom request has been submitted. A culinary teacher will reach out to you with a quote as soon as they are able.",
       });
 
       // Reset form
       setFormData({
-        title: "",
+        name: "",
+        email: "",
+        phone: "",
+        eventTime: "",
+        partySize: "",
         description: "",
+        dietaryRestrictions: "",
         schoolId: "",
-        requestType: "",
-        estimatedPrice: "",
-        specialInstructions: "",
       });
+      setEventDate(undefined);
+      setPickupDate(undefined);
+      setDeliveryDate(undefined);
+
     } catch (error) {
       toast({
         title: "Submission Failed",
@@ -123,21 +108,6 @@ export default function CustomRequestsPage() {
       });
     } finally {
       setIsSubmitting(false);
-    }
-  };
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "pending":
-        return "text-yellow-600 bg-yellow-100";
-      case "in-review":
-        return "text-blue-600 bg-blue-100";
-      case "approved":
-        return "text-green-600 bg-green-100";
-      case "rejected":
-        return "text-red-600 bg-red-100";
-      default:
-        return "text-gray-600 bg-gray-100";
     }
   };
 
@@ -166,7 +136,7 @@ export default function CustomRequestsPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">Custom Requests</h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">Custom Catering Requests</h1>
           <p className="text-gray-600">
             Have a special dietary need or celebration? Submit a custom request and we'll work with you to create the perfect meal.
           </p>
@@ -182,107 +152,151 @@ export default function CustomRequestsPage() {
                   Submit Custom Request
                 </CardTitle>
                 <CardDescription>
-                  Tell us about your special request and we'll work with you to make it happen.
+                  A culinary teacher will reach out to you with a quote for the below request as soon as they are able. Payment can be made via a donation through FutureFund, cash, or check.
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  {/* Request Title */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <Label htmlFor="name">Name of Person Ordering *</Label>
+                      <Input id="name" placeholder="John Doe" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} required />
+                    </div>
+                    <div>
+                      <Label htmlFor="email">Email Address *</Label>
+                      <Input id="email" type="email" placeholder="you@example.com" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} required />
+                    </div>
+                    <div>
+                      <Label htmlFor="phone">Phone Number</Label>
+                      <Input id="phone" type="tel" placeholder="(555) 123-4567" value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})} />
+                    </div>
+                    <div>
+                      <Label htmlFor="partySize">Number of People Anticipated *</Label>
+                      <Input id="partySize" type="number" placeholder="e.g., 15" value={formData.partySize} onChange={(e) => setFormData({...formData, partySize: e.target.value})} required />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Date of Event *</Label>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant="outline"
+                            className={cn(
+                              "w-full justify-start text-left font-normal",
+                              !eventDate && "text-muted-foreground"
+                            )}
+                          >
+                            <CalendarIcon className="mr-2 h-4 w-4" />
+                            {eventDate ? format(eventDate, "PPP") : "Pick a date"}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
+                          <Calendar
+                            mode="single"
+                            selected={eventDate}
+                            onSelect={setEventDate}
+                            initialFocus
+                          />
+                        </PopoverContent>
+                      </Popover>
+                    </div>
+                    <div>
+                      <Label htmlFor="eventTime">Time of Event *</Label>
+                      <Input id="eventTime" type="time" value={formData.eventTime} onChange={(e) => setFormData({...formData, eventTime: e.target.value})} required />
+                    </div>
+                  </div>
+
                   <div className="space-y-2">
-                    <Label htmlFor="title">Request Title *</Label>
-                    <Input
-                      id="title"
-                      placeholder="e.g., Gluten-Free Birthday Cake"
-                      value={formData.title}
-                      onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                    <Label htmlFor="description">Please describe what you would like for your custom catering experience *</Label>
+                    <Textarea
+                      id="description"
+                      placeholder="Tell us about your event, desired menu, service style (e.g., buffet, plated), and any other key details."
+                      value={formData.description}
+                      onChange={(e) => setFormData({...formData, description: e.target.value})}
+                      rows={5}
                       required
                     />
                   </div>
 
-                  {/* Request Type */}
                   <div className="space-y-2">
-                    <Label htmlFor="requestType">Request Type *</Label>
-                    <Select value={formData.requestType} onValueChange={(value) => setFormData({ ...formData, requestType: value })}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select request type" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {requestTypes.map((type) => (
-                          <SelectItem key={type.id} value={type.id}>
-                            <div className="flex flex-col">
-                              <span className="font-medium">{type.name}</span>
-                              <span className="text-sm text-gray-500">{type.description}</span>
-                            </div>
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    <Label htmlFor="dietaryRestrictions">Dietary Restrictions</Label>
+                    <Textarea
+                      id="dietaryRestrictions"
+                      placeholder="e.g., Gluten-free, vegetarian, nut allergies, etc."
+                      value={formData.dietaryRestrictions}
+                      onChange={(e) => setFormData({...formData, dietaryRestrictions: e.target.value})}
+                      rows={2}
+                    />
                   </div>
-
-                  {/* School Selection */}
+                  
                   <div className="space-y-2">
-                    <Label htmlFor="school">School Location *</Label>
+                    <Label>Do you have a school preference for fulfilling your order?</Label>
                     <Select value={formData.schoolId} onValueChange={(value) => setFormData({ ...formData, schoolId: value })}>
                       <SelectTrigger>
-                        <SelectValue placeholder="Choose a school location" />
+                        <SelectValue placeholder="Choose a school location (optional)" />
                       </SelectTrigger>
                       <SelectContent>
                         {schools.map((school) => (
                           <SelectItem key={school.id} value={school.id}>
-                            <div className="flex flex-col">
-                              <span className="font-medium">{school.name}</span>
-                              <span className="text-sm text-gray-500">{school.address}</span>
-                            </div>
+                            {school.name}
                           </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
                   </div>
 
-                  {/* Description */}
-                  <div className="space-y-2">
-                    <Label htmlFor="description">Detailed Description *</Label>
-                    <Textarea
-                      id="description"
-                      placeholder="Please provide detailed information about your request, including any specific requirements, dietary restrictions, allergies, or special circumstances..."
-                      value={formData.description}
-                      onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                      rows={4}
-                      required
-                    />
-                  </div>
-
-                  {/* Estimated Price */}
-                  <div className="space-y-2">
-                    <Label htmlFor="estimatedPrice">Estimated Budget (Optional)</Label>
-                    <div className="relative">
-                      <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 h-4 w-4" />
-                      <Input
-                        id="estimatedPrice"
-                        type="number"
-                        placeholder="0.00"
-                        value={formData.estimatedPrice}
-                        onChange={(e) => setFormData({ ...formData, estimatedPrice: e.target.value })}
-                        className="pl-10"
-                        min="0"
-                        step="0.01"
-                      />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <Label>Date of Pick Up</Label>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant="outline"
+                            className={cn(
+                              "w-full justify-start text-left font-normal",
+                              !pickupDate && "text-muted-foreground"
+                            )}
+                          >
+                            <CalendarIcon className="mr-2 h-4 w-4" />
+                            {pickupDate ? format(pickupDate, "PPP") : "Pick a date"}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
+                          <Calendar
+                            mode="single"
+                            selected={pickupDate}
+                            onSelect={setPickupDate}
+                            initialFocus
+                          />
+                        </PopoverContent>
+                      </Popover>
+                      <p className="text-xs text-gray-500">Pickup must be between 8:00 AM and 2:30 PM.</p>
                     </div>
-                    <p className="text-sm text-gray-500">
-                      This helps us understand your budget expectations. Final pricing will be determined after review.
-                    </p>
-                  </div>
-
-                  {/* Special Instructions */}
-                  <div className="space-y-2">
-                    <Label htmlFor="specialInstructions">Additional Notes</Label>
-                    <Textarea
-                      id="specialInstructions"
-                      placeholder="Any additional information, timing requirements, or special considerations..."
-                      value={formData.specialInstructions}
-                      onChange={(e) => setFormData({ ...formData, specialInstructions: e.target.value })}
-                      rows={3}
-                    />
+                    <div className="space-y-2">
+                      <Label>Date of Delivery</Label>
+                       <Popover>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant="outline"
+                            className={cn(
+                              "w-full justify-start text-left font-normal",
+                              !deliveryDate && "text-muted-foreground"
+                            )}
+                          >
+                            <CalendarIcon className="mr-2 h-4 w-4" />
+                            {deliveryDate ? format(deliveryDate, "PPP") : "Pick a date"}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
+                          <Calendar
+                            mode="single"
+                            selected={deliveryDate}
+                            onSelect={setDeliveryDate}
+                            initialFocus
+                          />
+                        </PopoverContent>
+                      </Popover>
+                      <p className="text-xs text-gray-500">Delivery fees will be assessed.</p>
+                    </div>
                   </div>
 
                   {/* Submit Button */}
@@ -312,7 +326,7 @@ export default function CustomRequestsPage() {
                   </div>
                   <div>
                     <p className="font-medium">Submit Request</p>
-                    <p className="text-sm text-gray-600">Fill out the form with your special requirements</p>
+                    <p className="text-sm text-gray-600">Fill out the form with your event and catering details.</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
@@ -320,8 +334,8 @@ export default function CustomRequestsPage() {
                     2
                   </div>
                   <div>
-                    <p className="font-medium">Review Process</p>
-                    <p className="text-sm text-gray-600">Our team reviews your request within 24-48 hours</p>
+                    <p className="font-medium">Receive a Quote</p>
+                    <p className="text-sm text-gray-600">A culinary teacher will review your request and provide a quote.</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
@@ -329,69 +343,40 @@ export default function CustomRequestsPage() {
                     3
                   </div>
                   <div>
-                    <p className="font-medium">Custom Solution</p>
-                    <p className="text-sm text-gray-600">We work with you to create the perfect meal</p>
+                    <p className="font-medium">Finalize & Enjoy</p>
+                    <p className="text-sm text-gray-600">Confirm your order, arrange payment, and enjoy your custom event!</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Guidelines */}
+            {/* Payment Info */}
             <Card>
               <CardHeader>
-                <CardTitle>Request Guidelines</CardTitle>
+                <CardTitle>Payment Information</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
-                <div className="flex items-start space-x-2">
-                  <CheckCircle className="h-4 w-4 text-emerald-600 mt-0.5 flex-shrink-0" />
-                  <p className="text-sm text-gray-600">
-                    Submit requests at least 3-5 business days in advance
+                 <p className="text-sm text-gray-600">
+                    Payment can be made via a donation through FutureFund, cash, or check. Details will be provided with your quote.
                   </p>
-                </div>
-                <div className="flex items-start space-x-2">
-                  <CheckCircle className="h-4 w-4 text-emerald-600 mt-0.5 flex-shrink-0" />
-                  <p className="text-sm text-gray-600">
-                    Include all dietary restrictions and allergies
-                  </p>
-                </div>
-                <div className="flex items-start space-x-2">
-                  <CheckCircle className="h-4 w-4 text-emerald-600 mt-0.5 flex-shrink-0" />
-                  <p className="text-sm text-gray-600">
-                    Provide specific details about your needs
-                  </p>
-                </div>
-                <div className="flex items-start space-x-2">
-                  <AlertCircle className="h-4 w-4 text-amber-600 mt-0.5 flex-shrink-0" />
-                  <p className="text-sm text-gray-600">
-                    Pricing may vary based on complexity and ingredients
-                  </p>
-                </div>
               </CardContent>
             </Card>
-
-            {/* Recent Requests */}
+            
+            {/* FAQ */}
             <Card>
-              <CardHeader>
-                <CardTitle>Recent Requests</CardTitle>
-                <CardDescription>Examples of custom requests we've handled</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {sampleRequests.map((request) => (
-                  <div key={request.id} className="p-3 border rounded-lg">
-                    <div className="flex items-start justify-between mb-2">
-                      <h4 className="font-medium text-sm">{request.title}</h4>
-                      <Badge className={`text-xs ${getStatusColor(request.status)}`}>
-                        {request.status}
-                      </Badge>
+                <CardHeader>
+                    <CardTitle>FAQ</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                    <div>
+                        <h4 className="font-medium text-gray-900 mb-1">What kind of events can you cater?</h4>
+                        <p className="text-sm text-gray-600">We can cater a wide range of events, from small department meetings to larger school functions. Just let us know what you need!</p>
                     </div>
-                    <p className="text-xs text-gray-600 mb-2">{request.description}</p>
-                    <div className="flex items-center justify-between text-xs text-gray-500">
-                      <span>{request.school}</span>
-                      <span>${request.estimatedPrice}</span>
+                    <div>
+                        <h4 className="font-medium text-gray-900 mb-1">How far in advance should I submit a request?</h4>
+                        <p className="text-sm text-gray-600">We recommend submitting requests at least 2-3 weeks in advance, especially for larger events, to ensure we can accommodate you.</p>
                     </div>
-                  </div>
-                ))}
-              </CardContent>
+                </CardContent>
             </Card>
           </div>
         </div>

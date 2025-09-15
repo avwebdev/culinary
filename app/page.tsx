@@ -1,128 +1,77 @@
-
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { 
   Utensils, 
-  Calendar, 
+  Settings, 
   Users, 
-  Clock, 
-  Star, 
   Heart,
   ArrowRight,
-  CheckCircle
+  Sparkles,
+  Leaf,
+  Smile
 } from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="min-h-screen">
+    <div className="bg-gray-50 text-gray-800">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-green-50 to-emerald-100 py-20 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center space-y-8">
-            <div className="space-y-4">
-              <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight">
-                PUSD Culinary
-                <span className="block text-emerald-600">Department</span>
-              </h1>
-              <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto">
-                Fresh, nutritious, and delicious meals prepared with care for our school community. 
-                Order online, make reservations, and enjoy quality dining experiences.
-              </p>
-            </div>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link href="/menu">
-                <Button size="lg" className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-3 text-lg">
-                  <Utensils className="mr-2 h-5 w-5" />
-                  View Menu & Order
-                </Button>
+      <section className="relative bg-white pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-white to-green-50 z-0"></div>
+        <div className="relative max-w-7xl mx-auto text-center z-10">
+          <h1 className="text-5xl md:text-7xl font-bubblegum text-emerald-900 leading-tight">
+            Fresh Meals,
+            <span className="block text-emerald-600">Student-Crafted</span>
+          </h1>
+          <p className="mt-6 text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+            Experience the taste of education. PUSD's culinary program offers delicious, nutritious meals prepared by the next generation of chefs.
+          </p>
+          <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Button asChild size="lg" className="px-8 py-6 text-lg shadow-lg">
+              <Link href="/menu/amador-valley">
+                <Utensils className="mr-2 h-5 w-5" />
+                Explore Menus
               </Link>
-              <Link href="/reservations">
-                <Button size="lg" variant="outline" className="border-emerald-600 text-emerald-600 hover:bg-emerald-50 px-8 py-3 text-lg">
-                  <Calendar className="mr-2 h-5 w-5" />
-                  Make Reservation
-                </Button>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="bg-white/50 backdrop-blur-sm px-8 py-6 text-lg shadow-lg">
+              <Link href="/custom-requests">
+                <Settings className="mr-2 h-5 w-5" />
+                Custom Catering
               </Link>
-            </div>
+            </Button>
           </div>
         </div>
-        
-        {/* Decorative elements */}
-        <div className="absolute top-10 left-10 w-20 h-20 bg-emerald-200 rounded-full opacity-50"></div>
-        <div className="absolute bottom-10 right-10 w-32 h-32 bg-green-200 rounded-full opacity-30"></div>
       </section>
 
       {/* Features Section */}
       <section className="py-20 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Why Choose PUSD Culinary?
+            <h2 className="text-4xl md:text-5xl font-bubblegum text-slate-900 mb-4">
+              More Than Just a Meal
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              We're committed to providing exceptional dining experiences with fresh, 
-              locally-sourced ingredients and outstanding service.
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Every order supports hands-on learning and career training for students in our community.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Card className="text-center border-0 shadow-lg hover:shadow-xl transition-shadow">
-              <CardHeader>
-                <div className="mx-auto w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mb-4">
-                  <Heart className="h-8 w-8 text-emerald-600" />
-                </div>
-                <CardTitle className="text-xl">Fresh & Healthy</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-base">
-                  Locally sourced ingredients, fresh daily, with nutrition in mind
-                </CardDescription>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center border-0 shadow-lg hover:shadow-xl transition-shadow">
-              <CardHeader>
-                <div className="mx-auto w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mb-4">
-                  <Clock className="h-8 w-8 text-emerald-600" />
-                </div>
-                <CardTitle className="text-xl">Convenient Ordering</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-base">
-                  Order online, skip the line, and pick up at your convenience
-                </CardDescription>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center border-0 shadow-lg hover:shadow-xl transition-shadow">
-              <CardHeader>
-                <div className="mx-auto w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mb-4">
-                  <Users className="h-8 w-8 text-emerald-600" />
-                </div>
-                <CardTitle className="text-xl">Community Focused</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-base">
-                  Supporting our school community with quality dining experiences
-                </CardDescription>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center border-0 shadow-lg hover:shadow-xl transition-shadow">
-              <CardHeader>
-                <div className="mx-auto w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mb-4">
-                  <Star className="h-8 w-8 text-emerald-600" />
-                </div>
-                <CardTitle className="text-xl">Excellence</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-base">
-                  Award-winning culinary team dedicated to quality and service
-                </CardDescription>
-              </CardContent>
-            </Card>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <FeatureCard
+              icon={Leaf}
+              title="Fresh & Healthy"
+              description="Using locally-sourced ingredients, our students craft nutritious and delicious meals daily."
+            />
+            <FeatureCard
+              icon={Sparkles}
+              title="Student-Powered"
+              description="Our culinary program is a real-world classroom, giving students invaluable hands-on experience."
+            />
+            <FeatureCard
+              icon={Smile}
+              title="Community Focused"
+              description="We're proud to serve our school community, bringing staff and students together with great food."
+            />
           </div>
         </div>
       </section>
@@ -131,44 +80,30 @@ export default function Home() {
       <section className="py-20 px-4 bg-gray-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              How It Works
+            <h2 className="text-4xl md:text-5xl font-bubblegum text-slate-900 mb-4">
+              Simple & Delicious
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Getting your delicious meal is simple and convenient
+              Getting your next great meal is as easy as 1-2-3.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center space-y-4">
-              <div className="mx-auto w-16 h-16 bg-emerald-600 rounded-full flex items-center justify-center text-white text-2xl font-bold">
-                1
-              </div>
-              <h3 className="text-2xl font-semibold text-gray-900">Browse & Select</h3>
-              <p className="text-gray-600">
-                Explore our diverse menu featuring fresh, seasonal ingredients and daily specials
-              </p>
-            </div>
-
-            <div className="text-center space-y-4">
-              <div className="mx-auto w-16 h-16 bg-emerald-600 rounded-full flex items-center justify-center text-white text-2xl font-bold">
-                2
-              </div>
-              <h3 className="text-2xl font-semibold text-gray-900">Order Online</h3>
-              <p className="text-gray-600">
-                Place your order through our easy-to-use platform and choose your pickup time
-              </p>
-            </div>
-
-            <div className="text-center space-y-4">
-              <div className="mx-auto w-16 h-16 bg-emerald-600 rounded-full flex items-center justify-center text-white text-2xl font-bold">
-                3
-              </div>
-              <h3 className="text-2xl font-semibold text-gray-900">Enjoy Your Meal</h3>
-              <p className="text-gray-600">
-                Pick up your fresh, delicious meal and enjoy with family and friends
-              </p>
-            </div>
+          <div className="grid md:grid-cols-3 gap-12">
+            <HowItWorksStep
+              step="1"
+              title="Browse & Select"
+              description="Explore our school menus, featuring fresh, seasonal ingredients and daily specials crafted by students."
+            />
+            <HowItWorksStep
+              step="2"
+              title="Order Online"
+              description="Place your order securely through our easy-to-use platform and choose your school for pickup."
+            />
+            <HowItWorksStep
+              step="3"
+              title="Enjoy & Support"
+              description="Pick up your fresh meal and enjoy knowing you're supporting student education with every bite."
+            />
           </div>
         </div>
       </section>
@@ -176,27 +111,48 @@ export default function Home() {
       {/* CTA Section */}
       <section className="py-20 px-4 bg-emerald-600">
         <div className="max-w-4xl mx-auto text-center text-white">
-          <h2 className="text-4xl font-bold mb-4">
-            Ready to Experience Great Food?
+          <h2 className="text-4xl md:text-5xl font-bubblegum mb-4">
+            Ready to Taste the Difference?
           </h2>
           <p className="text-xl mb-8 opacity-90">
-            Join our community of satisfied diners and discover why PUSD Culinary is the choice for quality school dining.
+            Join us in supporting student success. Your next lunch could be a lesson for a future chef.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/menu">
-              <Button size="lg" className="bg-white text-emerald-600 hover:bg-gray-100 px-8 py-3 text-lg">
-                Start Ordering
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+          <Button asChild size="lg" className="bg-white text-emerald-600 hover:bg-gray-100 px-8 py-6 text-lg shadow-lg">
+            <Link href="/menu/amador-valley">
+              Start Your Order
+              <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
-            <Link href="/contact">
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-emerald-600 px-8 py-3 text-lg">
-                Contact Us
-              </Button>
-            </Link>
-          </div>
+          </Button>
         </div>
       </section>
     </div>
   );
 }
+
+const FeatureCard = ({ icon: Icon, title, description }: { icon: React.ElementType, title: string, description: string }) => (
+  <Card className="text-center border-gray-200 shadow-sm hover:shadow-xl transition-shadow duration-300">
+    <CardHeader>
+      <div className="mx-auto w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mb-4">
+        <Icon className="h-8 w-8 text-emerald-600" />
+      </div>
+      <CardTitle className="text-2xl">{title}</CardTitle>
+    </CardHeader>
+    <CardContent>
+      <p className="text-base text-gray-600">
+        {description}
+      </p>
+    </CardContent>
+  </Card>
+);
+
+const HowItWorksStep = ({ step, title, description }: { step: string, title: string, description: string }) => (
+  <div className="text-center space-y-4">
+    <div className="mx-auto w-16 h-16 bg-emerald-600 rounded-full flex items-center justify-center text-white text-3xl font-bold font-bubblegum shadow-lg">
+      {step}
+    </div>
+    <h3 className="text-3xl font-bubblegum text-slate-900">{title}</h3>
+    <p className="text-gray-600 max-w-xs mx-auto">
+      {description}
+    </p>
+  </div>
+);
