@@ -7,7 +7,6 @@ export function Footer() {
     { name: "Foothill Menu", href: "/menu/foothill" },
     { name: "Village Menu", href: "/menu/village" },
     { name: "Custom Requests", href: "/custom-requests" },
-    { name: "Gallery", href: "/gallery" },
     { name: "Contact", href: "/contact" },
   ];
 

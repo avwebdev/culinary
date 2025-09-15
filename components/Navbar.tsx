@@ -32,7 +32,6 @@ export function Navbar() {
 
   const navigation = [
     { name: "Custom Requests", href: "/custom-requests", icon: Settings },
-    { name: "Gallery", href: "/gallery", icon: ImageIcon },
     { name: "Contact", href: "/contact", icon: Contact },
   ];
 
