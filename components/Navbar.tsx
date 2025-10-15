@@ -47,7 +47,7 @@ export function Navbar() {
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center space-x-2">
-              <div className="w-12 h-12 bg-emerald-600 rounded-full flex items-center justify-center shadow-md">
+              <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center shadow-md">
                 <Utensils className="h-6 w-6 text-white" />
               </div>
               <span className="text-2xl font-bubblegum text-slate-900 hidden sm:block">
@@ -62,7 +62,7 @@ export function Navbar() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-gray-600 hover:text-emerald-600 px-3 py-2 rounded-md text-base font-medium flex items-center space-x-2"
+                className="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-base font-medium flex items-center space-x-2"
               >
                 <item.icon className="h-5 w-5" />
                 <span>{item.name}</span>
@@ -195,7 +195,7 @@ export function Navbar() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-gray-600 hover:text-emerald-600 hover:bg-emerald-50 block px-3 py-2 rounded-md text-base font-medium flex items-center space-x-2"
+                className="text-gray-600 hover:text-primary hover:bg-primary/5 block px-3 py-2 rounded-md text-base font-medium flex items-center space-x-2"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <item.icon className="h-5 w-5" />
@@ -212,7 +212,7 @@ export function Navbar() {
                       <Link
                         key={item.name}
                         href={item.href}
-                        className="text-gray-600 hover:text-emerald-600 hover:bg-emerald-50 block px-3 py-2 rounded-md text-base font-medium flex items-center space-x-2"
+                        className="text-gray-600 hover:text-primary hover:bg-primary/5 block px-3 py-2 rounded-md text-base font-medium flex items-center space-x-2"
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
                         <item.icon className="h-5 w-5" />

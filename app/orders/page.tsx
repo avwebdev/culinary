@@ -169,7 +169,7 @@ export default function Orders() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-emerald-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading...</p>
         </div>
       </div>
@@ -183,7 +183,7 @@ export default function Orders() {
           <ShoppingCart className="h-16 w-16 text-red-500 mx-auto mb-4" />
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Sign In Required</h2>
           <p className="text-gray-600 mb-4">Please sign in to view your orders.</p>
-          <Button onClick={() => router.push("/auth/signin")} className="bg-emerald-600 hover:bg-emerald-700 text-white">
+          <Button onClick={() => router.push("/auth/signin")} className="bg-primary hover:bg-primary/90 text-white">
             Sign In
           </Button>
         </div>
@@ -211,7 +211,7 @@ export default function Orders() {
             </div>
             <div className="text-right">
               <p className="text-sm text-gray-500">Total Orders</p>
-              <p className="text-2xl font-bold text-emerald-600">{filteredOrders.length}</p>
+              <p className="text-2xl font-bold text-primary">{filteredOrders.length}</p>
             </div>
           </div>
         </div>
@@ -229,7 +229,7 @@ export default function Orders() {
                     placeholder="Search by order ID or items..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 pr-4 py-2 border border-gray-300 rounded-md w-full focus:ring-emerald-500 focus:border-emerald-500"
+                    className="pl-10 pr-4 py-2 border border-gray-300 rounded-md w-full focus:ring-primary focus:border-primary"
                   />
                 </div>
               </div>
@@ -239,7 +239,7 @@ export default function Orders() {
                 <select
                   value={statusFilter}
                   onChange={(e) => setStatusFilter(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
                 >
                   {statusOptions.map(status => (
                     <option key={status} value={status}>
@@ -324,7 +324,7 @@ export default function Orders() {
                   {/* Order Total & Actions */}
                   <div className="flex flex-col space-y-4">
                     <div className="text-right">
-                      <p className="text-lg font-bold text-emerald-600">${order.total.toFixed(2)}</p>
+                      <p className="text-lg font-bold text-primary">${order.total.toFixed(2)}</p>
                     </div>
                     
                     <div className="space-y-2">
@@ -368,7 +368,7 @@ export default function Orders() {
                 <h3 className="text-lg font-medium text-gray-900 mb-2">No orders found</h3>
                 <p className="text-gray-500 mb-4">Try adjusting your filters or place your first order!</p>
                 <Link href="/menu">
-                  <Button className="bg-emerald-600 hover:bg-emerald-700">
+                  <Button className="bg-primary hover:bg-primary/90">
                     Browse Menu
                   </Button>
                 </Link>
@@ -387,23 +387,23 @@ export default function Orders() {
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div className="text-center">
-                  <p className="text-2xl font-bold text-emerald-600">{filteredOrders.length}</p>
+                  <p className="text-2xl font-bold text-primary">{filteredOrders.length}</p>
                   <p className="text-sm text-gray-500">Total Orders</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-2xl font-bold text-emerald-600">
+                  <p className="text-2xl font-bold text-primary">
                     ${filteredOrders.reduce((total, order) => total + order.total, 0).toFixed(2)}
                   </p>
                   <p className="text-sm text-gray-500">Total Spent</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-2xl font-bold text-emerald-600">
+                  <p className="text-2xl font-bold text-primary">
                     ${(filteredOrders.reduce((total, order) => total + order.total, 0) / filteredOrders.length).toFixed(2)}
                   </p>
                   <p className="text-sm text-gray-500">Average Order</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-2xl font-bold text-emerald-600">
+                  <p className="text-2xl font-bold text-primary">
                     {filteredOrders.filter(order => order.status === "completed").length}
                   </p>
                   <p className="text-sm text-gray-500">Completed Orders</p>

@@ -91,7 +91,7 @@ export default function ReservationsPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="text-center">
-            <Button asChild className="bg-emerald-600 hover:bg-emerald-700 text-white">
+            <Button asChild className="bg-primary hover:bg-primary/90 text-white">
               <a href="/auth/signin">Sign In</a>
             </Button>
           </CardContent>
@@ -223,7 +223,7 @@ export default function ReservationsPage() {
                   {/* Submit Button */}
                   <Button 
                     type="submit" 
-                    className="w-full bg-emerald-600 hover:bg-emerald-700"
+                    className="w-full bg-primary hover:bg-primary/90"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? "Creating Reservation..." : "Confirm Reservation"}
@@ -272,19 +272,19 @@ export default function ReservationsPage() {
               </CardHeader>
               <CardContent className="space-y-3">
                 <div className="flex items-start space-x-2">
-                  <CheckCircle className="h-4 w-4 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <CheckCircle className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
                   <p className="text-sm text-gray-600">
                     Reservations are held for 15 minutes past the scheduled time
                   </p>
                 </div>
                 <div className="flex items-start space-x-2">
-                  <CheckCircle className="h-4 w-4 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <CheckCircle className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
                   <p className="text-sm text-gray-600">
                     Cancellations must be made at least 2 hours in advance
                   </p>
                 </div>
                 <div className="flex items-start space-x-2">
-                  <CheckCircle className="h-4 w-4 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <CheckCircle className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
                   <p className="text-sm text-gray-600">
                     Maximum party size is 10 people
                   </p>

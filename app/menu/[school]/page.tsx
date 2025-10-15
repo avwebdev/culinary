@@ -207,7 +207,7 @@ export default function SchoolMenu() {
   if (status === "loading") {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-emerald-600"></div>
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
       </div>
     );
   }
@@ -256,7 +256,7 @@ export default function SchoolMenu() {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 bg-white h-11 text-base"
+              className="px-3 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary bg-white h-11 text-base"
             >
               {sortOptions.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -316,7 +316,7 @@ export default function SchoolMenu() {
                   <h3 className="text-xl font-bubblegum text-slate-900">
                     {item.name}
                   </h3>
-                  <p className="text-xl font-bold text-emerald-600">
+                  <p className="text-xl font-bold text-primary">
                     ${item.price}
                   </p>
                 </div>

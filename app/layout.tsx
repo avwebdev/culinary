@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DM_Sans, Bubblegum_Sans } from "next/font/google";
+import { DM_Sans, Bubblegum_Sans, PT_Serif } from "next/font/google";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
@@ -18,6 +18,12 @@ const bubblegum = Bubblegum_Sans({
   weight: ["400"],
 });
 
+const ptSerif = PT_Serif({
+  variable: "--font-ptserif",
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
+
 export const metadata: Metadata = {
   title: "PUSD Culinary Department",
   description: "Order delicious meals and make reservations at Pleasanton Unified School District's culinary department. Fresh, healthy, and locally sourced ingredients.",
@@ -32,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="light">
       <body
-        className={`${dmSans.variable} ${bubblegum.variable} antialiased`}
+        className={`${dmSans.variable} ${bubblegum.variable} ${ptSerif.variable} antialiased`}
       >
         <AuthProvider>
           <Navbar />

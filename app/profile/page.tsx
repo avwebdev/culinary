@@ -134,7 +134,7 @@ export default function Profile() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-emerald-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading...</p>
         </div>
       </div>
@@ -154,7 +154,7 @@ export default function Profile() {
           </p>
           <Button
             onClick={() => router.push("/auth/signin")}
-            className="bg-emerald-600 hover:bg-emerald-700 text-white"
+            className="bg-primary hover:bg-primary/90 text-white"
           >
             Sign In
           </Button>
@@ -254,7 +254,7 @@ export default function Profile() {
                         onChange={(e) =>
                           setFormData({ ...formData, school: e.target.value })
                         }
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
                       >
                         <option value="Amador Valley High">
                           Amador Valley High
@@ -286,7 +286,7 @@ export default function Profile() {
                     <div className="flex space-x-2 pt-4">
                       <Button
                         onClick={handleSave}
-                        className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white"
+                        className="flex-1 bg-primary hover:bg-primary/90 text-white"
                       >
                         <Save className="h-4 w-4 mr-2" />
                         Save Changes
@@ -457,8 +457,8 @@ export default function Profile() {
                       key={index}
                       className="flex items-center space-x-3 p-3 border rounded-lg"
                     >
-                      <div className="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center">
-                        <span className="text-emerald-600 font-semibold">
+                      <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                        <span className="text-primary font-semibold">
                           {index + 1}
                         </span>
                       </div>

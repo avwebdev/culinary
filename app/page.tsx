@@ -19,12 +19,12 @@ export default function Home() {
     <div className="bg-gray-50 text-gray-800">
       {/* Hero Section */}
       <section className="relative bg-white pt-24 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-white to-green-50 z-0"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-white to-green-50 z-0"></div>
         {/* <FloatingKnives /> */}
         <div className="relative max-w-7xl mx-auto text-center z-10">
-          <h1 className="text-5xl md:text-7xl font-bubblegum text-emerald-900 leading-tight">
+          <h1 className="text-5xl md:text-7xl font-bubblegum text-primary leading-tight">
             Fresh Meals,
-            <span className="block text-emerald-600">Student-Crafted</span>
+            <span className="block text-primary">Student-Crafted</span>
           </h1>
           <p className="mt-6 text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
             Experience the taste of education. PUSD's culinary program offers delicious, nutritious meals prepared by the next generation of chefs.
@@ -111,7 +111,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 bg-emerald-600">
+      <section className="py-20 px-4 bg-primary">
         <div className="max-w-4xl mx-auto text-center text-white">
           <h2 className="text-4xl md:text-5xl font-bubblegum mb-4">
             Ready to Taste the Difference?
@@ -119,7 +119,7 @@ export default function Home() {
           <p className="text-xl mb-8 opacity-90">
             Join us in supporting student success. Your next lunch could be a lesson for a future chef.
           </p>
-          <Button asChild size="lg" className="bg-white text-emerald-600 hover:bg-gray-100 px-8 py-6 text-lg shadow-lg">
+          <Button asChild size="lg" className="bg-white text-primary hover:bg-gray-100 px-8 py-6 text-lg shadow-lg">
             <Link href="/menu">
               Start Your Order
               <ArrowRight className="ml-2 h-5 w-5" />
@@ -134,8 +134,8 @@ export default function Home() {
 const FeatureCard = ({ icon: Icon, title, description }: { icon: React.ElementType, title: string, description: string }) => (
   <Card className="text-center border-gray-200 shadow-sm hover:shadow-xl transition-shadow duration-300">
     <CardHeader>
-      <div className="mx-auto w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mb-4">
-        <Icon className="h-8 w-8 text-emerald-600" />
+      <div className="mx-auto w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+        <Icon className="h-8 w-8 text-primary" />
       </div>
       <CardTitle className="text-2xl">{title}</CardTitle>
     </CardHeader>
@@ -149,7 +149,7 @@ const FeatureCard = ({ icon: Icon, title, description }: { icon: React.ElementTy
 
 const HowItWorksStep = ({ step, title, description }: { step: string, title: string, description: string }) => (
   <div className="text-center space-y-4">
-    <div className="mx-auto w-16 h-16 bg-emerald-600 rounded-full flex items-center justify-center text-white text-3xl font-bold font-bubblegum shadow-lg">
+    <div className="mx-auto w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white text-3xl font-bold font-bubblegum shadow-lg">
       {step}
     </div>
     <h3 className="text-3xl font-bubblegum text-slate-900">{title}</h3>

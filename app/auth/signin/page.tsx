@@ -31,11 +31,11 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-primary/20 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         {/* Header */}
         <div className="text-center">
-          <div className="mx-auto h-16 w-16 bg-emerald-600 rounded-full flex items-center justify-center mb-4">
+          <div className="mx-auto h-16 w-16 bg-primary rounded-full flex items-center justify-center mb-4">
             <Utensils className="h-8 w-8 text-white" />
           </div>
           <h2 className="text-3xl font-bold text-gray-900">Welcome to PUSD Culinary</h2>
@@ -100,11 +100,11 @@ export default function SignInPage() {
         <div className="text-center">
                       <p className="text-xs text-gray-600">
             By signing in, you agree to our{" "}
-            <Link href="/terms" className="text-emerald-600 hover:text-emerald-500">
+            <Link href="/terms" className="text-primary hover:text-primary/80">
               Terms of Service
             </Link>{" "}
             and{" "}
-            <Link href="/privacy" className="text-emerald-600 hover:text-emerald-500">
+            <Link href="/privacy" className="text-primary hover:text-primary/80">
               Privacy Policy
             </Link>
           </p>

@@ -71,7 +71,7 @@ export default function AdminDashboard() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-emerald-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading Admin Dashboard...</p>
         </div>
       </div>
@@ -177,8 +177,8 @@ const ActionCard = ({ icon: Icon, title, href }: { icon: React.ElementType, titl
   <Link href={href}>
     <Card className="shadow-sm hover:shadow-md transition-shadow h-full">
       <CardContent className="pt-6 flex flex-col items-center justify-center text-center">
-        <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mb-2">
-            <Icon className="h-6 w-6 text-emerald-700" />
+        <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-2">
+            <Icon className="h-6 w-6 text-primary" />
         </div>
         <h3 className="text-lg font-semibold text-slate-800">{title}</h3>
       </CardContent>

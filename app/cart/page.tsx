@@ -145,7 +145,7 @@ export default function Cart() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-emerald-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading...</p>
         </div>
       </div>
@@ -165,7 +165,7 @@ export default function Cart() {
           </p>
           <Button
             onClick={() => router.push("/auth/signin")}
-            className="bg-emerald-600 hover:bg-emerald-700 text-white"
+            className="bg-primary hover:bg-primary/90 text-white"
           >
             Sign In
           </Button>
@@ -187,7 +187,7 @@ export default function Cart() {
               Add some delicious items to get started!
             </p>
             <Link href="/menu">
-              <Button className="bg-emerald-600 hover:bg-emerald-700">
+              <Button className="bg-primary hover:bg-primary/90">
                 Browse Menu
               </Button>
             </Link>
@@ -319,7 +319,7 @@ export default function Cart() {
                     <select
                       value={selectedSchool}
                       onChange={(e) => setSelectedSchool(e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
                     >
                       <option value="">Select a school</option>
                       {schools.map((school) => (
@@ -345,7 +345,7 @@ export default function Cart() {
                       onChange={(e) => setSpecialInstructions(e.target.value)}
                       placeholder="Any special requests or dietary restrictions..."
                       rows={3}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
                     />
                   </div>
 
@@ -371,7 +371,7 @@ export default function Cart() {
                   <Button
                     onClick={handleCheckout}
                     disabled={isCheckingOut || !selectedSchool}
-                    className="w-full bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50"
+                    className="w-full bg-primary hover:bg-primary/90 disabled:opacity-50"
                   >
                     {isCheckingOut ? (
                       <>

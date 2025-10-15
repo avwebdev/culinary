@@ -167,7 +167,7 @@ export default function AdminOrders() {
   if (status === "loading" || !session || session.user?.role !== "admin") {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-emerald-600"></div>
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
       </div>
     );
   }
@@ -308,7 +308,7 @@ export default function AdminOrders() {
 
                   <div className="flex flex-col space-y-2 justify-between">
                     <div className="text-right">
-                      <p className="text-lg font-bold text-emerald-600">
+                      <p className="text-lg font-bold text-primary">
                         ${order.total.toFixed(2)}
                       </p>
                     </div>

@@ -23,7 +23,7 @@ export function Footer() {
           {/* Brand Section */}
           <div className="md:col-span-4">
             <div className="flex items-center space-x-3 mb-4">
-              <div className="w-12 h-12 bg-emerald-600 rounded-full flex items-center justify-center shadow-md">
+              <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center shadow-md">
                 <Utensils className="h-6 w-6 text-white" />
               </div>
               <span className="text-2xl font-bubblegum text-slate-900">PUSD Culinary</span>
@@ -39,7 +39,7 @@ export function Footer() {
             <ul className="space-y-2">
               {quickLinks.map(link => (
                 <li key={link.name}>
-                  <Link href={link.href} className="text-gray-600 hover:text-emerald-600 transition-colors text-sm">
+                  <Link href={link.href} className="text-gray-600 hover:text-primary transition-colors text-sm">
                     {link.name}
                   </Link>
                 </li>
@@ -52,19 +52,19 @@ export function Footer() {
             <h3 className="font-semibold text-slate-900 mb-4">Contact Information</h3>
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
-                <Mail className="h-5 w-5 text-emerald-600" />
-                <a href="mailto:culinary@pleasantonusd.net" className="text-gray-600 text-sm hover:text-emerald-600">
+                <Mail className="h-5 w-5 text-primary" />
+                <a href="mailto:culinary@pleasantonusd.net" className="text-gray-600 text-sm hover:text-primary">
                   culinary@pleasantonusd.net
                 </a>
               </div>
               <div className="flex items-center space-x-3">
-                <Phone className="h-5 w-5 text-emerald-600" />
-                <a href="tel:+19254264290" className="text-gray-600 text-sm hover:text-emerald-600">
+                <Phone className="h-5 w-5 text-primary" />
+                <a href="tel:+19254264290" className="text-gray-600 text-sm hover:text-primary">
                   (925) 426-4290
                 </a>
               </div>
               <div className="flex items-center space-x-3">
-                <MapPin className="h-5 w-5 text-emerald-600" />
+                <MapPin className="h-5 w-5 text-primary" />
                 <span className="text-gray-600 text-sm">
                   Pleasanton, CA
                 </span>
@@ -90,7 +90,7 @@ export function Footer() {
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             {legalLinks.map(link => (
-              <Link key={link.name} href={link.href} className="text-gray-500 hover:text-emerald-600 transition-colors text-sm">
+              <Link key={link.name} href={link.href} className="text-gray-500 hover:text-primary transition-colors text-sm">
                 {link.name}
               </Link>
             ))}

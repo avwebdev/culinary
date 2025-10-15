@@ -118,7 +118,7 @@ export default function ContactPage() {
     <div className="bg-gray-50 py-12 sm:py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h1 className="text-5xl md:text-6xl font-bubblegum text-slate-900">
+          <h1 className="text-5xl md:text-6xl font-ptSerif text-slate-900">
             Get in Touch
           </h1>
           <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
@@ -131,7 +131,7 @@ export default function ContactPage() {
           {/* School Contacts */}
           <div className="lg:col-span-2 space-y-8">
             <div>
-              <h2 className="text-3xl font-bubblegum text-slate-900 mb-4">
+              <h2 className="text-3xl font-ptSerif text-slate-900 mb-4">
                 Teacher Contacts
               </h2>
               <div className="space-y-6">
@@ -139,7 +139,7 @@ export default function ContactPage() {
                   <Card key={school.name} className="shadow-sm">
                     <CardHeader>
                       <CardTitle className="flex items-center text-xl">
-                        <Building className="h-5 w-5 mr-3 text-emerald-600" />
+                        <Building className="h-5 w-5 mr-3 text-primary" />
                         {school.name}
                       </CardTitle>
                     </CardHeader>
@@ -151,22 +151,22 @@ export default function ContactPage() {
                         {school.teacher}
                       </p>
                       <p className="flex items-center text-sm text-gray-700">
-                        <Mail className="h-4 w-4 mr-3 text-emerald-600" />
+                        <Mail className="h-4 w-4 mr-3 text-primary" />
                         <a
                           href={`mailto:${school.email}`}
-                          className="hover:text-emerald-600 break-all"
+                          className="hover:text-primary break-all"
                         >
                           {school.email}
                         </a>
                       </p>
                       {school.instagram && (
                         <p className="flex items-center text-sm text-gray-700">
-                          <Instagram className="h-4 w-4 mr-3 text-emerald-600" />
+                          <Instagram className="h-4 w-4 mr-3 text-primary" />
                           <a
                             href={school.instagramLink!}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="hover:text-emerald-600"
+                            className="hover:text-primary"
                           >
                             @{school.instagram}
                           </a>
@@ -179,119 +179,9 @@ export default function ContactPage() {
             </div>
           </div>
 
-          {/* Contact Form */}
-          <div className="lg:col-span-3">
-            <Card className="shadow-lg">
-              <CardHeader>
-                <CardTitle className="flex items-center text-2xl">
-                  <MessageSquare className="h-6 w-6 mr-3 text-emerald-600" />
-                  Send us a Message
-                </CardTitle>
-                <CardDescription>
-                  Fill out the form below and we'll get back to you as soon as
-                  possible.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <Label htmlFor="name">Full Name *</Label>
-                      <Input
-                        id="name"
-                        placeholder="Your Name"
-                        value={formData.name}
-                        onChange={(e) =>
-                          setFormData({ ...formData, name: e.target.value })
-                        }
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="email">Email Address *</Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        placeholder="your.email@example.com"
-                        value={formData.email}
-                        onChange={(e) =>
-                          setFormData({ ...formData, email: e.target.value })
-                        }
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <Label htmlFor="phone">Phone Number</Label>
-                      <Input
-                        id="phone"
-                        type="tel"
-                        placeholder="(555) 123-4567"
-                        value={formData.phone}
-                        onChange={(e) =>
-                          setFormData({ ...formData, phone: e.target.value })
-                        }
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="inquiryType">Inquiry Type</Label>
-                      <Select
-                        value={formData.inquiryType}
-                        onValueChange={(value) =>
-                          setFormData({ ...formData, inquiryType: value })
-                        }
-                      >
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select inquiry type" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {inquiryTypes.map((type) => (
-                            <SelectItem key={type.id} value={type.id}>
-                              {type.name}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="subject">Subject *</Label>
-                    <Input
-                      id="subject"
-                      placeholder="Brief description of your inquiry"
-                      value={formData.subject}
-                      onChange={(e) =>
-                        setFormData({ ...formData, subject: e.target.value })
-                      }
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="message">Message *</Label>
-                    <Textarea
-                      id="message"
-                      placeholder="Please provide details about your inquiry..."
-                      value={formData.message}
-                      onChange={(e) =>
-                        setFormData({ ...formData, message: e.target.value })
-                      }
-                      rows={5}
-                      required
-                    />
-                  </div>
-                  <Button
-                    type="submit"
-                    className="w-full"
-                    size="lg"
-                    disabled={isSubmitting}
-                  >
-                    <Send className="h-5 w-5 mr-2" />
-                    {isSubmitting ? "Sending..." : "Send Message"}
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
+          {/* Contact Form hidden as requested */}
+          <div className="lg:col-span-3 hidden">
+            {/* Form intentionally hidden */}
           </div>
         </div>
       </div>

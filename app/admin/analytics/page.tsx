@@ -96,7 +96,7 @@ export default function AdminAnalytics() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-emerald-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading...</p>
         </div>
       </div>
@@ -308,8 +308,8 @@ export default function AdminAnalytics() {
                     className="flex items-center justify-between p-3 border rounded-lg"
                   >
                     <div className="flex items-center space-x-3">
-                      <div className="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center">
-                        <span className="text-emerald-600 font-semibold text-sm">
+                      <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
+                        <span className="text-primary font-semibold text-sm">
                           {index + 1}
                         </span>
                       </div>
@@ -321,7 +321,7 @@ export default function AdminAnalytics() {
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="font-semibold text-emerald-600">
+                      <p className="font-semibold text-primary">
                         ${item.revenue.toFixed(2)}
                       </p>
                       <p className="text-xs text-gray-500">
@@ -407,7 +407,7 @@ export default function AdminAnalytics() {
                     <p className="text-sm text-gray-500">{day.orders} orders</p>
                   </div>
                   <div className="text-right">
-                    <p className="font-semibold text-emerald-600">
+                    <p className="font-semibold text-primary">
                       ${day.revenue.toFixed(2)}
                     </p>
                     <p className="text-xs text-gray-500">

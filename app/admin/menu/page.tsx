@@ -173,7 +173,7 @@ export default function AdminMenu() {
   if (status === "loading" || !session || session.user?.role !== "admin") {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-emerald-600"></div>
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
       </div>
     );
   }
@@ -215,7 +215,7 @@ export default function AdminMenu() {
                   placeholder="Search menu items..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 pr-4 py-2 border rounded-md w-full focus:ring-emerald-500 focus:border-emerald-500 h-11 text-base"
+                  className="pl-10 pr-4 py-2 border rounded-md w-full focus:ring-primary focus:border-primary h-11 text-base"
                 />
               </div>
               <Select value={schoolFilter} onValueChange={setSchoolFilter}>
@@ -370,7 +370,7 @@ export default function AdminMenu() {
                   <h3 className="text-lg font-semibold text-slate-900">
                     {item.name}
                   </h3>
-                  <p className="text-lg font-bold text-emerald-600">
+                  <p className="text-lg font-bold text-primary">
                     ${item.price}
                   </p>
                 </div>
