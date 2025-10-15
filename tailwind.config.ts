@@ -106,7 +106,7 @@ export default {
       fontFamily: {
         dmSans: ["var(--font-dmsans)"],
         bubblegum: ["var(--font-bubblegum)"],
-        ptSerif: ["var(--font-ptserif)"],
+        ptSerif: ["var(--font-dmsans)"],
       },
     },
   },

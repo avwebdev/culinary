@@ -12,7 +12,8 @@ import {
   BarChart3,
   Utensils,
   Building,
-  Activity
+  Activity,
+  Plus
 } from "lucide-react";
 import Link from "next/link";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -117,10 +118,28 @@ export default function AdminDashboard() {
           <StatCard icon={Users} title="Total Users" value={stats.totalUsers.toLocaleString()} />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
           <ActionCard icon={ShoppingCart} title="Manage Orders" href="/admin/orders" />
           <ActionCard icon={Utensils} title="Menu Management" href="/admin/menu" />
+          <ActionCard icon={Building} title="Manage Schools" href="/admin/schools" />
           <ActionCard icon={BarChart3} title="View Analytics" href="/admin/analytics" />
+        </div>
+
+        <div className="mb-6">
+          <Card className="shadow-sm border-primary/20 bg-primary/5">
+            <CardContent className="flex flex-col sm:flex-row items-center justify-between p-6">
+              <div className="mb-4 sm:mb-0 text-center sm:text-left">
+                <h3 className="text-xl font-semibold text-primary mb-2">Need to add a new school?</h3>
+                <p className="text-gray-600">Add a new school to the system for menu management and ordering</p>
+              </div>
+              <Link href="/admin/schools?add=true">
+                <Button size="lg" className="gap-2 shadow-sm">
+                  <Building className="h-5 w-5" />
+                  Add New School
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -149,8 +168,8 @@ export default function AdminDashboard() {
           <Card className="shadow-sm">
             <CardHeader><CardTitle>Quick Actions</CardTitle></CardHeader>
             <CardContent className="grid grid-cols-2 gap-4">
-               <QuickAction icon={Building} title="Manage Schools" />
-               <QuickAction icon={Users} title="Manage Users" />
+               <QuickAction icon={Building} title="Manage Schools" href="/admin/schools" />
+               <QuickAction icon={Plus} title="Add New School" href="/admin/schools?add=true" />
                <QuickAction icon={Activity} title="System Health" />
                <QuickAction icon={Utensils} title="Add New Item" href="/admin/menu" />
             </CardContent>

@@ -23,9 +23,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useCart } from "@/components/providers/CartProvider";
 
 export function Navbar() {
   const { data: session } = useSession();
+  const { cart } = useCart();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navigation = [
@@ -77,9 +79,11 @@ export function Navbar() {
                 <Link href="/cart">
                   <Button variant="ghost" size="icon" className="relative">
                     <ShoppingCart className="h-6 w-6" />
-                    <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
-                      0
-                    </span>
+                    {cart?.itemCount ? (
+                      <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 min-w-5 px-1 flex items-center justify-center">
+                        {cart.itemCount}
+                      </span>
+                    ) : null}
                   </Button>
                 </Link>
 
@@ -195,7 +199,7 @@ export function Navbar() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-gray-600 hover:text-primary hover:bg-primary/5 block px-3 py-2 rounded-md text-base font-medium flex items-center space-x-2"
+                className="text-gray-600 hover:text-primary hover:bg-primary/5 px-3 py-2 rounded-md text-base font-medium flex items-center space-x-2"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <item.icon className="h-5 w-5" />
@@ -212,7 +216,7 @@ export function Navbar() {
                       <Link
                         key={item.name}
                         href={item.href}
-                        className="text-gray-600 hover:text-primary hover:bg-primary/5 block px-3 py-2 rounded-md text-base font-medium flex items-center space-x-2"
+                        className="text-gray-600 hover:text-primary hover:bg-primary/5 px-3 py-2 rounded-md text-base font-medium flex items-center space-x-2"
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
                         <item.icon className="h-5 w-5" />

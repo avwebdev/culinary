@@ -1,8 +1,8 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 // import { DrizzleAdapter } from "@auth/drizzle-adapter";
-// import { db } from "./db";
-// import { users } from "./schema";
+import { db } from "./db";
+import { users } from "./schema";
 
 // Check if Google credentials are available
 const hasGoogleCredentials = process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET;
@@ -38,8 +38,38 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (user) {
         // Check if user email matches admin email
         const isAdmin = user.email === "kethan@vegunta.com" || user.email === "aarushtahiliani8@gmail.com";
-        token.role = isAdmin ? "admin" : (user.role ?? "user");
+        const resolvedRole = isAdmin ? "admin" : user.role ?? "user";
+        token.role = resolvedRole;
         token.schoolId = user.schoolId;
+
+        const userId = user.id ?? token.sub ?? user.email ?? crypto.randomUUID();
+        token.sub = userId;
+
+        if (user.email) {
+          try {
+            await db
+              .insert(users)
+              .values({
+                id: userId,
+                email: user.email,
+                name: user.name,
+                image: user.image,
+                role: resolvedRole,
+                updatedAt: new Date(),
+              })
+              .onConflictDoUpdate({
+                target: users.email,
+                set: {
+                  name: user.name,
+                  image: user.image,
+                  role: resolvedRole,
+                  updatedAt: new Date(),
+                },
+              });
+          } catch (error) {
+            console.error("Failed to upsert user", error);
+          }
+        }
       }
       return token;
     },

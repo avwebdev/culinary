@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { DM_Sans, Bubblegum_Sans, PT_Serif } from "next/font/google";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from "@/components/providers/AuthProvider";
+import { CartProvider } from "@/components/providers/CartProvider";
+import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -41,12 +42,14 @@ export default function RootLayout({
         className={`${dmSans.variable} ${bubblegum.variable} ${ptSerif.variable} antialiased`}
       >
         <AuthProvider>
-          <Navbar />
-          <main className="min-h-screen bg-gray-50">
-            {children}
-          </main>
-          <Footer />
-          <Toaster />
+          <CartProvider>
+            <Navbar />
+            <main className="min-h-screen bg-gray-50">
+              {children}
+            </main>
+            <Footer />
+            <Toaster />
+          </CartProvider>
         </AuthProvider>
       </body>
     </html>
