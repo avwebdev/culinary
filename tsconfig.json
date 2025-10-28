@@ -27,17 +27,18 @@
   ],
 
   "exclude": [
-    "node_modules/",
-    "build/",
-    "dist/",
-    ".cache/",
-    ".tmp/",
+  "node_modules/",
+  "build/",
+  "dist/",
+  ".cache/",
+  ".tmp/",
+    "frontend/",
 
-    // Do not include admin files in the server compilation
-    "src/admin/",
-    // Do not include test files
-    "**/*.test.*",
-    // Do not include plugins in the server compilation
+  // Do not include admin files in the server compilation
+  "src/admin/",
+  // Do not include test files
+  "**/*.test.*",
+  // Do not include plugins in the server compilation
     "src/plugins/**"
   ]
 }
