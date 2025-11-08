@@ -1,0 +1,54 @@
+{
+  "kind": "collectionType",
+  "collectionName": "menu_items",
+  "info": {
+    "singularName": "menu-item",
+    "pluralName": "menu-items",
+    "displayName": "Menu Item"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "seasonal": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    },
+    "available_until": {
+      "type": "date",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "seasonal"
+            },
+            true
+          ]
+        }
+      },
+      "required": true
+    },
+    "ingredients": {
+      "type": "customField",
+      "customField": "plugin::strapi-plugin-sortable-list.sortable-list"
+    },
+    "price": {
+      "type": "decimal",
+      "required": true
+    },
+    "school": {
+      "type": "enumeration",
+      "enum": [
+        "Amador Valley",
+        "Foothill",
+        "Village"
+      ]
+    }
+  }
+}
