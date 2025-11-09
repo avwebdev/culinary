@@ -20,7 +20,7 @@ export interface BlocksHero extends Struct.ComponentSchema {
     background: Schema.Attribute.Media<'images', true> &
       Schema.Attribute.Required;
     buttons: Schema.Attribute.Component<'primitives.button', true>;
-    size: Schema.Attribute.Enumeration<['large', 'medium', 'small']> &
+    size: Schema.Attribute.Enumeration<['large', 'small']> &
       Schema.Attribute.Required;
     subtitle: Schema.Attribute.Text;
     title: Schema.Attribute.Text & Schema.Attribute.Required;

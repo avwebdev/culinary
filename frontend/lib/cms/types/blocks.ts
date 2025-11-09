@@ -12,7 +12,7 @@ export type Block404Type = {
 } & BaseBlockType;
 
 export type BlockHeroType = {
-  size: "small" | "medium" | "large";
+  size: "small" | "large";
   title: string;
   subtitle?: string;
   buttons: ButtonType[];
