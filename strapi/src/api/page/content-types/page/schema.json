@@ -27,7 +27,8 @@
     "blocks": {
       "type": "dynamiczone",
       "components": [
-        "blocks.404"
+        "blocks.404",
+        "blocks.hero"
       ]
     }
   }

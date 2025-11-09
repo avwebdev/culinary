@@ -1,0 +1,37 @@
+{
+  "collectionName": "components_primitives_buttons",
+  "info": {
+    "displayName": "button"
+  },
+  "options": {},
+  "attributes": {
+    "theme": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "primary",
+        "secondary",
+        "destructive",
+        "outline",
+        "ghost"
+      ]
+    },
+    "link": {
+      "type": "component",
+      "component": "primitives.link",
+      "repeatable": false
+    },
+    "size": {
+      "type": "enumeration",
+      "required": true,
+      "default": "lg",
+      "enum": [
+        "sm",
+        "md",
+        "lg",
+        "xl"
+      ]
+    }
+  },
+  "config": {}
+}

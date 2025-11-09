@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_page_headers",
+  "info": {
+    "displayName": "header"
+  },
+  "options": {},
+  "attributes": {
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "logoText": {
+      "type": "component",
+      "component": "primitives.link",
+      "repeatable": false,
+      "required": true
+    },
+    "navItems": {
+      "type": "component",
+      "component": "primitives.link",
+      "repeatable": true,
+      "required": true
+    }
+  },
+  "config": {}
+}

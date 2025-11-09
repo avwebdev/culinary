@@ -20,7 +20,7 @@
       "required": true,
       "default": false
     },
-    "available_until": {
+    "availableUntil": {
       "type": "date",
       "conditions": {
         "visible": {

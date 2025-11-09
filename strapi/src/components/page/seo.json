@@ -5,13 +5,13 @@
   },
   "options": {},
   "attributes": {
-    "meta_title": {
+    "metaTitle": {
       "type": "string"
     },
-    "meta_description": {
+    "metaDescription": {
       "type": "text"
     },
-    "meta_image": {
+    "metaImage": {
       "type": "media",
       "multiple": false,
       "allowedTypes": [

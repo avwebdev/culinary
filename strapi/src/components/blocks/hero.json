@@ -1,0 +1,40 @@
+{
+  "collectionName": "components_blocks_heroes",
+  "info": {
+    "displayName": "hero"
+  },
+  "options": {},
+  "attributes": {
+    "size": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "large",
+        "medium",
+        "small"
+      ]
+    },
+    "title": {
+      "type": "text",
+      "required": true
+    },
+    "subtitle": {
+      "type": "text",
+      "required": false
+    },
+    "buttons": {
+      "type": "component",
+      "component": "primitives.button",
+      "repeatable": true
+    },
+    "background": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  },
+  "config": {}
+}

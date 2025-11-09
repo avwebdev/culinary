@@ -1,8 +1,9 @@
-import { BaseBlock } from "@/blocks/type";
-import { getPageData } from "@/utils/cms/page";
 import { redirect } from "next/navigation";
 
-export default async function UniversalsPage({
+import { getPageData } from "@/lib/cms/page";
+import type { BaseBlockType } from "@/lib/cms/types/blocks";
+
+export default async function CMSPage({
   params,
 }: {
   params: { slug?: string[] };
@@ -10,11 +11,11 @@ export default async function UniversalsPage({
   const slug = (await params).slug || [];
   const path = "/" + slug.join("/");
 
-  console.log(path);
+  // console.log(path);
 
   const data = await getPageData(path);
 
-  console.log(data);
+  // console.log(data);
 
   // no pages found with matching slug
   if (!data.length && path != "/404") {
@@ -27,7 +28,7 @@ export default async function UniversalsPage({
   console.log(page.blocks);
 
   const renderedBlocks = await Promise.all(
-    blocks.map(async (block: BaseBlock, i: number) => {
+    blocks.map(async (block: BaseBlockType, i: number) => {
       if (block.__component && block.__component.startsWith("blocks.")) {
         const mod = await import(
           `@/blocks/${block.__component.replace("blocks.", "")}`

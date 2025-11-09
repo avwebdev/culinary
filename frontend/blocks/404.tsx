@@ -1,11 +1,6 @@
-import { BaseBlock } from "./type";
+import type { Block404Type } from "@/lib/cms/types/blocks";
 
-export type BlockType = {
-  title: string;
-  message: string;
-} & BaseBlock;
-
-export default function NotFoundBlock({ title, message }: BlockType) {
+export default function NotFoundBlock({ title, message }: Block404Type) {
   return (
     <div className="p-8 text-center">
       <h1 className="text-4xl font-bold mb-4">{title || "404 - Not Found"}</h1>

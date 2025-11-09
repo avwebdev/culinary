@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
-import { Bubblegum_Sans, PT_Serif } from "next/font/google";
+import { Bubblegum_Sans, PT_Serif, Arvo, Merriweather } from "next/font/google";
+
+import { Navbar } from "@/components/Navbar";
+
 import "./globals.css";
 
 const bubblegum = Bubblegum_Sans({
@@ -8,7 +11,7 @@ const bubblegum = Bubblegum_Sans({
   weight: ["400"],
 });
 
-const ptSerif = PT_Serif({
+const ptSerif = Merriweather({
   variable: "--font-ptserif",
   subsets: ["latin"],
   weight: ["400", "700"],
@@ -29,6 +32,7 @@ export default function RootLayout({
       <body
         className={`${bubblegum.variable} ${ptSerif.variable} ${ptSerif.className} antialiased`}
       >
+        <Navbar />
         {children}
       </body>
     </html>

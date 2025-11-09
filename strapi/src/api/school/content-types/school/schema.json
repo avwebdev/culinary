@@ -24,17 +24,17 @@
         "videos"
       ]
     },
-    "menu_items": {
+    "menuTtems": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::menu-item.menu-item"
     },
-    "website_link": {
+    "websiteLink": {
       "type": "string",
       "required": true,
       "regex": "[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)"
     },
-    "culinary_logo": {
+    "culinaryLogo": {
       "type": "media",
       "multiple": false,
       "required": true,
