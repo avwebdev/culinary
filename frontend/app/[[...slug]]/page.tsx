@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 
 import { getPageData } from "@/lib/cms/page";
 import type { BaseBlockType } from "@/lib/cms/types/blocks";
@@ -11,19 +11,19 @@ export default async function CMSPage({
   const slug = (await params).slug || [];
   const path = "/" + slug.join("/");
 
-  // console.log(path);
+  console.log("Looking for path:", path);
 
   const data = await getPageData(path);
 
-  // console.log(data);
+  console.log("Found data:", data);
 
   // no pages found with matching slug
-  if (!data.length && path != "/404") {
-    return redirect("/404");
+  if (!data || !data.length) {
+    return notFound();
   }
 
   const page = data[0];
-  const blocks = page.blocks || [];
+  const blocks = page?.blocks || [];
 
   console.log(page.blocks);
 

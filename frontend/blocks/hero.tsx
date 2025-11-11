@@ -15,32 +15,35 @@ export default function HeroBlock({
   return (
     <div
       className={`relative flex items-center justify-center text-center ${
-        size === "small" ? "h-96" : "h-[500px]"
+        size === "small" ? "h-80" : "h-screen"
       }`}
     >
-      <div className="-z-30 absolute size-full overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden -z-20">
         <Image
           src={mediaUrl}
           alt="Hero Background"
           fill
-          className="object-cover object-center blur-[3px]"
+          className="object-cover object-center"
+          priority
         />
       </div>
-      <div className="absolute size-full -z-10 bg-linear-to-b from-white/60 from-80% via-white/60 to-white"></div>
+      <div className="absolute inset-0 -z-10 bg-black/40"></div>
       <div className="relative z-10 px-8 max-w-4xl">
-        <h1 className="text-5xl md:text-6xl lg:text-7xl text-primary font-medium mb-4 whitespace-pre-line">
+        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-4 whitespace-pre-line text-white">
           {title}
         </h1>
         {subtitle && (
-          <p className="text-neutral-800 text-base md:text-lg lg:text-xl mb-6 whitespace-pre-line">
+          <p className="text-base md:text-lg lg:text-xl mb-8 whitespace-pre-line text-gray-100">
             {subtitle}
           </p>
         )}
-        <div className="space-x-4">
-          {buttons.map((button, index) => (
-            <StrapiButton key={index} {...button} />
-          ))}
-        </div>
+        {buttons && buttons.length > 0 && (
+          <div className="flex gap-4 justify-center">
+            {buttons.map((button, index) => (
+              <StrapiButton key={index} {...button} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
