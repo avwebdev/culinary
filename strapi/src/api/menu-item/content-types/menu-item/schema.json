@@ -36,7 +36,8 @@
     },
     "ingredients": {
       "type": "customField",
-      "customField": "plugin::strapi-plugin-sortable-list.sortable-list"
+      "customField": "plugin::strapi-plugin-sortable-list.sortable-list",
+      "required": true
     },
     "price": {
       "type": "decimal",
@@ -44,11 +45,17 @@
     },
     "school": {
       "type": "enumeration",
+      "required": true,
       "enum": [
         "Amador Valley",
         "Foothill",
         "Village"
       ]
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true
     }
   }
 }

@@ -44,7 +44,7 @@ export const config = {
       if (account && user) {
         try {
           const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/auth/${account.provider}/callback?access_token=${account.access_token}`
+            `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/auth/${account.provider}/callback?access_token=${account.access_token}`
           );
           const data = await response.json();
           token.jwt = data.jwt;

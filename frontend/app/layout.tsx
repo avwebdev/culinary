@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Bubblegum_Sans } from "next/font/google";
+import { AuthProvider } from "./providers";
 
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -19,17 +20,21 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  pageProps,
 }: Readonly<{
   children: React.ReactNode;
+  pageProps?: any;
 }>) {
   return (
     <html lang="en">
-      <body className={`${bubblegum.variable} ${bubblegum.className} antialiased flex flex-col min-h-screen`}>
-        <Navbar />
-        <main className="flex-1">
-          {children}
-        </main>
-        <Footer />
+      <body
+        className={`${bubblegum.variable} ${bubblegum.className} antialiased flex flex-col min-h-screen`}
+      >
+        <AuthProvider>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );

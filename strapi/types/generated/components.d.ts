@@ -222,6 +222,16 @@ export interface PrimitivesLink extends Struct.ComponentSchema {
   };
 }
 
+export interface ProductItemUuid extends Struct.ComponentSchema {
+  collectionName: 'components_product_item_uuids';
+  info: {
+    displayName: 'itemUUID';
+  };
+  attributes: {
+    uuid: Schema.Attribute.String;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
@@ -241,6 +251,7 @@ declare module '@strapi/strapi' {
       'page.social-link': PageSocialLink;
       'primitives.button': PrimitivesButton;
       'primitives.link': PrimitivesLink;
+      'product.item-uuid': ProductItemUuid;
     }
   }
 }

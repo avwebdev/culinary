@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_product_item_uuids",
+  "info": {
+    "displayName": "itemUUID"
+  },
+  "options": {},
+  "attributes": {
+    "uuid": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}
