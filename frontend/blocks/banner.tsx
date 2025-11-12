@@ -8,7 +8,7 @@ export default function BannerBlock({
   description,
   buttonText,
   buttonHref,
-  backgroundColor = "bg-green-600",
+  backgroundColor = "rgb(6, 96, 79)",
   backgroundImage,
   alignment = "center",
 }: BlockBannerType) {
@@ -23,9 +23,12 @@ export default function BannerBlock({
   }[alignment];
 
   return (
-    <section className={`relative py-20 ${backgroundColor} overflow-hidden`}>
+    <section className="relative py-32 overflow-hidden" style={{ backgroundColor }}>
+      {/* Gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent -z-10" />
+      
       {imageUrl && (
-        <div className="absolute inset-0 opacity-20 -z-10">
+        <div className="absolute inset-0 opacity-25 -z-20">
           <Image
             src={imageUrl}
             alt="Banner background"
@@ -35,23 +38,28 @@ export default function BannerBlock({
         </div>
       )}
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className={alignmentClass}>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            {title}
-          </h2>
-          {description && (
-            <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
-              {description}
-            </p>
-          )}
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className={`${alignmentClass} space-y-6`}>
+          <div className="space-y-4">
+            <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight drop-shadow-lg">
+              {title}
+            </h2>
+            {description && (
+              <p className="text-xl text-white/95 max-w-3xl drop-shadow-md leading-relaxed">
+                {description}
+              </p>
+            )}
+          </div>
+          
           {buttonHref && (
-            <Link
-              href={buttonHref}
-              className="inline-block px-8 py-3 bg-white text-green-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors"
-            >
-              {buttonText}
-            </Link>
+            <div className="pt-4">
+              <Link
+                href={buttonHref}
+                className="inline-block px-8 py-4 bg-white text-[rgb(6,96,79)] font-semibold rounded-lg hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+              >
+                {buttonText}
+              </Link>
+            </div>
           )}
         </div>
       </div>

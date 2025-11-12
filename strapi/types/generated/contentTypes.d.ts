@@ -518,6 +518,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'blocks.contact',
         'blocks.card',
         'blocks.banner',
+        'blocks.features',
         'page.social-link',
         'page.seo',
         'page.header',
@@ -556,8 +557,10 @@ export interface ApiSchoolSchool extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     culinaryLogo: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    email: Schema.Attribute.Email;
     hero: Schema.Attribute.Media<'images' | 'videos'> &
       Schema.Attribute.Required;
+    instagram: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -569,7 +572,9 @@ export interface ApiSchoolSchool extends Struct.CollectionTypeSchema {
       'api::menu-item.menu-item'
     >;
     name: Schema.Attribute.String & Schema.Attribute.Required;
+    phone: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    teacher: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

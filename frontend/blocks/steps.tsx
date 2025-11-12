@@ -32,7 +32,7 @@ export default function StepsBlock({
                 {/* Step number circle */}
                 <div className="flex items-center mb-6">
                   <div className="flex-shrink-0">
-                    <div className="w-12 h-12 rounded-full bg-green-600 text-white flex items-center justify-center font-bold text-lg">
+                    <div className="w-12 h-12 rounded-full bg-[rgb(6,96,79)] text-white flex items-center justify-center font-bold text-lg">
                       {step.number}
                     </div>
                   </div>

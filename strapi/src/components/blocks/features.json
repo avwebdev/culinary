@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_blocks_features",
+  "info": {
+    "displayName": "features"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "features": {
+      "type": "component",
+      "repeatable": true,
+      "component": "blocks.feature-item"
+    }
+  },
+  "config": {}
+}

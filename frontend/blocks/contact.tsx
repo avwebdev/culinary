@@ -31,7 +31,7 @@ export default function ContactBlock({
                 {school.name}
               </h3>
 
-              <div className="space-y-2 text-sm">
+              <div className="space-y-3 text-sm">
                 {school.teacher && (
                   <p>
                     <span className="font-semibold text-gray-700">Teacher:</span>{" "}
@@ -40,11 +40,11 @@ export default function ContactBlock({
                 )}
 
                 {school.email && (
-                  <p>
-                    <span className="font-semibold text-gray-700">Email:</span>{" "}
+                  <p className="flex items-center gap-2">
+                    <span className="text-lg">📧</span>
                     <a
                       href={`mailto:${school.email}`}
-                      className="text-green-600 hover:text-green-700"
+                      className="text-[rgb(6,96,79)] hover:text-[rgb(4,60,50)] break-all"
                     >
                       {school.email}
                     </a>
@@ -52,11 +52,11 @@ export default function ContactBlock({
                 )}
 
                 {school.phone && (
-                  <p>
-                    <span className="font-semibold text-gray-700">Phone:</span>{" "}
+                  <p className="flex items-center gap-2">
+                    <span className="text-lg">📞</span>
                     <a
                       href={`tel:${school.phone}`}
-                      className="text-green-600 hover:text-green-700"
+                      className="text-[rgb(6,96,79)] hover:text-[rgb(4,60,50)]"
                     >
                       {school.phone}
                     </a>
@@ -64,10 +64,8 @@ export default function ContactBlock({
                 )}
 
                 {school.instagram && (
-                  <p>
-                    <span className="font-semibold text-gray-700">
-                      Instagram:
-                    </span>{" "}
+                  <p className="flex items-center gap-2">
+                    <span className="text-lg">📱</span>
                     <a
                       href={`https://instagram.com/${school.instagram.replace(
                         "@",
@@ -75,7 +73,7 @@ export default function ContactBlock({
                       )}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-green-600 hover:text-green-700"
+                      className="text-[rgb(6,96,79)] hover:text-[rgb(4,60,50)]"
                     >
                       @{school.instagram.replace("@", "")}
                     </a>

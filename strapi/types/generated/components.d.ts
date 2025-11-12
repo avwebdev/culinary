@@ -64,6 +64,30 @@ export interface BlocksContact extends Struct.ComponentSchema {
   };
 }
 
+export interface BlocksFeatureItem extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_feature_items';
+  info: {
+    displayName: 'feature-item';
+  };
+  attributes: {
+    icon: Schema.Attribute.String;
+    subtitle: Schema.Attribute.Text;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface BlocksFeatures extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_features';
+  info: {
+    displayName: 'features';
+  };
+  attributes: {
+    features: Schema.Attribute.Component<'blocks.feature-item', true>;
+    subtitle: Schema.Attribute.Text;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface BlocksHero extends Struct.ComponentSchema {
   collectionName: 'components_blocks_heroes';
   info: {
@@ -127,6 +151,7 @@ export interface PageFooterColumn extends Struct.ComponentSchema {
     displayName: 'footer-column';
   };
   attributes: {
+    content: Schema.Attribute.Text;
     links: Schema.Attribute.Component<'primitives.link', true>;
     title: Schema.Attribute.String & Schema.Attribute.Required;
   };
@@ -204,6 +229,8 @@ declare module '@strapi/strapi' {
       'blocks.banner': BlocksBanner;
       'blocks.card': BlocksCard;
       'blocks.contact': BlocksContact;
+      'blocks.feature-item': BlocksFeatureItem;
+      'blocks.features': BlocksFeatures;
       'blocks.hero': BlocksHero;
       'blocks.step-item': BlocksStepItem;
       'blocks.steps': BlocksSteps;

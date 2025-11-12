@@ -8,6 +8,7 @@ export type FooterColumnLink = {
 export type FooterColumn = {
   title: string;
   links?: FooterColumnLink[];
+  content?: string;
 };
 
 export type SocialLink = {
