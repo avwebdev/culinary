@@ -11,11 +11,7 @@ export default async function CMSPage({
   const slug = (await params).slug || [];
   const path = "/" + slug.join("/");
 
-  console.log("Looking for path:", path);
-
   const data = await getPageData(path);
-
-  console.log("Found data:", data);
 
   // no pages found with matching slug
   if (!data || !data.length) {

@@ -15,7 +15,7 @@ export default function HeroBlock({
   return (
     <div
       className={`relative flex items-center justify-center text-center ${
-        size === "small" ? "h-80" : "h-screen"
+        size === "small" ? "h-80" : "h-[75vh]"
       }`}
     >
       <div className="absolute inset-0 overflow-hidden -z-20">
