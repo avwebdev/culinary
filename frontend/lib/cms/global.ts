@@ -1,16 +1,36 @@
 import client from "./strapi";
-import type { GlobalType } from "./types/global";
+import type { GlobalType, FooterType, HeaderType } from "./types/global";
 
 const global = client.collection("global");
 
-export async function getNavbarData() {
-  const globalData = await global.find({
+export async function getNavbarData(): Promise<HeaderType> {
+  const response = await global.find({
     populate: {
-      header: { populate: "*" },
+      header: {
+        populate: "*",
+      },
     },
   });
+  
+  const globalData = response.data as unknown as GlobalType;
+  
+  if (!globalData?.header) {
+    throw new Error("Header data not found in CMS");
+  }
+  
+  return globalData.header;
+}
 
-  const navData = globalData.data as unknown as GlobalType;
-
-  return navData.header;
+export async function getFooterData(): Promise<FooterType | null> {
+  const response = await global.find({
+    populate: {
+      footer: {
+        populate: "*",
+      },
+    },
+  });
+  
+  const globalData = response.data as unknown as GlobalType;
+  
+  return globalData?.footer || null;
 }

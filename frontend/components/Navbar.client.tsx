@@ -2,10 +2,12 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import type { Session } from "next-auth";
 import { signIn, signOut } from "next-auth/react";
 
-import { InfoIcon, ShoppingCartIcon, LogOutIcon } from "lucide-react";
+import { InfoIcon, ShoppingCartIcon, LogOutIcon, Palette } from "lucide-react";
+import { AVAILABLE_THEMES, applyTheme, type ThemeData } from "@/lib/cms/theme";
 
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -32,6 +34,27 @@ export default function NavbarClient({
   logoUrl,
   session,
 }: NavbarClientProps) {
+  const [currentTheme, setCurrentTheme] = useState<string>("green");
+  const themeNames = Object.keys(AVAILABLE_THEMES);
+
+  useEffect(() => {
+    // Load theme from localStorage or use default
+    const savedTheme = localStorage.getItem("theme") || "green";
+    setCurrentTheme(savedTheme);
+    const theme = AVAILABLE_THEMES[savedTheme];
+    if (theme) {
+      applyTheme(theme);
+    }
+  }, []);
+
+  const handleThemeChange = () => {
+    const currentIndex = themeNames.indexOf(currentTheme);
+    const nextTheme = themeNames[(currentIndex + 1) % themeNames.length];
+    setCurrentTheme(nextTheme);
+    localStorage.setItem("theme", nextTheme);
+    applyTheme(AVAILABLE_THEMES[nextTheme]);
+  };
+
   return (
     <header className="border-b border-gray-200 sticky top-0 z-50 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

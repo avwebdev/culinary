@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_blocks_steps",
+  "info": {
+    "displayName": "steps"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "steps": {
+      "type": "component",
+      "component": "blocks.step-item",
+      "repeatable": true,
+      "required": true
+    }
+  },
+  "config": {}
+}

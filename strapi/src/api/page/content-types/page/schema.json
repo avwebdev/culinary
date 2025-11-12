@@ -28,7 +28,17 @@
       "type": "dynamiczone",
       "components": [
         "blocks.404",
-        "blocks.hero"
+        "blocks.hero",
+        "blocks.steps",
+        "blocks.step-item",
+        "blocks.contact",
+        "blocks.card",
+        "blocks.banner",
+        "page.social-link",
+        "page.seo",
+        "page.header",
+        "page.footer",
+        "page.footer-column"
       ]
     }
   }

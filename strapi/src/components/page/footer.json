@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_page_footers",
+  "info": {
+    "displayName": "footer"
+  },
+  "options": {},
+  "attributes": {
+    "companyName": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "columns": {
+      "type": "component",
+      "component": "page.footer-column",
+      "repeatable": true
+    },
+    "copyright": {
+      "type": "string"
+    },
+    "socialLinks": {
+      "type": "component",
+      "component": "page.social-link",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

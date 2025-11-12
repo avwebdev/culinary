@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Bubblegum_Sans } from "next/font/google";
 
 import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 
 import "./globals.css";
 
@@ -23,9 +24,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${bubblegum.variable} ${bubblegum.className} antialiased`}>
+      <body className={`${bubblegum.variable} ${bubblegum.className} antialiased flex flex-col min-h-screen`}>
         <Navbar />
-        {children}
+        <main className="flex-1">
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   );

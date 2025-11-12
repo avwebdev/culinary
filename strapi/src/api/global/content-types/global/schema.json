@@ -16,6 +16,11 @@
       "component": "page.header",
       "repeatable": false,
       "required": true
+    },
+    "footer": {
+      "type": "component",
+      "component": "page.footer",
+      "repeatable": false
     }
   }
 }

@@ -18,3 +18,15 @@ export type BlockHeroType = {
   buttons: ButtonType[];
   background: FileListResponse;
 } & BaseBlockType;
+
+export type BlockContactType = {
+  title: string;
+  subtitle?: string;
+  schools: Array<{
+    name: string;
+    teacher?: string;
+    email?: string;
+    phone?: string;
+    instagram?: string;
+  }>;
+} & BaseBlockType;

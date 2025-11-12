@@ -444,6 +444,7 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    footer: Schema.Attribute.Component<'page.footer', false>;
     header: Schema.Attribute.Component<'page.header', false> &
       Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
@@ -508,7 +509,22 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    blocks: Schema.Attribute.DynamicZone<['blocks.404', 'blocks.hero']>;
+    blocks: Schema.Attribute.DynamicZone<
+      [
+        'blocks.404',
+        'blocks.hero',
+        'blocks.steps',
+        'blocks.step-item',
+        'blocks.contact',
+        'blocks.card',
+        'blocks.banner',
+        'page.social-link',
+        'page.seo',
+        'page.header',
+        'page.footer',
+        'page.footer-column',
+      ]
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
