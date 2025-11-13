@@ -20,14 +20,8 @@
       "multiple": false,
       "required": true,
       "allowedTypes": [
-        "images",
-        "videos"
+        "images"
       ]
-    },
-    "menuTtems": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::menu-item.menu-item"
     },
     "websiteLink": {
       "type": "string",

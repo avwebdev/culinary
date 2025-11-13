@@ -444,7 +444,7 @@ export interface ApiCartCart extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    items: Schema.Attribute.Component<'product.item-uuid', true>;
+    lines: Schema.Attribute.Component<'product.item-uuid', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::cart.cart'> &
       Schema.Attribute.Private;
@@ -452,6 +452,7 @@ export interface ApiCartCart extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    userEmail: Schema.Attribute.Email;
   };
 }
 
@@ -500,6 +501,7 @@ export interface ApiMenuItemMenuItem extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     ingredients: Schema.Attribute.JSON &
       Schema.Attribute.Required &
       Schema.Attribute.CustomField<'plugin::strapi-plugin-sortable-list.sortable-list'>;
@@ -513,7 +515,11 @@ export interface ApiMenuItemMenuItem extends Struct.CollectionTypeSchema {
     price: Schema.Attribute.Decimal & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     school: Schema.Attribute.Enumeration<
-      ['Amador Valley', 'Foothill', 'Village']
+      [
+        'Amador Valley High School',
+        'Foothill High School',
+        'Village High School',
+      ]
     > &
       Schema.Attribute.Required;
     seasonal: Schema.Attribute.Boolean &
@@ -552,6 +558,8 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'page.header',
         'page.footer',
         'page.footer-column',
+        'blocks.feature-item',
+        'blocks.recent-work',
       ]
     >;
     createdAt: Schema.Attribute.DateTime;
@@ -586,8 +594,7 @@ export interface ApiSchoolSchool extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     culinaryLogo: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     email: Schema.Attribute.Email;
-    hero: Schema.Attribute.Media<'images' | 'videos'> &
-      Schema.Attribute.Required;
+    hero: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     instagram: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -595,10 +602,6 @@ export interface ApiSchoolSchool extends Struct.CollectionTypeSchema {
       'api::school.school'
     > &
       Schema.Attribute.Private;
-    menuTtems: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::menu-item.menu-item'
-    >;
     name: Schema.Attribute.String & Schema.Attribute.Required;
     phone: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
@@ -1140,7 +1143,6 @@ export interface PluginUsersPermissionsUser
   };
   attributes: {
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    cart: Schema.Attribute.Relation<'oneToOne', 'api::cart.cart'>;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     createdAt: Schema.Attribute.DateTime;

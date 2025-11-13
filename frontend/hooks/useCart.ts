@@ -33,7 +33,6 @@ export function useCart() {
     loading: true,
   });
   const pathname = usePathname();
-  const router = useRouter();
   const validatingRef = useRef(false);
 
   // 1) Bootstrap

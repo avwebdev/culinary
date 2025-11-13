@@ -39,7 +39,9 @@
         "page.seo",
         "page.header",
         "page.footer",
-        "page.footer-column"
+        "page.footer-column",
+        "blocks.feature-item",
+        "blocks.recent-work"
       ]
     }
   }

@@ -5,7 +5,7 @@ export async function validateSlugs(slugs: string[]) {
   if (uniq.length === 0)
     return { valid: new Set<string>(), invalid: new Set<string>() };
 
-  const res = await client.collection("menu-item").find({
+  const res = await client.collection("menu-items").find({
     filters: { slug: { $in: uniq } }, // match any slug
     fields: ["slug"], // we only need slugs back
     pagination: { pageSize: 200 },
@@ -13,13 +13,18 @@ export async function validateSlugs(slugs: string[]) {
 
   // The client returns a normalized structure; be tolerant to shape changes:
   const items = res.data; // Strapi client typically returns { data, meta }
+
+  console.log("items", items)
+
   const got = new Set(
-    items.map(doc => doc.slug ?? doc.attributes?.slug)
+    items.map(doc => doc.slug)
   );
 
   const valid = new Set<string>();
   const invalid = new Set<string>();
   for (const s of slugs) (got.has(s) ? valid : invalid).add(s);
+
+  console.log("validateSlugs", { slugs, valid, invalid });
 
   return { valid, invalid };
 }

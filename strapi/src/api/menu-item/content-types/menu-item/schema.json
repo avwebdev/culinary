@@ -47,15 +47,23 @@
       "type": "enumeration",
       "required": true,
       "enum": [
-        "Amador Valley",
-        "Foothill",
-        "Village"
+        "Amador Valley High School",
+        "Foothill High School",
+        "Village High School"
       ]
     },
     "slug": {
       "type": "uid",
       "targetField": "name",
       "required": true
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
     }
   }
 }

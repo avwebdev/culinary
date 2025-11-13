@@ -22,19 +22,7 @@ function slugFromUrl(url?: string) {
 }
 
 export default async function MenuPage() {
-  const raw = await getSchoolData();
-
-  // Expecting objects like { name, url, slug?, ... }
-  const schools = (raw ?? [])
-    .map((s: any) => ({
-      name: String(s?.name ?? "").trim(),
-      slug:
-        (s?.slug && String(s.slug)) ||
-        slugFromUrl(s?.url) ||
-        (s?.name ? slugify(String(s.name)) : ""),
-    }))
-    .filter((s: { name: string; slug: string }) => s.name && s.slug)
-    .sort((a: any, b: any) => a.name.localeCompare(b.name));
+  const schools = await getSchoolData();
 
   return (
     <div className="mx-auto p-6 md:p-10">

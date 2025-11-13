@@ -8,8 +8,6 @@ import { GoogleSignInButton } from "@/app/auth/signin/google-sign-in-button";
 export const metadata: Metadata = { title: "Sign in - PUSD Culinary Department" };
 
 function SignInInner({ searchParams }: { searchParams?: Record<string, string | string[] | undefined> }) {
-  console.log(searchParams);
-
   return (
     <AuthCard
       title="Sign In"

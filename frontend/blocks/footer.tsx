@@ -30,7 +30,7 @@ function FooterBlock({
                 {companyName}
               </h3>
             )}
-            {description && <p className="text-sm text-gray-400">{description}</p>}
+            {description && <p className="text-sm text-gray-200">{description}</p>}
           </div>
 
           {/* Footer Links */}
@@ -68,7 +68,7 @@ function FooterBlock({
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-gray-400 hover:text-white transition-colors"
+                    className="text-gray-200 hover:text-white transition-colors"
                     aria-label={social.platform}
                   >
                     {social.platform}
@@ -78,7 +78,7 @@ function FooterBlock({
             </div>
           )}
           {copyright && (
-            <p className="text-sm text-gray-500">{copyright}</p>
+            <p className="text-sm text-gray-200">{copyright}</p>
           )}
         </div>
       </div>

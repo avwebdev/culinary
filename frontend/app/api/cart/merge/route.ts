@@ -14,13 +14,13 @@ function getLines(doc: any): CartLine[] {
 
 async function fetchOrCreateUserCart(userEmail: string, carts: any) {
   const found = await carts.find({
-    filters: { user: { email: { $eq: userEmail } } },
+    filters: { user: { userEmail } },
     populate: ["lines"],
     pagination: { pageSize: 1 },
   });
   const data = (found as any).data ?? found;
   if (data?.[0]) return data[0];
-  const created = await carts.create({ user: userEmail, lines: [] });
+  const created = await carts.create({ userEmail, lines: [] });
   return (created as any).data ?? created;
 }
 

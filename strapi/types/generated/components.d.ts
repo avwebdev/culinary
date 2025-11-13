@@ -104,6 +104,16 @@ export interface BlocksHero extends Struct.ComponentSchema {
   };
 }
 
+export interface BlocksRecentWork extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_recent_works';
+  info: {
+    displayName: 'recent-work';
+  };
+  attributes: {
+    images: Schema.Attribute.Media<'images', true> & Schema.Attribute.Required;
+  };
+}
+
 export interface BlocksStepItem extends Struct.ComponentSchema {
   collectionName: 'components_blocks_step_items';
   info: {
@@ -242,6 +252,7 @@ declare module '@strapi/strapi' {
       'blocks.feature-item': BlocksFeatureItem;
       'blocks.features': BlocksFeatures;
       'blocks.hero': BlocksHero;
+      'blocks.recent-work': BlocksRecentWork;
       'blocks.step-item': BlocksStepItem;
       'blocks.steps': BlocksSteps;
       'page.footer': PageFooter;

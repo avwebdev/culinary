@@ -1,7 +1,8 @@
 "use client";
 
-import * as React from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import Link from "next/link";
 import {
   GraduationCap,
@@ -9,6 +10,7 @@ import {
   ChevronsUpDown,
   ArrowRight,
   ArrowRightIcon,
+  UtensilsIcon,
 } from "lucide-react";
 
 import {
@@ -32,12 +34,13 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
+import { getMediaUrl } from "@/lib/cms/strapi";
 
 type School = { name: string; slug: string };
 export default function SchoolPicker({ schools }: { schools: School[] }) {
   const router = useRouter();
-  const [open, setOpen] = React.useState(false);
-  const [selected, setSelected] = React.useState<School | null>(null);
+  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState<School | null>(null);
 
   const handleSelect = (slug: string) => {
     const school = schools.find((s) => s.slug === slug) || null;
@@ -115,29 +118,31 @@ export default function SchoolPicker({ schools }: { schools: School[] }) {
       </Card>
 
       <div className="flex flex-col md:flex-row gap-4 pt-5 text-center">
-        {schools.map((s, i) => (
-          <Link key={i} href={`/menu/${s.slug}`} className="w-full">
-            <Card>
+        {schools.map((school, i) => (
+          <Link key={i} href={`/menu/${school.name.replaceAll(" ", "-")}`} className="group grow">
+            <Card className="!pt-0 shadow-sm transition-all duration-300 h-full flex flex-col">
+              <div className="overflow-hidden relative h-56 w-full hover:shadow-xl">
+                <Image
+                  src={getMediaUrl(school.hero.url)}
+                  alt={`${school.name} food`}
+                  layout="fill"
+                  objectFit="cover"
+                  className="rounded-t-lg group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent" />
+              </div>
               <CardHeader>
-                <CardTitle className="text-lg md:text-xl">{s.name}</CardTitle>
-                <CardContent>
-                  <CardDescription>
-                    Check out the menu for {s.name}!
-                    <br />
-                    <br />
-                    <Button
-                      className="shrink-0 cursor-pointer"
-                      variant="default"
-                      onClick={() =>
-                        selected && router.push(`/menu/${s.slug}`)
-                      }
-                    >
-                      View menu
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </CardDescription>
-                </CardContent>
+                <CardTitle className="text-2xl font-ptSerif text-slate-900 group-hover:text-[--accent] transition-colors">
+                  {school.name}
+                </CardTitle>
               </CardHeader>
+              <CardContent className="flex items-end justify-between grow">
+                <div className="flex items-center text-primary font-semibold">
+                  <span>View Menu</span>
+                  <ArrowRight className="h-4 w-4 ml-2 transform group-hover:translate-x-1 transition-transform" />
+                </div>
+                <UtensilsIcon className="h-8 w-8 text-gray-300 group-hover:text-primary transition-colors" />
+              </CardContent>
             </Card>
           </Link>
         ))}

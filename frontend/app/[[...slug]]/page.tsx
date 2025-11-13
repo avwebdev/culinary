@@ -21,8 +21,6 @@ export default async function CMSPage({
   const page = data[0];
   const blocks = page?.blocks || [];
 
-  console.log(page.blocks);
-
   const renderedBlocks = await Promise.all(
     blocks.map(async (block: BaseBlockType, i: number) => {
       if (block.__component && block.__component.startsWith("blocks.")) {

@@ -11,10 +11,13 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "items": {
+    "lines": {
       "type": "component",
       "component": "product.item-uuid",
       "repeatable": true
+    },
+    "userEmail": {
+      "type": "email"
     }
   }
 }
