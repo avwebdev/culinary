@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { getMediaUrl } from "@/lib/cms/strapi";
+import { getMediaUrl } from "@/lib/cms/strapi-client";
 import type { BlockStepsType } from "@/lib/cms/types/blocks";
 
 export default function StepsBlock({

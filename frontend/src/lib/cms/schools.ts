@@ -1,4 +1,4 @@
-import client from "./strapi";
+import client from "./strapi-client";
 
 const pages = client.collection("schools");
 

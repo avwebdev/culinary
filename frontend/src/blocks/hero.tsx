@@ -1,4 +1,4 @@
-import { getMediaUrl } from "@/lib/cms/strapi";
+import { getMediaUrl } from "@/lib/cms/strapi-client";
 import type { BlockHeroType } from "@/lib/cms/types/blocks";
 import StrapiButton from "@/cms_primitives/strapi_button";
 import Image from "next/image";

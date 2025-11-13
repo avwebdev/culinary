@@ -1,6 +1,6 @@
 import NavbarClient from "./Navbar.client";
 import { getNavbarData } from "@/lib/cms/global";
-import { getMediaUrl } from "@/lib/cms/strapi";
+import { getMediaUrl } from "@/lib/cms/strapi-client";
 import { auth } from "@/lib/auth/auth";
 
 export async function Navbar() {

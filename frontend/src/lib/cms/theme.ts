@@ -1,4 +1,4 @@
-import client from "./strapi";
+import client from "./strapi-client";
 
 const theme = client.collection("theme");
 

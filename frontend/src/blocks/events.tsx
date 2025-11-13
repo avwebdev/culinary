@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { getMediaUrl } from "@/lib/cms/strapi";
+import { getMediaUrl } from "@/lib/cms/strapi-client";
 
 interface Event {
   id: string;

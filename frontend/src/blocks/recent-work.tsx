@@ -12,7 +12,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { getMediaUrl } from "@/lib/cms/strapi";
+import { getMediaUrl } from "@/lib/cms/strapi-client";
 
 export default function RecentWork({ images }) {
   const urls = images.map((img) => getMediaUrl(img.url));

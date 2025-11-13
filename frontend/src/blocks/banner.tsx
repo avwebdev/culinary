@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { getMediaUrl } from "@/lib/cms/strapi";
+import { getMediaUrl } from "@/lib/cms/strapi-client";
 import Link from "next/link";
 import type { BlockBannerType } from "@/lib/cms/types/blocks";
 

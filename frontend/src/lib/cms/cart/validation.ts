@@ -1,4 +1,4 @@
-import client from "../strapi";
+import client from "../strapi-client";
 
 export async function validateSlugs(slugs: string[]) {
   const uniq = Array.from(new Set(slugs));

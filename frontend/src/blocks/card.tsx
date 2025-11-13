@@ -1,6 +1,6 @@
 import type { BlockCardType } from "@/lib/cms/types/blocks";
 import Image from "next/image";
-import { getMediaUrl } from "@/lib/cms/strapi";
+import { getMediaUrl } from "@/lib/cms/strapi-client";
 import Link from "next/link";
 
 export default function CardBlock({
