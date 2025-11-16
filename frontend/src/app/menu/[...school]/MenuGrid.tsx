@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { ShoppingCartIcon } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -10,36 +11,10 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { getMediaUrl } from "@/lib/cms/strapi-client";
-import { useCart } from "@/hooks/useCart";
-import { ShoppingCartIcon } from "lucide-react";
+import { getMediaUrl } from "@/lib/cms/utils";
+import type { components } from "@/lib/cms/types";
 
-type CMSImageFormat = {
-  url: string;
-  width: number;
-  height: number;
-  name: string;
-};
-
-type CMSImage = {
-  url: string;
-  alternativeText: string | null;
-  formats?: Partial<
-    Record<"thumbnail" | "small" | "medium" | "large", CMSImageFormat>
-  >;
-};
-
-type MenuItem = {
-  id: number;
-  name: string;
-  seasonal: boolean;
-  availableUntil: string | null;
-  ingredients: string[];
-  price: number;
-  school: string;
-  slug: string;
-  image?: CMSImage | null;
-};
+type MenuItem = components["schemas"]["MenuItem"];
 
 function formatPrice(value: number) {
   try {
@@ -70,8 +45,6 @@ export default function MenuGrid({
   school: string;
   items: MenuItem[];
 }) {
-  const { add } = useCart();
-
   return (
     <div className="container mx-auto px-4 py-10">
       <div className="mb-8 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
@@ -93,7 +66,7 @@ export default function MenuGrid({
       ) : (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((item) => {
-            const src = item.image?.url
+            const src = item.image.url
               ? getMediaUrl(item.image.url)
               : undefined;
             const alt = item.image?.alternativeText ?? item.name;
@@ -152,22 +125,28 @@ export default function MenuGrid({
                     Ingredients
                   </div>
                   <div className="flex flex-wrap gap-2">
-                    {item.ingredients?.map((ing) => (
+                    {item.ingredients?.map((ing, i) => (
                       <Badge
-                        key={ing}
-                        variant={ing == "Nuts" ? "destructive" : "outline"}
+                        key={i}
+                        variant={
+                          ing.allergenLevel == "High"
+                            ? "destructive"
+                            : ing.allergenLevel == "Medium"
+                            ? "warning"
+                            : "outline"
+                        }
                         className="capitalize"
                       >
-                        {ing}
+                        {ing.name}
                       </Badge>
                     ))}
                   </div>
                 </CardContent>
 
                 <CardFooter className="justify-end">
-                  <Button className="cursor-pointer" onClick={() => add(item.slug)}><ShoppingCartIcon /> Add to cart</Button>
-                  {/* If you want a details page, use next/link with item.slug */}
-                  {/* <Link href={`/menu/${item.slug}`} className="text-sm underline underline-offset-4">View details</Link> */}
+                  <Button className="cursor-pointer">
+                    <ShoppingCartIcon /> Add to cart
+                  </Button>
                 </CardFooter>
               </Card>
             );

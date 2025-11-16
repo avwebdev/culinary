@@ -28,21 +28,17 @@
       "type": "dynamiczone",
       "components": [
         "blocks.404",
-        "blocks.hero",
         "blocks.steps",
         "blocks.step-item",
+        "blocks.recent-work",
+        "blocks.hero",
+        "blocks.features",
+        "blocks.feature-item",
         "blocks.contact",
         "blocks.card",
-        "blocks.banner",
-        "blocks.features",
-        "page.social-link",
-        "page.seo",
-        "page.header",
-        "page.footer",
-        "page.footer-column",
-        "blocks.feature-item",
-        "blocks.recent-work"
-      ]
+        "blocks.banner"
+      ],
+      "required": true
     }
   }
 }

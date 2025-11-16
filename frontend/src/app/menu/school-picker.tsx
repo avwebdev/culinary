@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -9,17 +8,10 @@ import {
   Check,
   ChevronsUpDown,
   ArrowRight,
-  ArrowRightIcon,
   UtensilsIcon,
 } from "lucide-react";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
   Popover,
@@ -34,19 +26,21 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { getMediaUrl } from "@/lib/cms/strapi-client";
+import { getMediaUrl } from "@/lib/cms/utils";
+import { School } from "@/lib/cms/repositories/schools";
 
-type School = { name: string; slug: string };
 export default function SchoolPicker({ schools }: { schools: School[] }) {
-  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState<School | null>(null);
 
-  const handleSelect = (slug: string) => {
-    const school = schools.find((s) => s.slug === slug) || null;
+  const handleSelect = (name: string) => {
+    const school = schools.find((s) => s.name === name) || null;
     setSelected(school);
     setOpen(false);
   };
+
+  const slugify = (name: string) =>
+    name.toLowerCase().replace(/\s/g, "-"); // replace spaces with hyphens
 
   return (
     <div>
@@ -57,7 +51,7 @@ export default function SchoolPicker({ schools }: { schools: School[] }) {
               <GraduationCap className="size-6 text-primary" />
             </div>
             <CardTitle className="text-2xl pt-2.5">
-              Find A School's Menu
+              Find A School&lsquo;s Menu
             </CardTitle>
           </div>
         </CardHeader>
@@ -83,14 +77,14 @@ export default function SchoolPicker({ schools }: { schools: School[] }) {
                     <CommandGroup>
                       {schools.map((s) => (
                         <CommandItem
-                          key={s.slug}
-                          value={s.slug}
+                          key={s.name}
+                          value={s.name}
                           onSelect={handleSelect}
                           className="cursor-pointer"
                         >
                           <Check
                             className={`mr-2 h-4 w-4 ${
-                              selected?.slug === s.slug
+                              selected?.name === s.name
                                 ? "opacity-100"
                                 : "opacity-0"
                             }`}
@@ -107,11 +101,13 @@ export default function SchoolPicker({ schools }: { schools: School[] }) {
             <Button
               className="shrink-0 cursor-pointer"
               variant="default"
-              onClick={() => selected && router.push(`/menu/${selected.slug}`)}
               disabled={!selected}
+              asChild
             >
-              View menu
-              <ArrowRight className="ml-2 h-4 w-4" />
+              <Link href={selected ? `/menu/${slugify(selected.name)}` : ""}>
+                View menu
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
             </Button>
           </div>
         </CardContent>
@@ -119,11 +115,15 @@ export default function SchoolPicker({ schools }: { schools: School[] }) {
 
       <div className="flex flex-col md:flex-row gap-4 pt-5 text-center">
         {schools.map((school, i) => (
-          <Link key={i} href={`/menu/${school.name.replaceAll(" ", "-")}`} className="group grow">
-            <Card className="!pt-0 shadow-sm transition-all duration-300 h-full flex flex-col">
+          <Link
+            key={i}
+            href={`/menu/${school.name.replaceAll(" ", "-")}`}
+            className="group grow"
+          >
+            <Card className="pt-0 shadow-sm transition-all duration-300 h-full flex flex-col">
               <div className="overflow-hidden relative h-56 w-full hover:shadow-xl">
                 <Image
-                  src={getMediaUrl(school.hero.url)}
+                  src={school.hero.url ? getMediaUrl(school.hero.url) : ""}
                   alt={`${school.name} food`}
                   layout="fill"
                   objectFit="cover"

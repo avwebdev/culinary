@@ -1,4 +1,11 @@
 ############################
+# Swagger auto-generated files
+############################
+
+src/extensions/documentation/documentation
+src/extensions/documentation/public
+
+############################
 # OS X
 ############################
 

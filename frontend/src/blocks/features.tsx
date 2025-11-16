@@ -1,22 +1,12 @@
-interface Feature {
-  id: string;
-  title: string;
-  subtitle?: string;
-  icon?: string;
-}
+import type { components } from "@/lib/cms/types";
 
-interface FeaturesBlockType {
-  __component: string;
-  title?: string;
-  subtitle?: string;
-  features: Feature[];
-}
+type BlockFeaturesType = components["schemas"]["BlocksFeaturesComponent"];
 
 export default function FeaturesBlock({
   title,
   subtitle,
   features,
-}: FeaturesBlockType) {
+}: BlockFeaturesType) {
   return (
     <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="max-w-7xl mx-auto">

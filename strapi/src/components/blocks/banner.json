@@ -10,7 +10,8 @@
       "required": true
     },
     "description": {
-      "type": "text"
+      "type": "text",
+      "required": false
     },
     "buttonText": {
       "type": "string",
@@ -19,17 +20,6 @@
     "buttonHref": {
       "type": "string",
       "required": true
-    },
-    "backgroundColor": {
-      "type": "enumeration",
-      "enum": [
-        "bg-green-600",
-        "bg-blue-600",
-        "bg-purple-600",
-        "bg-orange-600",
-        "bg-gray-800"
-      ],
-      "default": "bg-green-600"
     },
     "backgroundImage": {
       "type": "media",
@@ -40,12 +30,13 @@
     },
     "alignment": {
       "type": "enumeration",
+      "required": true,
+      "default": "center",
       "enum": [
         "left",
         "center",
         "right"
-      ],
-      "default": "center"
+      ]
     }
   },
   "config": {}

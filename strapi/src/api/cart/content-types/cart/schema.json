@@ -14,10 +14,12 @@
     "lines": {
       "type": "component",
       "component": "product.item-uuid",
-      "repeatable": true
+      "repeatable": true,
+      "required": true
     },
     "userEmail": {
-      "type": "email"
+      "type": "email",
+      "required": true
     }
   }
 }

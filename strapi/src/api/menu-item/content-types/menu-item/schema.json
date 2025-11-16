@@ -35,8 +35,9 @@
       "required": true
     },
     "ingredients": {
-      "type": "customField",
-      "customField": "plugin::strapi-plugin-sortable-list.sortable-list",
+      "type": "component",
+      "component": "product.ingredient",
+      "repeatable": true,
       "required": true
     },
     "price": {

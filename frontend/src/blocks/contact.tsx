@@ -1,4 +1,11 @@
-import type { BlockContactType } from "@/lib/cms/types/blocks";
+import type { components } from "@/lib/cms/types";
+import type { SchoolType } from "@/lib/cms/repositories/schools";
+
+// the schools field is defined as a one-to-many relationship
+// type generation doesn't capture this relation correctly, so we override it here
+type BlockContactType = Omit<components["schemas"]["BlocksContactComponent"], "schools"> & {
+  schools: SchoolType[];
+};
 
 export default function ContactBlock({
   title,
@@ -6,6 +13,8 @@ export default function ContactBlock({
   schools,
 }: BlockContactType) {
   const schoolList = Array.isArray(schools) ? schools : [];
+
+  console.log(schoolList);
 
   return (
     <section className="py-16 bg-gray-50">

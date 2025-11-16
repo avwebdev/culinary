@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { getFooterData } from "@/lib/cms/global";
+import { getFooter } from "@/lib/cms/repositories/global";
 
 export async function Footer() {
-  const footerData = await getFooterData();
+  const footerData = await getFooter();
 
   if (!footerData) {
     return null;
@@ -38,7 +38,7 @@ export async function Footer() {
                   {column.links.map((link, linkIdx) => (
                     <li key={linkIdx}>
                       <Link
-                        href={link.href}
+                        href={link.href || ""}
                         className="text-sm text-gray-200 hover:text-white transition-colors"
                       >
                         {link.label}

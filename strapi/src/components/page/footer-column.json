@@ -12,10 +12,12 @@
     "links": {
       "type": "component",
       "component": "primitives.link",
-      "repeatable": true
+      "repeatable": true,
+      "required": true
     },
     "content": {
-      "type": "text"
+      "type": "text",
+      "required": true
     }
   },
   "config": {}

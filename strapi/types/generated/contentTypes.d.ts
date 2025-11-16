@@ -444,7 +444,8 @@ export interface ApiCartCart extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    lines: Schema.Attribute.Component<'product.item-uuid', true>;
+    lines: Schema.Attribute.Component<'product.item-uuid', true> &
+      Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::cart.cart'> &
       Schema.Attribute.Private;
@@ -452,7 +453,7 @@ export interface ApiCartCart extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    userEmail: Schema.Attribute.Email;
+    userEmail: Schema.Attribute.Email & Schema.Attribute.Required;
   };
 }
 
@@ -470,7 +471,8 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    footer: Schema.Attribute.Component<'page.footer', false>;
+    footer: Schema.Attribute.Component<'page.footer', false> &
+      Schema.Attribute.Required;
     header: Schema.Attribute.Component<'page.header', false> &
       Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
@@ -502,9 +504,8 @@ export interface ApiMenuItemMenuItem extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
-    ingredients: Schema.Attribute.JSON &
-      Schema.Attribute.Required &
-      Schema.Attribute.CustomField<'plugin::strapi-plugin-sortable-list.sortable-list'>;
+    ingredients: Schema.Attribute.Component<'product.ingredient', true> &
+      Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -546,22 +547,18 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
     blocks: Schema.Attribute.DynamicZone<
       [
         'blocks.404',
-        'blocks.hero',
         'blocks.steps',
         'blocks.step-item',
+        'blocks.recent-work',
+        'blocks.hero',
+        'blocks.features',
+        'blocks.feature-item',
         'blocks.contact',
         'blocks.card',
         'blocks.banner',
-        'blocks.features',
-        'page.social-link',
-        'page.seo',
-        'page.header',
-        'page.footer',
-        'page.footer-column',
-        'blocks.feature-item',
-        'blocks.recent-work',
       ]
-    >;
+    > &
+      Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -602,7 +599,9 @@ export interface ApiSchoolSchool extends Struct.CollectionTypeSchema {
       'api::school.school'
     > &
       Schema.Attribute.Private;
-    name: Schema.Attribute.String & Schema.Attribute.Required;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
     phone: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     teacher: Schema.Attribute.String;
@@ -631,13 +630,17 @@ export interface ApiThemeTheme extends Struct.SingleTypeSchema {
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::theme.theme'> &
       Schema.Attribute.Private;
     primary: Schema.Attribute.String &
+      Schema.Attribute.Required &
       Schema.Attribute.CustomField<'plugin::color-picker.color'>;
     primaryForeground: Schema.Attribute.String &
+      Schema.Attribute.Required &
       Schema.Attribute.CustomField<'plugin::color-picker.color'>;
     publishedAt: Schema.Attribute.DateTime;
     secondary: Schema.Attribute.String &
+      Schema.Attribute.Required &
       Schema.Attribute.CustomField<'plugin::color-picker.color'>;
     secondaryForeground: Schema.Attribute.String &
+      Schema.Attribute.Required &
       Schema.Attribute.CustomField<'plugin::color-picker.color'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -732,46 +735,6 @@ export interface PluginContentReleasesReleaseAction
     >;
     type: Schema.Attribute.Enumeration<['publish', 'unpublish']> &
       Schema.Attribute.Required;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface PluginDeepPopulateCache extends Struct.CollectionTypeSchema {
-  collectionName: 'populate_cache';
-  info: {
-    description: 'Holds cached deep populate object';
-    displayName: 'Cache';
-    pluralName: 'caches';
-    singularName: 'cache';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  pluginOptions: {
-    'content-manager': {
-      visible: false;
-    };
-    'content-type-builder': {
-      visible: false;
-    };
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    dependencies: Schema.Attribute.Text;
-    hash: Schema.Attribute.String & Schema.Attribute.Required;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'plugin::deep-populate.cache'
-    > &
-      Schema.Attribute.Private;
-    params: Schema.Attribute.JSON & Schema.Attribute.Required;
-    populate: Schema.Attribute.JSON;
-    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1140,6 +1103,7 @@ export interface PluginUsersPermissionsUser
   };
   options: {
     draftAndPublish: false;
+    timestamps: true;
   };
   attributes: {
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
@@ -1202,7 +1166,6 @@ declare module '@strapi/strapi' {
       'api::theme.theme': ApiThemeTheme;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
-      'plugin::deep-populate.cache': PluginDeepPopulateCache;
       'plugin::i18n.locale': PluginI18NLocale;
       'plugin::review-workflows.workflow': PluginReviewWorkflowsWorkflow;
       'plugin::review-workflows.workflow-stage': PluginReviewWorkflowsWorkflowStage;

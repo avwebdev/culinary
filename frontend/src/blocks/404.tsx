@@ -1,6 +1,8 @@
 import Link from "next/link";
-import type { Block404Type } from "@/lib/cms/types/blocks";
 import { Button } from "@/components/ui/button";
+import type { components } from "@/lib/cms/types";
+
+type Block404Type = components["schemas"]["Blocks404Component"];
 
 export default function NotFoundBlock({ title, message }: Block404Type) {
   return (

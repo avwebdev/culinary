@@ -20,7 +20,8 @@
     "footer": {
       "type": "component",
       "component": "page.footer",
-      "repeatable": false
+      "repeatable": false,
+      "required": true
     }
   }
 }

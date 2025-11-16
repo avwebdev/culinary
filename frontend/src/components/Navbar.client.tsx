@@ -2,12 +2,11 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { redirect } from "next/navigation";
 import type { Session } from "next-auth";
 import { signIn, signOut } from "next-auth/react";
 
-import { InfoIcon, ShoppingCartIcon, LogOutIcon, Palette } from "lucide-react";
-import { AVAILABLE_THEMES, applyTheme, type ThemeData } from "@/lib/cms/theme";
+import { InfoIcon, ShoppingCartIcon, LogOutIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -19,12 +18,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { redirect } from "next/navigation";
 
-type NavItem = { label: string; href: string };
+import { HeaderType } from "@/lib/cms/repositories/global";
 
 interface NavbarClientProps {
-  navItems: NavItem[];
+  navItems: HeaderType["navItems"];
   logoUrl: string | null;
   session: Session | null;
 }
@@ -34,26 +32,9 @@ export default function NavbarClient({
   logoUrl,
   session,
 }: NavbarClientProps) {
-  const [currentTheme, setCurrentTheme] = useState<string>("green");
-  const themeNames = Object.keys(AVAILABLE_THEMES);
-
-  useEffect(() => {
-    // Load theme from localStorage or use default
-    const savedTheme = localStorage.getItem("theme") || "green";
-    setCurrentTheme(savedTheme);
-    const theme = AVAILABLE_THEMES[savedTheme];
-    if (theme) {
-      applyTheme(theme);
-    }
-  }, []);
-
-  const handleThemeChange = () => {
-    const currentIndex = themeNames.indexOf(currentTheme);
-    const nextTheme = themeNames[(currentIndex + 1) % themeNames.length];
-    setCurrentTheme(nextTheme);
-    localStorage.setItem("theme", nextTheme);
-    applyTheme(AVAILABLE_THEMES[nextTheme]);
-  };
+  if (!navItems) {
+    return null;
+  }
 
   return (
     <header className="border-b border-gray-200 sticky top-0 z-50 bg-white">
@@ -87,7 +68,7 @@ export default function NavbarClient({
               {navItems.map((item, i) => (
                 <Link
                   key={`${item.href}-${i}`}
-                  href={item.href}
+                  href={item.href || "#"}
                   className="text-gray-700 hover:text-gray-900 font-medium text-sm transition-colors"
                 >
                   {item.label}

@@ -1,7 +1,9 @@
-import { getMediaUrl } from "@/lib/cms/strapi-client";
-import type { BlockHeroType } from "@/lib/cms/types/blocks";
-import StrapiButton from "@/cms_primitives/strapi_button";
 import Image from "next/image";
+import { getMediaUrl } from "@/lib/cms/utils";
+import StrapiButton from "@/cms_primitives/strapi_button";
+import type { components } from "@/lib/cms/types";
+
+type BlockHeroType = components["schemas"]["BlocksHeroComponent"];
 
 export default function HeroBlock({
   size,
@@ -10,7 +12,7 @@ export default function HeroBlock({
   buttons,
   background,
 }: BlockHeroType) {
-  const mediaUrl = getMediaUrl(background[0].url);
+  const mediaUrl = background ? getMediaUrl(background[0].url || ""): "";
 
   return (
     <div

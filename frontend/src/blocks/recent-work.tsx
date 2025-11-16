@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import Link from "next/link";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,10 +11,19 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { getMediaUrl } from "@/lib/cms/strapi-client";
+import { getMediaUrl } from "@/lib/cms/utils";
 
-export default function RecentWork({ images }) {
-  const urls = images.map((img) => getMediaUrl(img.url));
+import type { components } from "@/lib/cms/types";
+import Image from "next/image";
+
+type BlockRecentWorkType = components["schemas"]["BlocksRecentWorkComponent"];
+
+export default function RecentWork({ images }: BlockRecentWorkType) {
+  if (!images) {
+    return null;
+  }
+
+  const urls = images.map((img) => (img.url ? getMediaUrl(img.url) : "#"));
 
   return (
     <div className="mx-auto max-w-5xl p-6 md:p-10">
@@ -33,7 +41,29 @@ export default function RecentWork({ images }) {
                 key={`${url}-${idx}`}
                 className="basis-full sm:basis-1/2 lg:basis-1/3"
               >
-                <UrlCard url={url} />
+                <Card className="h-full border-muted/60">
+                  <CardHeader className="pb-2">
+                    <Image
+                      src={url}
+                      alt="Recent Work Image"
+                      width={400}
+                      height={300}
+                      className="rounded-md object-cover aspect-3/2"
+                    />
+                    <CardTitle className="truncate text-base">{url}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <Button asChild className="w-full">
+                      <Link
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Open
+                      </Link>
+                    </Button>
+                  </CardContent>
+                </Card>
               </CarouselItem>
             ))}
           </CarouselContent>
@@ -41,30 +71,6 @@ export default function RecentWork({ images }) {
           <CarouselNext className="-right-3" />
         </Carousel>
       </section>
-
-      {/* Plain grid list of the same URLs */}
-      <section className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {urls.map((url, idx) => (
-          <UrlCard key={`grid-${idx}`} url={url} />
-        ))}
-      </section>
     </div>
-  );
-}
-
-function UrlCard({ url }: { url: string }) {
-  return (
-    <Card className="h-full border-muted/60">
-      <CardHeader className="pb-2">
-        <CardTitle className="truncate text-base">{url}</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <Button asChild className="w-full">
-          <Link href={url} target="_blank" rel="noopener noreferrer">
-            Open
-          </Link>
-        </Button>
-      </CardContent>
-    </Card>
   );
 }

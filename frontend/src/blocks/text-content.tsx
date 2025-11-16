@@ -13,7 +13,6 @@ export default function TextContentBlock({
   backgroundColor = "white",
 }: TextContentBlockType) {
   const bgClass = backgroundColor === "gray" ? "bg-gray-50" : "bg-white";
-  const borderClass = backgroundColor === "gray" ? "border-gray-200" : "";
 
   return (
     <section

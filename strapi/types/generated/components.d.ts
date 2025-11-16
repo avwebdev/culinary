@@ -18,17 +18,8 @@ export interface BlocksBanner extends Struct.ComponentSchema {
   };
   attributes: {
     alignment: Schema.Attribute.Enumeration<['left', 'center', 'right']> &
+      Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'center'>;
-    backgroundColor: Schema.Attribute.Enumeration<
-      [
-        'bg-green-600',
-        'bg-blue-600',
-        'bg-purple-600',
-        'bg-orange-600',
-        'bg-gray-800',
-      ]
-    > &
-      Schema.Attribute.DefaultTo<'bg-green-600'>;
     backgroundImage: Schema.Attribute.Media<'images', true>;
     buttonHref: Schema.Attribute.String & Schema.Attribute.Required;
     buttonText: Schema.Attribute.String & Schema.Attribute.Required;
@@ -43,12 +34,10 @@ export interface BlocksCard extends Struct.ComponentSchema {
     displayName: 'card';
   };
   attributes: {
-    description: Schema.Attribute.Text;
-    image: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
-    >;
-    title: Schema.Attribute.String;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    image: Schema.Attribute.Media<'images', true> & Schema.Attribute.Required;
+    link: Schema.Attribute.String & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -147,11 +136,13 @@ export interface PageFooter extends Struct.ComponentSchema {
     displayName: 'footer';
   };
   attributes: {
-    columns: Schema.Attribute.Component<'page.footer-column', true>;
-    companyName: Schema.Attribute.String;
-    copyright: Schema.Attribute.String;
-    description: Schema.Attribute.Text;
-    socialLinks: Schema.Attribute.Component<'page.social-link', true>;
+    columns: Schema.Attribute.Component<'page.footer-column', true> &
+      Schema.Attribute.Required;
+    companyName: Schema.Attribute.String & Schema.Attribute.Required;
+    copyright: Schema.Attribute.String & Schema.Attribute.Required;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    socialLinks: Schema.Attribute.Component<'page.social-link', true> &
+      Schema.Attribute.Required;
   };
 }
 
@@ -161,8 +152,9 @@ export interface PageFooterColumn extends Struct.ComponentSchema {
     displayName: 'footer-column';
   };
   attributes: {
-    content: Schema.Attribute.Text;
-    links: Schema.Attribute.Component<'primitives.link', true>;
+    content: Schema.Attribute.Text & Schema.Attribute.Required;
+    links: Schema.Attribute.Component<'primitives.link', true> &
+      Schema.Attribute.Required;
     title: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
@@ -232,13 +224,27 @@ export interface PrimitivesLink extends Struct.ComponentSchema {
   };
 }
 
+export interface ProductIngredient extends Struct.ComponentSchema {
+  collectionName: 'components_product_ingredients';
+  info: {
+    displayName: 'ingredient';
+  };
+  attributes: {
+    allergenLevel: Schema.Attribute.Enumeration<
+      ['None', 'Low', 'Medium', 'High']
+    > &
+      Schema.Attribute.Required;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface ProductItemUuid extends Struct.ComponentSchema {
   collectionName: 'components_product_item_uuids';
   info: {
     displayName: 'itemUUID';
   };
   attributes: {
-    uuid: Schema.Attribute.String;
+    uuid: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -262,6 +268,7 @@ declare module '@strapi/strapi' {
       'page.social-link': PageSocialLink;
       'primitives.button': PrimitivesButton;
       'primitives.link': PrimitivesLink;
+      'product.ingredient': ProductIngredient;
       'product.item-uuid': ProductItemUuid;
     }
   }

@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_product_ingredients",
+  "info": {
+    "displayName": "ingredient"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "allergenLevel": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "None",
+        "Low",
+        "Medium",
+        "High"
+      ]
+    }
+  },
+  "config": {}
+}

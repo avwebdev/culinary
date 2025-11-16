@@ -1,14 +1,15 @@
-import Image from "next/image";
-import { getMediaUrl } from "@/lib/cms/strapi-client";
 import Link from "next/link";
-import type { BlockBannerType } from "@/lib/cms/types/blocks";
+import Image from "next/image";
+import { getMediaUrl } from "@/lib/cms/utils";
+import type { components } from "@/lib/cms/types";
+
+type BlockBannerType = components["schemas"]["BlocksBannerComponent"];
 
 export default function BannerBlock({
   title,
   description,
   buttonText,
   buttonHref,
-  backgroundColor = "rgb(6, 96, 79)",
   backgroundImage,
   alignment = "center",
 }: BlockBannerType) {
@@ -23,10 +24,10 @@ export default function BannerBlock({
   }[alignment];
 
   return (
-    <section className="relative py-32 overflow-hidden" style={{ backgroundColor }}>
+    <section className="relative py-32 overflow-hidden">
       {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent -z-10" />
-      
+      <div className="absolute inset-0 bg-linear-to-r from-black/40 to-transparent -z-10" />
+
       {imageUrl && (
         <div className="absolute inset-0 opacity-25 -z-20">
           <Image
@@ -50,7 +51,7 @@ export default function BannerBlock({
               </p>
             )}
           </div>
-          
+
           {buttonHref && (
             <div className="pt-4">
               <Link

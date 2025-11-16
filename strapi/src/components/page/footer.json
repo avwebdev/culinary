@@ -6,23 +6,28 @@
   "options": {},
   "attributes": {
     "companyName": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "description": {
-      "type": "text"
+      "type": "text",
+      "required": true
     },
     "columns": {
       "type": "component",
       "component": "page.footer-column",
-      "repeatable": true
+      "repeatable": true,
+      "required": true
     },
     "copyright": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "socialLinks": {
       "type": "component",
       "component": "page.social-link",
-      "repeatable": true
+      "repeatable": true,
+      "required": true
     }
   },
   "config": {}

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { getMediaUrl } from "@/lib/cms/strapi-client";
+import { getMediaUrl } from "@/lib/cms/utils";
 import type { BlockStepsType } from "@/lib/cms/types/blocks";
 
 export default function StepsBlock({
@@ -31,13 +31,13 @@ export default function StepsBlock({
               <div key={index} className="flex flex-col">
                 {/* Step number circle */}
                 <div className="flex items-center mb-6">
-                  <div className="flex-shrink-0">
+                  <div className="shrink-0">
                     <div className="w-12 h-12 rounded-full bg-[rgb(6,96,79)] text-white flex items-center justify-center font-bold text-lg">
                       {step.number}
                     </div>
                   </div>
                   {index < steps.length - 1 && (
-                    <div className="hidden lg:block flex-grow ml-4 h-0.5 bg-gray-300"></div>
+                    <div className="hidden lg:block grow ml-4 h-0.5 bg-gray-300"></div>
                   )}
                 </div>
 

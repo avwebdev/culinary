@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { getMediaUrl } from "@/lib/cms/strapi-client";
+import { getMediaUrl } from "@/lib/cms/utils";
 
 interface TeamMember {
   id: string;
