@@ -430,6 +430,38 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiAdminAssignmentAdminAssignment
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'admin_assignments';
+  info: {
+    displayName: 'Admin Assignment';
+    pluralName: 'admin-assignments';
+    singularName: 'admin-assignment';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::admin-assignment.admin-assignment'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    schools: Schema.Attribute.Relation<'manyToMany', 'api::school.school'> &
+      Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<'manyToOne', 'admin::user'> &
+      Schema.Attribute.Required;
+  };
+}
+
 export interface ApiCartCart extends Struct.CollectionTypeSchema {
   collectionName: 'carts';
   info: {
@@ -515,14 +547,7 @@ export interface ApiMenuItemMenuItem extends Struct.CollectionTypeSchema {
     name: Schema.Attribute.String & Schema.Attribute.Required;
     price: Schema.Attribute.Decimal & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
-    school: Schema.Attribute.Enumeration<
-      [
-        'Amador Valley High School',
-        'Foothill High School',
-        'Village High School',
-      ]
-    > &
-      Schema.Attribute.Required;
+    school: Schema.Attribute.Relation<'manyToOne', 'api::school.school'>;
     seasonal: Schema.Attribute.Boolean &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<false>;
@@ -599,6 +624,10 @@ export interface ApiSchoolSchool extends Struct.CollectionTypeSchema {
       'api::school.school'
     > &
       Schema.Attribute.Private;
+    menu_items: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::menu-item.menu-item'
+    >;
     name: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
@@ -1158,6 +1187,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::admin-assignment.admin-assignment': ApiAdminAssignmentAdminAssignment;
       'api::cart.cart': ApiCartCart;
       'api::global.global': ApiGlobalGlobal;
       'api::menu-item.menu-item': ApiMenuItemMenuItem;

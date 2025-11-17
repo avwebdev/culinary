@@ -48,6 +48,12 @@
     },
     "instagram": {
       "type": "string"
+    },
+    "menu_items": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::menu-item.menu-item",
+      "mappedBy": "school"
     }
   }
 }

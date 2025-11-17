@@ -1929,11 +1929,11 @@ export interface components {
                 ingredients: components["schemas"]["ProductIngredientComponent"][];
                 /** Format: float */
                 price: number;
-                /** @enum {string} */
-                school: "Amador Valley High School" | "Foothill High School" | "Village High School";
                 slug: string;
                 /** @example string or id */
                 image: number | string;
+                /** @example string or id */
+                school?: number | string;
                 locale?: string;
                 localizations?: (number | string)[];
             };
@@ -1959,8 +1959,6 @@ export interface components {
             ingredients: components["schemas"]["ProductIngredientComponent"][];
             /** Format: float */
             price: number;
-            /** @enum {string} */
-            school: "Amador Valley High School" | "Foothill High School" | "Village High School";
             slug: string;
             image: {
                 id?: number;
@@ -2177,35 +2175,11 @@ export interface components {
                     documentId?: string;
                 }[];
             };
-            /** Format: date-time */
-            createdAt?: string;
-            /** Format: date-time */
-            updatedAt?: string;
-            /** Format: date-time */
-            publishedAt?: string;
-            createdBy?: {
-                id?: number;
-                documentId?: string;
-            };
-            updatedBy?: {
-                id?: number;
-                documentId?: string;
-            };
-            locale?: string;
-            localizations?: {
+            school?: {
                 id?: number;
                 documentId?: string;
                 name?: string;
-                seasonal?: boolean;
-                /** Format: date */
-                availableUntil?: string;
-                ingredients?: components["schemas"]["ProductIngredientComponent"][];
-                /** Format: float */
-                price?: number;
-                /** @enum {string} */
-                school?: "Amador Valley High School" | "Foothill High School" | "Village High School";
-                slug?: string;
-                image?: {
+                hero?: {
                     id?: number;
                     documentId?: string;
                     name?: string;
@@ -2252,6 +2226,141 @@ export interface components {
                         documentId?: string;
                     }[];
                 };
+                websiteLink?: string;
+                culinaryLogo?: {
+                    id?: number;
+                    documentId?: string;
+                    name?: string;
+                    alternativeText?: string;
+                    caption?: string;
+                    width?: number;
+                    height?: number;
+                    formats?: unknown;
+                    hash?: string;
+                    ext?: string;
+                    mime?: string;
+                    /** Format: float */
+                    size?: number;
+                    url?: string;
+                    previewUrl?: string;
+                    provider?: string;
+                    provider_metadata?: unknown;
+                    related?: {
+                        id?: number;
+                        documentId?: string;
+                    }[];
+                    folder?: {
+                        id?: number;
+                        documentId?: string;
+                    };
+                    folderPath?: string;
+                    /** Format: date-time */
+                    createdAt?: string;
+                    /** Format: date-time */
+                    updatedAt?: string;
+                    /** Format: date-time */
+                    publishedAt?: string;
+                    createdBy?: {
+                        id?: number;
+                        documentId?: string;
+                    };
+                    updatedBy?: {
+                        id?: number;
+                        documentId?: string;
+                    };
+                    locale?: string;
+                    localizations?: {
+                        id?: number;
+                        documentId?: string;
+                    }[];
+                };
+                teacher?: string;
+                /** Format: email */
+                email?: string;
+                phone?: string;
+                instagram?: string;
+                menu_items?: {
+                    id?: number;
+                    documentId?: string;
+                    name?: string;
+                    seasonal?: boolean;
+                    /** Format: date */
+                    availableUntil?: string;
+                    ingredients?: components["schemas"]["ProductIngredientComponent"][];
+                    /** Format: float */
+                    price?: number;
+                    slug?: string;
+                    image?: {
+                        id?: number;
+                        documentId?: string;
+                        name?: string;
+                        alternativeText?: string;
+                        caption?: string;
+                        width?: number;
+                        height?: number;
+                        formats?: unknown;
+                        hash?: string;
+                        ext?: string;
+                        mime?: string;
+                        /** Format: float */
+                        size?: number;
+                        url?: string;
+                        previewUrl?: string;
+                        provider?: string;
+                        provider_metadata?: unknown;
+                        related?: {
+                            id?: number;
+                            documentId?: string;
+                        }[];
+                        folder?: {
+                            id?: number;
+                            documentId?: string;
+                        };
+                        folderPath?: string;
+                        /** Format: date-time */
+                        createdAt?: string;
+                        /** Format: date-time */
+                        updatedAt?: string;
+                        /** Format: date-time */
+                        publishedAt?: string;
+                        createdBy?: {
+                            id?: number;
+                            documentId?: string;
+                        };
+                        updatedBy?: {
+                            id?: number;
+                            documentId?: string;
+                        };
+                        locale?: string;
+                        localizations?: {
+                            id?: number;
+                            documentId?: string;
+                        }[];
+                    };
+                    school?: {
+                        id?: number;
+                        documentId?: string;
+                    };
+                    /** Format: date-time */
+                    createdAt?: string;
+                    /** Format: date-time */
+                    updatedAt?: string;
+                    /** Format: date-time */
+                    publishedAt?: string;
+                    createdBy?: {
+                        id?: number;
+                        documentId?: string;
+                    };
+                    updatedBy?: {
+                        id?: number;
+                        documentId?: string;
+                    };
+                    locale?: string;
+                    localizations?: {
+                        id?: number;
+                        documentId?: string;
+                    }[];
+                }[];
                 /** Format: date-time */
                 createdAt?: string;
                 /** Format: date-time */
@@ -2271,6 +2380,25 @@ export interface components {
                     id?: number;
                     documentId?: string;
                 }[];
+            };
+            /** Format: date-time */
+            createdAt?: string;
+            /** Format: date-time */
+            updatedAt?: string;
+            /** Format: date-time */
+            publishedAt?: string;
+            createdBy?: {
+                id?: number;
+                documentId?: string;
+            };
+            updatedBy?: {
+                id?: number;
+                documentId?: string;
+            };
+            locale?: string;
+            localizations?: {
+                id?: number;
+                documentId?: string;
             }[];
         };
         MenuItemResponse: {
@@ -2751,6 +2879,7 @@ export interface components {
                 email?: string;
                 phone?: string;
                 instagram?: string;
+                menu_items?: (number | string)[];
                 locale?: string;
                 localizations?: (number | string)[];
             };
@@ -3038,26 +3167,18 @@ export interface components {
             email?: string;
             phone?: string;
             instagram?: string;
-            /** Format: date-time */
-            createdAt?: string;
-            /** Format: date-time */
-            updatedAt?: string;
-            /** Format: date-time */
-            publishedAt?: string;
-            createdBy?: {
-                id?: number;
-                documentId?: string;
-            };
-            updatedBy?: {
-                id?: number;
-                documentId?: string;
-            };
-            locale?: string;
-            localizations?: {
+            menu_items?: {
                 id?: number;
                 documentId?: string;
                 name?: string;
-                hero?: {
+                seasonal?: boolean;
+                /** Format: date */
+                availableUntil?: string;
+                ingredients?: components["schemas"]["ProductIngredientComponent"][];
+                /** Format: float */
+                price?: number;
+                slug?: string;
+                image?: {
                     id?: number;
                     documentId?: string;
                     name?: string;
@@ -3104,34 +3225,114 @@ export interface components {
                         documentId?: string;
                     }[];
                 };
-                websiteLink?: string;
-                culinaryLogo?: {
+                school?: {
                     id?: number;
                     documentId?: string;
                     name?: string;
-                    alternativeText?: string;
-                    caption?: string;
-                    width?: number;
-                    height?: number;
-                    formats?: unknown;
-                    hash?: string;
-                    ext?: string;
-                    mime?: string;
-                    /** Format: float */
-                    size?: number;
-                    url?: string;
-                    previewUrl?: string;
-                    provider?: string;
-                    provider_metadata?: unknown;
-                    related?: {
+                    hero?: {
+                        id?: number;
+                        documentId?: string;
+                        name?: string;
+                        alternativeText?: string;
+                        caption?: string;
+                        width?: number;
+                        height?: number;
+                        formats?: unknown;
+                        hash?: string;
+                        ext?: string;
+                        mime?: string;
+                        /** Format: float */
+                        size?: number;
+                        url?: string;
+                        previewUrl?: string;
+                        provider?: string;
+                        provider_metadata?: unknown;
+                        related?: {
+                            id?: number;
+                            documentId?: string;
+                        }[];
+                        folder?: {
+                            id?: number;
+                            documentId?: string;
+                        };
+                        folderPath?: string;
+                        /** Format: date-time */
+                        createdAt?: string;
+                        /** Format: date-time */
+                        updatedAt?: string;
+                        /** Format: date-time */
+                        publishedAt?: string;
+                        createdBy?: {
+                            id?: number;
+                            documentId?: string;
+                        };
+                        updatedBy?: {
+                            id?: number;
+                            documentId?: string;
+                        };
+                        locale?: string;
+                        localizations?: {
+                            id?: number;
+                            documentId?: string;
+                        }[];
+                    };
+                    websiteLink?: string;
+                    culinaryLogo?: {
+                        id?: number;
+                        documentId?: string;
+                        name?: string;
+                        alternativeText?: string;
+                        caption?: string;
+                        width?: number;
+                        height?: number;
+                        formats?: unknown;
+                        hash?: string;
+                        ext?: string;
+                        mime?: string;
+                        /** Format: float */
+                        size?: number;
+                        url?: string;
+                        previewUrl?: string;
+                        provider?: string;
+                        provider_metadata?: unknown;
+                        related?: {
+                            id?: number;
+                            documentId?: string;
+                        }[];
+                        folder?: {
+                            id?: number;
+                            documentId?: string;
+                        };
+                        folderPath?: string;
+                        /** Format: date-time */
+                        createdAt?: string;
+                        /** Format: date-time */
+                        updatedAt?: string;
+                        /** Format: date-time */
+                        publishedAt?: string;
+                        createdBy?: {
+                            id?: number;
+                            documentId?: string;
+                        };
+                        updatedBy?: {
+                            id?: number;
+                            documentId?: string;
+                        };
+                        locale?: string;
+                        localizations?: {
+                            id?: number;
+                            documentId?: string;
+                        }[];
+                    };
+                    teacher?: string;
+                    /** Format: email */
+                    email?: string;
+                    phone?: string;
+                    instagram?: string;
+                    menu_items?: {
                         id?: number;
                         documentId?: string;
                     }[];
-                    folder?: {
-                        id?: number;
-                        documentId?: string;
-                    };
-                    folderPath?: string;
                     /** Format: date-time */
                     createdAt?: string;
                     /** Format: date-time */
@@ -3152,11 +3353,6 @@ export interface components {
                         documentId?: string;
                     }[];
                 };
-                teacher?: string;
-                /** Format: email */
-                email?: string;
-                phone?: string;
-                instagram?: string;
                 /** Format: date-time */
                 createdAt?: string;
                 /** Format: date-time */
@@ -3176,6 +3372,25 @@ export interface components {
                     id?: number;
                     documentId?: string;
                 }[];
+            }[];
+            /** Format: date-time */
+            createdAt?: string;
+            /** Format: date-time */
+            updatedAt?: string;
+            /** Format: date-time */
+            publishedAt?: string;
+            createdBy?: {
+                id?: number;
+                documentId?: string;
+            };
+            updatedBy?: {
+                id?: number;
+                documentId?: string;
+            };
+            locale?: string;
+            localizations?: {
+                id?: number;
+                documentId?: string;
             }[];
         };
         SchoolResponse: {

@@ -74,7 +74,7 @@ export default function MenuGrid({
             return (
               <Card
                 key={item.id}
-                className="pt-0 overflow-hidden transition-shadow hover:shadow-lg"
+                className="pt-0 overflow-hidden transition-shadow hover:shadow-lg gap-6"
               >
                 <div className="relative aspect-4/3">
                   {src ? (
@@ -114,13 +114,10 @@ export default function MenuGrid({
                         Until {formatDate(item.availableUntil)}
                       </Badge>
                     )}
-                    <Badge variant="outline" className="max-w-56 truncate">
-                      {item.school}
-                    </Badge>
                   </div>
                 </CardHeader>
 
-                <CardContent className="space-y-3">
+                <CardContent className="space-y-3 -mt-4">
                   <div className="text-sm text-muted-foreground">
                     Ingredients
                   </div>

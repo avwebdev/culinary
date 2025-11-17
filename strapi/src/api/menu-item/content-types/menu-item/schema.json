@@ -44,15 +44,6 @@
       "type": "decimal",
       "required": true
     },
-    "school": {
-      "type": "enumeration",
-      "required": true,
-      "enum": [
-        "Amador Valley High School",
-        "Foothill High School",
-        "Village High School"
-      ]
-    },
     "slug": {
       "type": "uid",
       "targetField": "name",
@@ -65,6 +56,12 @@
       "allowedTypes": [
         "images"
       ]
+    },
+    "school": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::school.school",
+      "inversedBy": "menu_items"
     }
   }
 }

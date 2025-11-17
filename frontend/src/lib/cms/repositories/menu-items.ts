@@ -21,4 +21,28 @@ async function getMenuItems(): Promise<MenuItemType[] | null> {
   return data?.data || null;
 }
 
-export { getMenuItems, type MenuItemType };
+async function getMenuItemsFromSchool(school: string): Promise<MenuItemType[] | null> {
+  const { data, error, response } = await client.GET("/menu-items", {
+    params: {
+      query: {
+        filters: {
+          school: {
+            name: {
+              eq: school,
+            }
+          },
+        },
+        populate: "*",
+      },
+    },
+  });
+
+  if (response.status !== 200) {
+    console.error("Failed to fetch menu items", response);
+    return null;
+  }
+
+  return data?.data || null;
+}
+
+export { getMenuItems, getMenuItemsFromSchool, type MenuItemType };

@@ -11,7 +11,7 @@ const client = createClient<paths>({
   baseUrl: `${STRAPI_URL}/api`,
   headers: {
     Accept: "application/json",
-    Authorization: `Bearer ${process.env.STRAPI_WRITE_TOKEN}`,
+    Authorization: `Bearer ${process.env.STRAPI_TOKEN}`,
   },
   querySerializer(params) {
     // console.log("querySerializer", params, qs.stringify(params));
