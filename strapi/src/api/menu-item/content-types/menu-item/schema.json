@@ -61,7 +61,7 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::school.school",
-      "inversedBy": "menu_items"
+      "inversedBy": "menuItems"
     }
   }
 }

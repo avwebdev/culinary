@@ -49,11 +49,16 @@
     "instagram": {
       "type": "string"
     },
-    "menu_items": {
+    "menuItems": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::menu-item.menu-item",
       "mappedBy": "school"
+    },
+    "managers": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "admin::user"
     }
   }
 }

@@ -3,23 +3,28 @@ export default {
   async bootstrap({ strapi }) {
     const getAssignedSchoolIds = async (user) => {
       if (!user) return [];
-      const assignment = await strapi
-        .documents("api::admin-assignment.admin-assignment")
-        .findFirst({
-          filters: { user: { id: user.id } },
-          populate: ["schools"],
+
+      const schools = await strapi
+        .documents("api::school.school")
+        .findMany({
+          filters: {
+            managers: {
+              id: user.id,
+            },
+          },
           fields: ["id"],
         });
 
-      const schools = assignment.schools;
+      console.log(schools)
+
       return schools.map((school) => school.id);
     };
 
-    const getMenuItemIds = async (schoolId: string): Promise<number[]> => {
+    const getMenuItemIds = async (schoolIds: string[]): Promise<number[]> => {
       const itemIds = await strapi
         .documents("api::menu-item.menu-item")
         .findMany({
-          filters: { school: { id: schoolId } },
+          filters: { school: { id: { $in: schoolIds } } },
           populate: ["school"],
           fields: ["id"],
         });
@@ -29,8 +34,8 @@ export default {
 
     await strapi.admin.services.permission.conditionProvider.registerMany([
       {
-        displayName: "Schools assigned to current admin",
-        name: "schools-assigned-to-admin",
+        displayName: "Manager Permissions for School",
+        name: "school-for-manager",
         async handler(user) {
           const schoolIds = await getAssignedSchoolIds(user);
           if (schoolIds.length === 0) return false;
@@ -38,15 +43,13 @@ export default {
         },
       },
       {
-        displayName: "Menu items for admin's schools",
-        name: "menu-items-for-admin-schools",
+        displayName: "Manager Permissions for Menu Items",
+        name: "menu-items-for-manager",
         async handler(user) {
           const schoolIds = await getAssignedSchoolIds(user);
           if (schoolIds.length === 0) return false;
 
-          const itemIds = (await Promise.all(
-            schoolIds.map(async schoolId => await getMenuItemIds(schoolId))
-          )).flat();
+          const itemIds = await getMenuItemIds(schoolIds);
 
           return { id: { $in: itemIds } };
         },
