@@ -430,10 +430,47 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiAdminPreferenceAdminPreference
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'admin_preferences';
+  info: {
+    displayName: 'Admin Preference';
+    pluralName: 'admin-preferences';
+    singularName: 'admin-preference';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    adminId: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    emailNotifications: Schema.Attribute.JSON &
+      Schema.Attribute.DefaultTo<{
+        newOrders: true;
+        orderApproved: true;
+        orderRejected: true;
+      }>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::admin-preference.admin-preference'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiCartCart extends Struct.CollectionTypeSchema {
   collectionName: 'carts';
   info: {
-    displayName: 'Cart';
+    displayName: 'Order';
     pluralName: 'carts';
     singularName: 'cart';
   };
@@ -441,15 +478,25 @@ export interface ApiCartCart extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    approvedAt: Schema.Attribute.DateTime;
+    approvedBy: Schema.Attribute.Relation<'manyToOne', 'admin::user'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    deliveryDate: Schema.Attribute.Date & Schema.Attribute.Required;
     lines: Schema.Attribute.Component<'product.item-uuid', true> &
       Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::cart.cart'> &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    rejectionReason: Schema.Attribute.Text;
+    school: Schema.Attribute.Relation<'manyToOne', 'api::school.school'>;
+    status: Schema.Attribute.Enumeration<
+      ['pending', 'approved', 'rejected', 'completed']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'pending'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -579,6 +626,17 @@ export interface ApiSchoolSchool extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    accentColor: Schema.Attribute.String &
+      Schema.Attribute.CustomField<'plugin::color-picker.color'>;
+    advanceOrderDays: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<1>;
+    blacklistedDates: Schema.Attribute.JSON & Schema.Attribute.DefaultTo<[]>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -600,8 +658,15 @@ export interface ApiSchoolSchool extends Struct.CollectionTypeSchema {
     name: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
+    orderCutoffTime: Schema.Attribute.Time &
+      Schema.Attribute.DefaultTo<'14:00'>;
     phone: Schema.Attribute.String;
+    primaryColor: Schema.Attribute.String &
+      Schema.Attribute.CustomField<'plugin::color-picker.color'>;
     publishedAt: Schema.Attribute.DateTime;
+    recurringBlacklists: Schema.Attribute.JSON & Schema.Attribute.DefaultTo<[]>;
+    secondaryColor: Schema.Attribute.String &
+      Schema.Attribute.CustomField<'plugin::color-picker.color'>;
     teacher: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1156,6 +1221,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::admin-preference.admin-preference': ApiAdminPreferenceAdminPreference;
       'api::cart.cart': ApiCartCart;
       'api::global.global': ApiGlobalGlobal;
       'api::menu-item.menu-item': ApiMenuItemMenuItem;

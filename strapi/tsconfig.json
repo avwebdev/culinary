@@ -13,13 +13,16 @@
     "noEmitOnError": true,
     "noImplicitThis": true,
     "outDir": "dist",
-    "rootDir": "."
+    "rootDir": ".",
+    "jsx": "react-jsx"
   },
   "include": [
     // Include root files
     "./",
     // Include all ts files
     "./**/*.ts",
+    // Include tsx files for email templates
+    "./**/*.tsx",
     // Include all js files
     "./**/*.js",
     // Force the JSON files in the src folder to be included

@@ -59,6 +59,38 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "admin::user"
+    },
+    "primaryColor": {
+      "type": "customField",
+      "customField": "plugin::color-picker.color",
+      "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
+    },
+    "secondaryColor": {
+      "type": "customField",
+      "customField": "plugin::color-picker.color",
+      "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
+    },
+    "accentColor": {
+      "type": "customField",
+      "customField": "plugin::color-picker.color",
+      "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
+    },
+    "orderCutoffTime": {
+      "type": "time",
+      "default": "14:00"
+    },
+    "advanceOrderDays": {
+      "type": "integer",
+      "default": 1,
+      "min": 0
+    },
+    "blacklistedDates": {
+      "type": "json",
+      "default": []
+    },
+    "recurringBlacklists": {
+      "type": "json",
+      "default": []
     }
   }
 }

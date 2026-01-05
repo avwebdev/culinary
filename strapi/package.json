@@ -15,6 +15,8 @@
     "upgrade:dry": "npx @strapi/upgrade latest --dry"
   },
   "dependencies": {
+    "@react-email/components": "^1.0.3",
+    "@react-email/render": "^2.0.1",
     "@strapi/plugin-cloud": "5.31.0",
     "@strapi/plugin-color-picker": "^5.31.0",
     "@strapi/plugin-documentation": "^5.31.0",
@@ -23,6 +25,7 @@
     "better-sqlite3": "11.3.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "react-email": "^5.1.1",
     "react-router-dom": "^6.0.0",
     "strapi-plugin-sortable-list": "^0.3.2",
     "strapi-v5-plugin-populate-deep": "^4.0.5",

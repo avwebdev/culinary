@@ -1,5 +1,6 @@
 import type { components } from "@/lib/cms/types";
 import type { SchoolType } from "@/lib/cms/repositories/schools";
+import OrderCalendar from "@/components/OrderCalendar";
 
 // the schools field is defined as a one-to-many relationship
 // type generation doesn't capture this relation correctly, so we override it here
@@ -14,7 +15,11 @@ export default function ContactBlock({
 }: BlockContactType) {
   const schoolList = Array.isArray(schools) ? schools : [];
 
-  console.log(schoolList);
+  // Convert schools to the format expected by OrderCalendar
+  const calendarSchools = schoolList.map((school) => ({
+    id: String(school.id),
+    name: school.name || "",
+  }));
 
   return (
     <section className="py-16 bg-gray-50">
@@ -30,7 +35,21 @@ export default function ContactBlock({
           )}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Order Calendar Section */}
+        <div className="mb-16">
+          <OrderCalendar
+            schools={calendarSchools}
+            title="Schedule a Custom Order"
+            description="Select your school and preferred delivery date, then browse our menu to place your order."
+          />
+        </div>
+
+        {/* School Contact Cards */}
+        <div className="mt-12">
+          <h3 className="text-2xl font-bold text-gray-900 text-center mb-8">
+            Our Locations
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {schoolList.map((school, index) => (
             <div
               key={index}
@@ -91,6 +110,7 @@ export default function ContactBlock({
               </div>
             </div>
           ))}
+          </div>
         </div>
       </div>
     </section>

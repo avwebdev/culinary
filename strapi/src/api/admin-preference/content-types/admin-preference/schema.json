@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "admin_preferences",
+  "info": {
+    "singularName": "admin-preference",
+    "pluralName": "admin-preferences",
+    "displayName": "Admin Preference"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "adminId": {
+      "type": "integer",
+      "required": true,
+      "unique": true
+    },
+    "emailNotifications": {
+      "type": "json",
+      "default": {
+        "newOrders": true,
+        "orderApproved": true,
+        "orderRejected": true
+      }
+    }
+  }
+}
