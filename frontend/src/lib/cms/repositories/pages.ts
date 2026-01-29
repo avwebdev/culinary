@@ -5,6 +5,7 @@ import type { components } from "../types";
 type PageType = components["schemas"]["Page"];
 
 async function getPages(): Promise<PageType[] | null> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data, error, response } = await client.GET("/pages", {
     params: {
       query: {
@@ -23,6 +24,7 @@ async function getPages(): Promise<PageType[] | null> {
 }
 
 async function getPageByPath(path: string): Promise<PageType | null> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data, error, response } = await client.GET("/pages", {
     params: {
       query: {

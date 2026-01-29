@@ -42,6 +42,7 @@ export default function Cart() {
         const response = await fetch(`${API_URL}/api/schools?fields[0]=name`);
         if (response.ok) {
           const result = await response.json();
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           setSchools(result.data?.map((s: any) => ({ id: s.id, name: s.name })) || []);
         }
       } catch (err) {

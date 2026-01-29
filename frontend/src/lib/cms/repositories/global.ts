@@ -7,6 +7,7 @@ type HeaderType = GlobalType["header"];
 type FooterType = GlobalType["footer"];
 
 async function getGlobal(): Promise<GlobalType | null> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data, error, response } = await client.GET("/global", {
     params: {
       query: {

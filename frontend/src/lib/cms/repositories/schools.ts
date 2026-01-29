@@ -5,6 +5,7 @@ import type { components } from "../types";
 type SchoolType = components["schemas"]["School"];
 
 async function getSchools(): Promise<SchoolType[] | null> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data, error, response } = await client.GET("/schools", {
     params: {
       query: {

@@ -6,7 +6,6 @@ import { useParams, useRouter } from "next/navigation";
 import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -95,6 +94,7 @@ export default function SchoolSettingsPage() {
   const [patternReason, setPatternReason] = useState("");
 
   // CSV upload state
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [csvContent, setCsvContent] = useState("");
   const [csvPreview, setCsvPreview] = useState<BlacklistedDate[]>([]);
 

@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import type { Session } from "next-auth";
-import { signIn, signOut } from "next-auth/react";
+import { signIn } from "next-auth/react";
 
 import { InfoIcon, ShoppingCartIcon, LogOutIcon } from "lucide-react";
 

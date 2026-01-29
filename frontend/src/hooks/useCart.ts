@@ -1,54 +1,46 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
-import { readLocalCart, writeLocalCart, clearLocalCart } from "@/lib/local-cart";
+import { useCallback, useSyncExternalStore } from "react";
+import { readLocalCart, setLocalSlugs, clearLocalCart } from "@/lib/local-cart";
 
-export type CartItem = {
-  uuid: string;
-};
+function subscribe(callback: () => void) {
+  window.addEventListener("storage", callback);
+  return () => window.removeEventListener("storage", callback);
+}
+
+function getSnapshot() {
+  return readLocalCart().slugs;
+}
+
+function getServerSnapshot() {
+  return [] as string[];
+}
 
 export function useCart() {
-  const [slugs, setSlugs] = useState<string[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  // Initialize cart from localStorage
-  useEffect(() => {
-    const cart = readLocalCart();
-    setSlugs(cart.map((item: CartItem) => item.uuid));
-    setIsLoading(false);
-
-    // Listen for storage changes (cross-tab sync)
-    const handleStorageChange = () => {
-      const updatedCart = readLocalCart();
-      setSlugs(updatedCart.map((item: CartItem) => item.uuid));
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-    return () => window.removeEventListener("storage", handleStorageChange);
-  }, []);
+  const slugs = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   const addToCart = useCallback((uuid: string) => {
     const cart = readLocalCart();
-    cart.push({ uuid });
-    writeLocalCart(cart);
-    setSlugs(cart.map((item: CartItem) => item.uuid));
+    const newSlugs = [...cart.slugs, uuid];
+    setLocalSlugs(newSlugs);
   }, []);
 
   const removeFromCart = useCallback((uuid: string) => {
     const cart = readLocalCart();
-    const filtered = cart.filter((item: CartItem) => item.uuid !== uuid);
-    writeLocalCart(filtered);
-    setSlugs(filtered.map((item: CartItem) => item.uuid));
+    const index = cart.slugs.indexOf(uuid);
+    if (index !== -1) {
+      const newSlugs = [...cart.slugs];
+      newSlugs.splice(index, 1);
+      setLocalSlugs(newSlugs);
+    }
   }, []);
 
   const clearCart = useCallback(() => {
     clearLocalCart();
-    setSlugs([]);
   }, []);
 
   return {
     slugs,
-    isLoading,
     addToCart,
     removeFromCart,
     clearCart,

@@ -34,6 +34,7 @@ interface AdminPreference {
 export default function AdminPreferencesPage() {
   const { data: session } = useSession();
   const extSession = session as ExtendedSession | null;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [preferences, setPreferences] = useState<AdminPreference | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
@@ -151,9 +152,9 @@ export default function AdminPreferencesPage() {
 
       <div className="bg-white rounded-lg shadow p-6">
         <h2 className="text-xl font-semibold mb-6">Email Notifications</h2>
-        
+
         <p className="text-gray-600 mb-6">
-          Choose which email notifications you'd like to receive for order updates.
+          Choose which email notifications you&apos;d like to receive for order updates.
         </p>
 
         <div className="space-y-6">

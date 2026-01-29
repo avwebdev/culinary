@@ -31,6 +31,7 @@ export const config = {
     newUser: "/auth/new-user",
   },
   callbacks: {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async session({ session, token, user }) {
       if (token) {
         // @ts-expect-error property is added

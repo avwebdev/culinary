@@ -5,6 +5,7 @@ import type { components } from "../types";
 type MenuItemType = components["schemas"]["MenuItem"];
 
 async function getMenuItems(): Promise<MenuItemType[] | null> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data, error, response } = await client.GET("/menu-items", {
     params: {
       query: {
@@ -22,6 +23,7 @@ async function getMenuItems(): Promise<MenuItemType[] | null> {
 }
 
 async function getMenuItemsFromSchool(school: string): Promise<MenuItemType[] | null> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data, error, response } = await client.GET("/menu-items", {
     params: {
       query: {

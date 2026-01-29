@@ -52,6 +52,7 @@ export default function OrderCalendar({
         const response = await fetch(`${API_URL}/api/schools?fields[0]=name`);
         if (response.ok) {
           const result = await response.json();
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           setSchools(result.data?.map((s: any) => ({ id: s.id, name: s.name })) || []);
         }
       } catch (err) {
@@ -193,13 +194,13 @@ export default function OrderCalendar({
 
           {!session && (
             <p className="text-sm text-gray-500 text-center">
-              You'll need to sign in to complete your order
+              You&apos;ll need to sign in to complete your order
             </p>
           )}
         </div>
 
         {/* Right Column - Calendar */}
-        <div className="flex-shrink-0">
+        <div className="shrink-0">
           {!schoolId ? (
             <div className="flex items-center justify-center h-full min-h-[280px] text-gray-400 border rounded-md p-4">
               Select a school to see available dates
