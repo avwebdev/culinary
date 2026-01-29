@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { getMediaUrl } from "@/lib/cms/utils";
-import type { BlockStepsType } from "@/lib/cms/types/blocks";
+import type { components } from "@/lib/cms/types";
+
+type BlockStepsType = components["schemas"]["BlocksStepsComponent"];
 
 export default function StepsBlock({
   title,
@@ -46,7 +48,7 @@ export default function StepsBlock({
                   <div className="relative w-full h-48 mb-4 rounded-lg overflow-hidden">
                     <Image
                       src={imageUrl}
-                      alt={step.title}
+                      alt={step.title || ""}
                       fill
                       className="object-cover"
                     />

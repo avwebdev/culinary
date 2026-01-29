@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { ButtonType } from "@/lib/cms/types/primitives";
+import { components } from "@/lib/cms/types";
+
+type ButtonType = components["schemas"]["PrimitivesButtonComponent"];
 
 export default function StrapiButton({ theme, size, link }: ButtonType) {
   return (
@@ -8,7 +10,7 @@ export default function StrapiButton({ theme, size, link }: ButtonType) {
       variant={theme == "primary" ? "default" : theme}
       asChild
     >
-      <a href={link.href}>{link.label}</a>
+      <a href={link?.href || ""}>{link?.label || ""}</a>
     </Button>
   );
 }
