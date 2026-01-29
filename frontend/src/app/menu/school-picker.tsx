@@ -27,12 +27,11 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import { getMediaUrl } from "@/lib/cms/utils";
-import { School } from "@/lib/cms/repositories/schools";
+import { SchoolType } from "@/lib/cms/repositories/schools";
 
-export default function SchoolPicker({ schools }: { schools: School[] }) {
+export default function SchoolPicker({ schools }: { schools: SchoolType[] }) {
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState<School | null>(null);
-
+  const [selected, setSelected] = useState<SchoolType | null>(null);
   const handleSelect = (name: string) => {
     const school = schools.find((s) => s.name === name) || null;
     setSelected(school);
